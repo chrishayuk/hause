@@ -24,7 +24,12 @@ import { tick, refuse } from "../../sound";
  * sentences that survive with the interaction removed.
  */
 
-export type TerminalLine = { text: string; tone?: "accent" | "dim" | "err" | "ok" };
+export type TerminalLine = {
+	text: string;
+	tone?: "accent" | "dim" | "err" | "ok";
+	/** Renders the line as a link — the terminal's door into the rest of the site. */
+	href?: string;
+};
 
 export type TerminalResult = {
 	lines: TerminalLine[];
@@ -41,6 +46,7 @@ export function Terminal({
 	prompt = ">",
 	seeds = [],
 	execute,
+	complete,
 	sessionKey,
 	height = 420,
 	clearLabel = "CLEAR",
@@ -59,6 +65,8 @@ export function Terminal({
 	seeds?: string[];
 	/** The meaning of the terminal: one line in, lines out. */
 	execute: (line: string) => Promise<TerminalResult> | TerminalResult;
+	/** Tab completion: candidate continuations for the current input. */
+	complete?: (line: string) => string[];
 	/** When this changes, the scrollback resets to the current banner. */
 	sessionKey?: string | number;
 	height?: number;
@@ -91,6 +99,27 @@ export function Terminal({
 		tick();
 		setLines(bannerRef.current);
 		setInput("");
+		scroll();
+	}
+
+	function onTab() {
+		if (!complete) return;
+		const options = complete(input);
+		if (options.length === 0) return;
+		if (options.length === 1) {
+			tick();
+			setInput(options[0]);
+			return;
+		}
+		// Fill the longest common prefix, then show the choices.
+		let prefix = options[0];
+		for (const o of options) {
+			let k = 0;
+			while (k < prefix.length && k < o.length && prefix[k].toLowerCase() === o[k].toLowerCase()) k++;
+			prefix = prefix.slice(0, k);
+		}
+		if (prefix.length > input.length) setInput(prefix);
+		setLines((prev) => [...prev, { text: options.join("   "), tone: "dim" }]);
 		scroll();
 	}
 
