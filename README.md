@@ -35,7 +35,7 @@ the evidence.
 **Statements** — prose forms in the three voices; server-renderable, no
 interaction. The reader reads.
 `Hero · Statement · Observation · Claim · Evidence · Question · Timeline ·
-Connection · Refusal`
+Connection · Refusal · Excerpt`
 
 **Instruments** — interactive forms; understanding through manipulation.
 The reader operates them, and every one carries a text fallback so the

@@ -42,6 +42,7 @@ export const FORM_MANIFEST: FormRecord[] = [
 	{ name: "Timeline", mode: "statement", line: "Dated entries, in order — history as prose, not a widget.", exhibited: true },
 	{ name: "Connection", mode: "statement", line: "A bridge out of the chapter: one sentence, then the doors.", exhibited: true },
 	{ name: "Refusal", mode: "statement", line: "Fail-closed rendered as design language, not as an error state.", origin: "vindex3", exhibited: true },
+	{ name: "Excerpt", mode: "statement", line: "Someone else's words, typeset — verbatim source material with its markdown rendered and its trims marked.", origin: "vindex3 · Ask", date: "2026-08-29", exhibited: true },
 	// ── Instruments — the reader operates ──
 	{ name: "Anatomy", mode: "instrument", line: "An annotated cutaway — one artifact drawn as its layers, fully disclosed.", exhibited: true },
 	{ name: "Decomposition", mode: "instrument", line: "One object, its parts, the thing that assembles them — stepped by hand.", exhibited: true },
