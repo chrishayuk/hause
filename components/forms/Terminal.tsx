@@ -151,25 +151,33 @@ export function Terminal({
 					onClick={() => (document.getElementById(inputId) as HTMLInputElement | null)?.focus()}
 				>
 					<div className="flex flex-col gap-1">
-						{lines.map((l, i) => (
-							<p
-								key={i}
-								className="voice-evidence text-[12px] sm:text-[13px] leading-relaxed whitespace-pre-wrap"
-								style={{
-									color:
-										l.tone === "accent"
-											? "var(--color-accent)"
-											: l.tone === "err"
-												? "var(--color-status-refuted)"
-												: l.tone === "ok"
-													? "var(--color-status-supported)"
-													: "var(--color-white)",
-									opacity: l.tone === "dim" ? 0.55 : 1,
-								}}
-							>
-								{l.text}
-							</p>
-						))}
+						{lines.map((l, i) => {
+							const style = {
+								color:
+									l.tone === "accent"
+										? "var(--color-accent)"
+										: l.tone === "err"
+											? "var(--color-status-refuted)"
+											: l.tone === "ok"
+												? "var(--color-status-supported)"
+												: "var(--color-white)",
+								opacity: l.tone === "dim" ? 0.55 : 1,
+							};
+							return l.href ? (
+								<a
+									key={i}
+									href={l.href}
+									className="voice-evidence text-[12px] sm:text-[13px] leading-relaxed whitespace-pre-wrap w-fit border-b pb-0.5"
+									style={{ ...style, borderColor: "var(--color-accent)" }}
+								>
+									{l.text}
+								</a>
+							) : (
+								<p key={i} className="voice-evidence text-[12px] sm:text-[13px] leading-relaxed whitespace-pre-wrap" style={style}>
+									{l.text}
+								</p>
+							);
+						})}
 					</div>
 					<form
 						onSubmit={(e) => {
