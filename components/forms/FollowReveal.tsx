@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Reveal } from "../Reveal";
 
-export function FollowReveal({ text, path }: { text: string; path: { slug: string; label: string; relation: string }[] }) {
+export function FollowReveal({ text, path }: { text: string; path: { href: string; label: string; relation: string }[] }) {
 	const [pulseKey, setPulseKey] = useState(0);
 
 	if (path.length === 0) return null;
@@ -23,12 +23,12 @@ export function FollowReveal({ text, path }: { text: string; path: { slug: strin
 				<div className="flex flex-col">
 					{path.map((node, i) => (
 						<div
-							key={`${node.slug}-${pulseKey}`}
+							key={`${node.href}-${pulseKey}`}
 							className="graph-pulse flex items-baseline gap-4 py-3 border-t"
 							style={{ borderColor: "var(--color-mist)", animationDelay: `${i * 140}ms` }}
 						>
 							<span className="voice-evidence text-xs opacity-40 w-32 flex-none uppercase">{node.relation.replace(/_/g, " ")}</span>
-							<Link href={`/codex/${node.slug}`} className="voice-system text-lg hover:opacity-60 transition-opacity">
+							<Link href={node.href} className="voice-system text-lg hover:opacity-60 transition-opacity">
 								{node.label}
 							</Link>
 						</div>

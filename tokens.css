@@ -223,6 +223,75 @@ a {
 	}
 }
 
+/* ----------------------------------------------------------------
+   Staged swap — the transition between two physical forms of one
+   logical object (Variants, Prism). Deliberately not a crossfade:
+   the old form is removed instantly (key remount), then the new one
+   holds invisible for a beat before entering. A blend between two
+   representations would depict a conversion; these forms exist for
+   systems where conversion is forbidden.
+   ---------------------------------------------------------------- */
+
+@keyframes swap-in {
+	0% {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	45% {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	100% {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.swap-in {
+	animation: swap-in var(--motion-cinematic) var(--ease-house) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.swap-in {
+		animation: none;
+	}
+}
+
+/* ----------------------------------------------------------------
+   Channel — payload streaming through a fixed-capacity conduit.
+   Each animation shifts exactly one pattern period, so the loop is
+   seamless; iteration counts are finite (the stream settles, house
+   motion never runs forever). Wide payloads move slowly; narrow
+   payloads, the same capacity, arrive more often.
+   ---------------------------------------------------------------- */
+
+@keyframes channel-flow-wide {
+	to {
+		background-position: 24px 0;
+	}
+}
+
+@keyframes channel-flow-narrow {
+	to {
+		background-position: 10px 0;
+	}
+}
+
+.channel-flow-wide {
+	animation: channel-flow-wide 0.9s linear 8;
+}
+
+.channel-flow-narrow {
+	animation: channel-flow-narrow 0.35s linear 24;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.channel-flow-wide,
+	.channel-flow-narrow {
+		animation: none;
+	}
+}
+
 @keyframes pace-demo {
 	from {
 		opacity: 0;

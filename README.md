@@ -17,10 +17,40 @@ components/
   PaceDemo.tsx         Immediate / Considered / Cinematic motion demo
   ModeToggle.tsx       LIGHT / DARK control
   Inquiry.tsx          "Ask the Codex"-style query -> real-form primitive
-  forms/               the chapter primitives: Hero, Statement, Observation,
-                        Claim, Evidence, Question, Timeline, Connection, Film,
-                        Decomposition, ExpertField, Comparison, FollowReveal
+  forms/               the chapter primitives — all in one flat directory,
+                        because the import path is the public API and it does
+                        not move. The taxonomy below is documentation, not
+                        directory structure.
 ```
+
+## The three modes
+
+Every form under `forms/` is one of three kinds. The split was not designed
+up front — it emerged from real chapters (the vindex3.org build), which is
+the only way HOUSE accepts structure.
+
+**Statements** — prose forms in the three voices; server-renderable, no
+interaction. The reader reads.
+`Hero · Statement · Observation · Claim · Evidence · Question · Timeline ·
+Connection · Refusal`
+
+**Instruments** — interactive forms; understanding through manipulation.
+The reader operates them, and every one carries a text fallback so the
+point survives with the interaction removed.
+`Decomposition · ExpertField · Comparison · Variants · Ladder · Agreement ·
+Derivation · Anatomy · ByteMap · FollowReveal · Inquiry`
+
+**Performances** — cinematic forms; they play themselves. In-view start, a
+designed resting state (which is what reduced-motion and no-JS get), REPLAY
+where the piece runs once, a gentle in-view loop where a scrolling reader
+must never find it finished. Never a crossfade between two physical forms
+of one thing — staged swaps only.
+`Film · Transformation · Unfolding · Compilation · Procession · Magnitude ·
+Channel · Quantisation`
+
+Three motion idioms, one per mode boundary: the one-shot `Reveal`, the
+staged swap (`.swap-in`), and the in-view loop (pause off-screen, rest
+state designed). A new form should say which mode it is in its doc comment.
 
 **HOUSE knows nothing about any specific site's content model.** No file here imports from outside this package. `Inquiry` takes a `resolve` function as a prop rather than importing one — the caller (the site) supplies what a query means; HOUSE only supplies how the result is experienced. That boundary is the whole point of this being a separate repo.
 

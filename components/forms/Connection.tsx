@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "../Reveal";
 
-export function Connection({ text, links }: { text: string; links: { slug: string; label: string }[] }) {
+export function Connection({ text, links }: { text: string; links: { href: string; label: string }[] }) {
 	return (
 		<Reveal className="house-grid py-16 sm:py-24">
 			<div className="col-span-12 md:col-start-2 md:col-span-9">
@@ -9,8 +9,8 @@ export function Connection({ text, links }: { text: string; links: { slug: strin
 				<div className="flex flex-col gap-3">
 					{links.map((link) => (
 						<Link
-							key={link.slug}
-							href={`/codex/${link.slug}`}
+							key={link.href}
+							href={link.href}
 							className="voice-system inline-flex items-center gap-2 text-sm tracking-[0.06em] w-fit border-b pb-0.5"
 							style={{ borderColor: "var(--color-accent)" }}
 						>
