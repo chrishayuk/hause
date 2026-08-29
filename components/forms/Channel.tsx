@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { tick, settle } from "../../sound";
 
 export type ChannelStage = {
 	/** Payload density in the stream — wide units move slowly, narrow units arrive more often. */
@@ -49,7 +50,7 @@ export function Channel({ from, to, channelLabel, stages }: ChannelProps) {
 				setTimeout(() => {
 					setStage(i);
 					setPlayKey((k) => k + 1);
-					if (i === stages.length - 1) setPlayed(true);
+					if (i === stages.length - 1) { setPlayed(true); settle(); }
 				}, i * 7600)
 			);
 		}
@@ -130,7 +131,7 @@ export function Channel({ from, to, channelLabel, stages }: ChannelProps) {
 				</div>
 				{played && atRest && (
 					<button
-						onClick={run}
+						onClick={() => { tick(); run(); }}
 						className="voice-evidence text-xs tracking-[0.14em] uppercase border-b pb-0.5 mt-6"
 						style={{ borderColor: "var(--color-accent)" }}
 					>

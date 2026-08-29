@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Reveal } from "../Reveal";
+import { tick } from "../../sound";
 
 export type Rung = {
 	id: string;
@@ -50,7 +51,7 @@ export function Ladder({ kicker, rungs, caption }: LadderProps) {
 						return (
 							<div key={rung.id} className="border-t" style={{ borderColor: "var(--color-mist)" }}>
 								<button
-									onClick={() => expandable && setExpanded(isOpen ? null : i)}
+									onClick={() => { if (expandable) { setExpanded(isOpen ? null : i); tick(); } }}
 									disabled={!expandable}
 									aria-expanded={expandable ? isOpen : undefined}
 									className="w-full grid grid-cols-[6.5rem_1fr_auto] sm:grid-cols-[9rem_1fr_auto] gap-4 sm:gap-8 items-baseline py-4 text-left disabled:cursor-default"

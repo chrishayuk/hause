@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Reveal } from "../Reveal";
 import { RefusalReadout } from "./Refusal";
+import { tick, refuse } from "../../sound";
 
 export type Variant = {
 	id: string;
@@ -100,7 +101,7 @@ export function Variants({
 						{variants.map((v) => (
 							<button
 								key={v.id}
-								onClick={() => setSelected(v.id)}
+								onClick={() => { setSelected(v.id); if (v.present) tick(); else refuse(); }}
 								aria-pressed={v.id === selected}
 								className="voice-evidence text-xs tracking-[0.08em] px-4 py-2 border"
 								style={{

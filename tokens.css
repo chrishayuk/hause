@@ -292,6 +292,34 @@ a {
 	}
 }
 
+/* ----------------------------------------------------------------
+   Route entrance — the page-to-page transition. A template that
+   remounts per navigation wears this class, so every arrival rises
+   in at the considered pace. One idiom for the whole site; nothing
+   slides, nothing crossfades.
+   ---------------------------------------------------------------- */
+
+@keyframes route-enter {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.route-enter {
+	animation: route-enter var(--motion-considered) var(--ease-hause) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.route-enter {
+		animation: none;
+	}
+}
+
 @keyframes pace-demo {
 	from {
 		opacity: 0;

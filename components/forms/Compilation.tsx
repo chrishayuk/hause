@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { tick, settle } from "../../sound";
 
 export type CompilationProps = {
 	kicker: string;
@@ -60,7 +61,7 @@ export function Compilation({
 			timers.current.push(
 				setTimeout(() => {
 					setPhase(i + 1);
-					if (i + 1 === done) setPlayed(true);
+					if (i + 1 === done) { setPlayed(true); settle(); }
 				}, 700 + i * 1100)
 			);
 		});
@@ -194,7 +195,7 @@ export function Compilation({
 
 				{played && verified && (
 					<button
-						onClick={run}
+						onClick={() => { tick(); run(); }}
 						className="voice-evidence text-xs tracking-[0.14em] uppercase border-b pb-0.5 mt-10"
 						style={{ borderColor: "var(--color-accent)" }}
 					>

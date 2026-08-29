@@ -52,6 +52,16 @@ Three motion idioms, one per mode boundary: the one-shot `Reveal`, the
 staged swap (`.swap-in`), and the in-view loop (pause off-screen, rest
 state designed). A new form should say which mode it is in its doc comment.
 
+## Sound — the tactile voice
+
+`sound.ts` is a synthesized palette (sine waves and envelopes, no audio
+files): `tick` for a selection, `swap` for a staged swap committing,
+`settle` for a performance finishing, `refuse` for a fail-closed moment.
+Opt-in via `SoundToggle` (localStorage `hause-sound`), off by default —
+hause sound is chosen, never inflicted. Loops stay silent; only
+interactions and completions speak. Peak gains sit far below speech
+level: a well-made drawer closing, not an app chirping.
+
 **HAUSE knows nothing about any specific site's content model.** No file here imports from outside this package. `Inquiry` takes a `resolve` function as a prop rather than importing one — the caller (the site) supplies what a query means; HAUSE only supplies how the result is experienced. That boundary is the whole point of this being a separate repo.
 
 ## Using it in a project

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "../Reveal";
 import type { DecompositionProps } from "./Decomposition";
+import { tick, settle } from "../../sound";
 
 /**
  * Decomposition's cinematic sibling, the way Transformation is
@@ -41,6 +42,7 @@ export function Unfolding({ kicker, source, parts, result }: DecompositionProps)
 					setTimeout(() => {
 						setPhase(2);
 						setPlayed(true);
+						settle();
 					}, 2600)
 				);
 			})
@@ -151,7 +153,7 @@ export function Unfolding({ kicker, source, parts, result }: DecompositionProps)
 				{played && phase >= 2 && (
 					<div className="text-center mt-8">
 						<button
-							onClick={run}
+							onClick={() => { tick(); run(); }}
 							className="voice-evidence text-xs tracking-[0.14em] uppercase border-b pb-0.5"
 							style={{ borderColor: "var(--color-accent)" }}
 						>

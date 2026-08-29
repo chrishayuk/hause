@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Reveal } from "../Reveal";
+import { tick } from "../../sound";
 
 export type AgreementProps = {
 	kicker: string;
@@ -32,7 +33,7 @@ export function Agreement({ kicker, columns, rows, caption }: AgreementProps) {
 				</p>
 
 				<button
-					onClick={() => setPulseKey((k) => k + 1)}
+					onClick={() => { setPulseKey((k) => k + 1); tick(); }}
 					className="voice-system text-sm tracking-[0.06em] border-b pb-0.5 mb-10 w-fit"
 					style={{ borderColor: "var(--color-accent)" }}
 				>

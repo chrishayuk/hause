@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "../Reveal";
+import { tick, settle } from "../../sound";
 
 type Side = { label: string; properties: string[] };
 
@@ -56,6 +57,7 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 					setTimeout(() => {
 						setArrived(true);
 						setPlayed(true);
+						settle();
 					}, 1100)
 				);
 			})
@@ -191,7 +193,7 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 					</ul>
 					{played && arrived && (
 						<button
-							onClick={run}
+							onClick={() => { tick(); run(); }}
 							className="voice-evidence text-xs tracking-[0.14em] uppercase border-b pb-0.5 mt-8"
 							style={{ borderColor: "var(--color-accent)" }}
 						>

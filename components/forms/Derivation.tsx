@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "../Reveal";
+import { tick } from "../../sound";
 
 export type DerivationProps = {
 	kicker: string;
@@ -54,7 +55,7 @@ export function Derivation({ kicker, lattice, steps, result, caption }: Derivati
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-8 opacity-50">{kicker}</p>
 
 				<button
-					onClick={replay}
+					onClick={() => { tick(); replay(); }}
 					className="voice-system text-sm tracking-[0.06em] border-b pb-0.5 mb-10 w-fit"
 					style={{ borderColor: "var(--color-accent)" }}
 				>
