@@ -29,8 +29,8 @@
 	--color-status-superseded: var(--color-mist);
 
 	/* Working theme (exhibitions redefine these two) */
-	--bg: var(--color-paper);
-	--fg: var(--color-ink);
+	--bg: var(--color-ink);
+	--fg: var(--color-white);
 
 	/* Motion */
 	--ease-hause: cubic-bezier(0.22, 1, 0.36, 1);
@@ -44,10 +44,16 @@
    Same identity (voices, grid, motion, hierarchy); different
    atmosphere (surface, contrast, what Inside looks like against it).
 
-   Default is light — an explicit editorial choice, not the OS
-   preference. hause.mode.dark applies when a viewer opts in (see
-   ModeToggle); there is no automatic prefers-color-scheme switch.
+   Default is dark — an explicit editorial choice, not the OS
+   preference. data-mode selects the other environment when a viewer
+   opts in (see ModeToggle); there is no automatic
+   prefers-color-scheme switch.
    ---------------------------------------------------------------- */
+
+:root[data-mode="light"] {
+	--bg: var(--color-paper);
+	--fg: var(--color-ink);
+}
 
 :root[data-mode="dark"] {
 	--bg: var(--color-ink);

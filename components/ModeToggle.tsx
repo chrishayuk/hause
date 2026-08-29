@@ -8,13 +8,13 @@ import { useEffect, useState } from "react";
  * part of the hause voice, not app chrome.
  */
 export function ModeToggle() {
-	// Server-rendered default is always light; the blocking script in layout.tsx
+	// Server-rendered default is always dark; the blocking script in layout.tsx
 	// sets the real attribute before paint, and this syncs to it after hydration
 	// (a one-frame label flicker at worst, never a page-color flash).
-	const [mode, setMode] = useState<"light" | "dark">("light");
+	const [mode, setMode] = useState<"light" | "dark">("dark");
 
 	useEffect(() => {
-		setMode(document.documentElement.dataset.mode === "dark" ? "dark" : "light");
+		setMode(document.documentElement.dataset.mode === "light" ? "light" : "dark");
 	}, []);
 
 	function toggle() {
