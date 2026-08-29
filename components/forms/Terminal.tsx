@@ -31,13 +31,60 @@ export type TerminalLine = {
 	href?: string;
 };
 
+/** A designed result: a command need not return text. DESIGNED is the
+ * HAUSE rendering; RAW is the structured object it was rendered from —
+ * the proof the answer is typed output, not prose. */
+export type TerminalPanel = { designed: React.ReactNode; raw?: unknown };
+
 export type TerminalResult = {
 	lines: TerminalLine[];
+	/** A designed object rendered beneath the lines, with its RAW proof. */
+	panel?: TerminalPanel;
 	/** Reset the scrollback to the banner instead of appending. */
 	clear?: boolean;
 	/** Play the refusal sound instead of the tick. */
 	refused?: boolean;
 };
+
+type ScrollItem = { kind: "line"; line: TerminalLine } | { kind: "panel"; panel: TerminalPanel };
+
+const asItems = (lines: TerminalLine[]): ScrollItem[] => lines.map((line) => ({ kind: "line", line }));
+
+function PanelBlock({ panel }: { panel: TerminalPanel }) {
+	const [view, setView] = useState<"designed" | "raw">("designed");
+	return (
+		<div className="border my-2 p-4" style={{ borderColor: "var(--color-accent)", background: "var(--bg)" }}>
+			{panel.raw !== undefined && (
+				<div className="flex gap-2 mb-3">
+					{(["designed", "raw"] as const).map((v) => (
+						<button
+							key={v}
+							onClick={() => {
+								tick();
+								setView(v);
+							}}
+							className="voice-evidence text-[10px] tracking-[0.12em] uppercase px-2 py-0.5 border"
+							style={{
+								borderColor: view === v ? "var(--color-accent)" : "var(--color-mist)",
+								color: view === v ? "var(--color-accent)" : undefined,
+								opacity: view === v ? 1 : 0.5,
+							}}
+						>
+							{v}
+						</button>
+					))}
+				</div>
+			)}
+			{view === "designed" ? (
+				panel.designed
+			) : (
+				<pre className="voice-evidence text-[11px] leading-relaxed overflow-x-auto m-0" style={{ color: "var(--fg)" }}>
+					{JSON.stringify(panel.raw, null, 2)}
+				</pre>
+			)}
+		</div>
+	);
+}
 
 export function Terminal({
 	kicker,
@@ -82,7 +129,7 @@ export function Terminal({
 	/** Evidence-voice closing line. */
 	footnote?: string;
 }) {
-	const [lines, setLines] = useState<TerminalLine[]>(banner);
+	const [items, setItems] = useState<ScrollItem[]>(asItems(banner));
 	const [input, setInput] = useState("");
 	const [busy, setBusy] = useState(false);
 	const endRef = useRef<HTMLDivElement>(null);
@@ -94,7 +141,7 @@ export function Terminal({
 
 	useEffect(() => {
 		if (sessionKey === undefined) return;
-		setLines(bannerRef.current);
+		setItems(asItems(bannerRef.current));
 	}, [sessionKey]);
 
 	const ranRef = useRef(false);
@@ -108,7 +155,7 @@ export function Terminal({
 
 	useEffect(() => {
 		if (!notice) return;
-		setLines((prev) => [...prev, notice]);
+		setItems((prev) => [...prev, { kind: "line", line: notice }]);
 		scroll();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [notice]);
@@ -119,7 +166,7 @@ export function Terminal({
 
 	function reset() {
 		tick();
-		setLines(bannerRef.current);
+		setItems(asItems(bannerRef.current));
 		setInput("");
 		scroll();
 	}
@@ -141,12 +188,12 @@ export function Terminal({
 			prefix = prefix.slice(0, k);
 		}
 		if (prefix.length > input.length) setInput(prefix);
-		setLines((prev) => [...prev, { text: options.join("   "), tone: "dim" }]);
+		setItems((prev) => [...prev, { kind: "line", line: { text: options.join("   "), tone: "dim" } }]);
 		scroll();
 	}
 
 	async function run(raw: string) {
-		setLines((prev) => [...prev, { text: `${prompt} ${raw}`, tone: "accent" }]);
+		setItems((prev) => [...prev, { kind: "line", line: { text: `${prompt} ${raw}`, tone: "accent" } }]);
 		setInput("");
 		scroll();
 		setBusy(true);
@@ -154,7 +201,12 @@ export function Terminal({
 			const result = await execute(raw);
 			if (result.refused) refuse();
 			else tick();
-			setLines((prev) => (result.clear ? bannerRef.current : [...prev, ...result.lines]));
+			setItems((prev) => {
+				if (result.clear) return asItems(bannerRef.current);
+				const next = [...prev, ...asItems(result.lines)];
+				if (result.panel) next.push({ kind: "panel", panel: result.panel });
+				return next;
+			});
 		} finally {
 			setBusy(false);
 			scroll();
@@ -173,7 +225,9 @@ export function Terminal({
 					onClick={() => (document.getElementById(inputId) as HTMLInputElement | null)?.focus()}
 				>
 					<div className="flex flex-col gap-1">
-						{lines.map((l, i) => {
+						{items.map((item, i) => {
+							if (item.kind === "panel") return <PanelBlock key={i} panel={item.panel} />;
+							const l = item.line;
 							const style = {
 								color:
 									l.tone === "accent"
