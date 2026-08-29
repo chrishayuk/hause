@@ -77,7 +77,7 @@ export function Procession({ stages, caption }: ProcessionProps) {
 	const done = phase >= n - 1;
 
 	return (
-		<section className="house-grid py-10 sm:py-14">
+		<section className="hause-grid py-10 sm:py-14">
 			<div className="col-span-12 flex flex-col items-center">
 				<div ref={ref} aria-hidden="true" className="relative w-full max-w-sm" style={{ height: n * ROW + 70 }}>
 					{stages.map((label, i) => {
@@ -92,7 +92,7 @@ export function Procession({ stages, caption }: ProcessionProps) {
 									height: 34,
 									borderColor: active ? "var(--color-accent)" : "var(--fg)",
 									background: "var(--bg)",
-									transition: instant ? "none" : "border-color var(--motion-immediate) var(--ease-house)",
+									transition: instant ? "none" : "border-color var(--motion-immediate) var(--ease-hause)",
 								}}
 							>
 								<div
@@ -102,7 +102,7 @@ export function Procession({ stages, caption }: ProcessionProps) {
 											passed ? "var(--color-accent)" : "var(--color-mist)"
 										} 0, ${passed ? "var(--color-accent)" : "var(--color-mist)"} 1px, transparent 1px, transparent 6px)`,
 										opacity: active ? 0.85 : passed ? 0.3 : 0.4,
-										transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-house)",
+										transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-hause)",
 									}}
 								/>
 								<span className="absolute left-2 top-1/2 -translate-y-1/2 voice-evidence text-[9px] tracking-[0.08em] uppercase opacity-40">
@@ -118,7 +118,7 @@ export function Procession({ stages, caption }: ProcessionProps) {
 							width: 14,
 							height: 14,
 							background: "var(--color-accent)",
-							transition: instant ? "none" : "top var(--motion-considered) var(--ease-house)",
+							transition: instant ? "none" : "top var(--motion-considered) var(--ease-hause)",
 						}}
 					/>
 					<p
@@ -126,7 +126,7 @@ export function Procession({ stages, caption }: ProcessionProps) {
 						style={{
 							top: 30 + n * ROW + 28,
 							opacity: done ? 0.6 : 0,
-							transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-house) 300ms",
+							transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-hause) 300ms",
 						}}
 					>
 						{caption}

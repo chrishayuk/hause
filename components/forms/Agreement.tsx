@@ -15,7 +15,7 @@ export type AgreementProps = {
  * N independently-derived values that must be identical — an
  * equivalence chain (A ≡ B ≡ C ≡ D) checked row by row, with a
  * verdict. The check replays on demand: values materialise left to
- * right at the house stagger, the way the comparison actually runs.
+ * right at the hause stagger, the way the comparison actually runs.
  * A FAIL row is first-class — an invariant you never see fail is
  * decoration.
  */
@@ -24,7 +24,7 @@ export function Agreement({ kicker, columns, rows, caption }: AgreementProps) {
 	const n = columns.length;
 
 	return (
-		<Reveal className="house-grid py-20 sm:py-28">
+		<Reveal className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-3 opacity-50">{kicker}</p>
 				<p className="voice-editorial text-2xl sm:text-3xl mb-8">

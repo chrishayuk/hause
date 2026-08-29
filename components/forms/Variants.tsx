@@ -88,7 +88,7 @@ export function Variants({
 	);
 
 	return (
-		<Reveal className="house-grid py-20 sm:py-28">
+		<Reveal className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-3 opacity-50">{kicker}</p>
 				{/* The identity line — outside every keyed subtree, deliberately. */}

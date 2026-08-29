@@ -49,7 +49,7 @@ export function Derivation({ kicker, lattice, steps, result, caption }: Derivati
 	const heldLevel = phase === 0 ? steps[0]?.from ?? result : steps[phase - 1]?.to ?? result;
 
 	return (
-		<Reveal className="house-grid py-20 sm:py-28">
+		<Reveal className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12 md:col-start-2 md:col-span-9">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-8 opacity-50">{kicker}</p>
 
@@ -74,7 +74,7 @@ export function Derivation({ kicker, lattice, steps, result, caption }: Derivati
 										borderColor: "var(--color-mist)",
 										opacity: held ? 1 : 0.45,
 										transitionDuration: "var(--motion-considered)",
-										transitionTimingFunction: "var(--ease-house)",
+										transitionTimingFunction: "var(--ease-hause)",
 									}}
 								>
 									<span
@@ -109,7 +109,7 @@ export function Derivation({ kicker, lattice, steps, result, caption }: Derivati
 								style={{
 									opacity: phase >= i + 1 ? 1 : 0.15,
 									transitionDuration: "var(--motion-considered)",
-									transitionTimingFunction: "var(--ease-house)",
+									transitionTimingFunction: "var(--ease-hause)",
 								}}
 							>
 								<p className="voice-evidence text-xs tracking-[0.1em] uppercase opacity-50 mb-1">CAP {i + 1}</p>

@@ -38,7 +38,7 @@ export function Ladder({ kicker, rungs, caption }: LadderProps) {
 	const [expanded, setExpanded] = useState<number | null>(null);
 
 	return (
-		<Reveal className="house-grid py-16 sm:py-24">
+		<Reveal className="hause-grid py-16 sm:py-24">
 			<div className="col-span-12 md:col-start-2 md:col-span-9">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-8 opacity-50">{kicker}</p>
 

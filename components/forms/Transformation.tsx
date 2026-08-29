@@ -17,7 +17,7 @@ export type TransformationProps = {
  * Comparison's cinematic sibling: one object, two interpretations —
  * but performed, not dragged. Once in view the first interpretation
  * holds for a beat, then the blocks travel to the second at
- * --motion-cinematic with the house stagger, connector lines arriving
+ * --motion-cinematic with the hause stagger, connector lines arriving
  * after the blocks settle. Plays once; REPLAY runs it again. The same
  * pieces move continuously between arrangements — reorganisation, not
  * conversion, which is why this one transition may travel rather than
@@ -87,7 +87,7 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 	const side = arrived ? to : from;
 
 	return (
-		<Reveal className="house-grid py-20 sm:py-28">
+		<Reveal className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-3 opacity-50">{kicker}</p>
 				<p className="voice-evidence text-sm mb-10 opacity-70">{objectLabel}</p>
@@ -106,7 +106,7 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 								background: "var(--color-mist)",
 								transition: instant
 									? "none"
-									: `width var(--motion-considered) var(--ease-house) ${arrived ? 1100 + i * 140 : 0}ms`,
+									: `width var(--motion-considered) var(--ease-hause) ${arrived ? 1100 + i * 140 : 0}ms`,
 							}}
 						/>
 					))}
@@ -123,7 +123,7 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 									transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
 									transition: instant
 										? "none"
-										: `transform var(--motion-cinematic) var(--ease-house) ${i * 140}ms`,
+										: `transform var(--motion-cinematic) var(--ease-hause) ${i * 140}ms`,
 								}}
 							>
 								{/* An etched volume, not a flat square: bordered, page-ground
@@ -141,7 +141,7 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 											opacity: arrived ? 0 : 0.8,
 											transition: instant
 												? "none"
-												: `opacity var(--motion-cinematic) var(--ease-house) ${i * 140}ms`,
+												: `opacity var(--motion-cinematic) var(--ease-hause) ${i * 140}ms`,
 										}}
 									/>
 									<div
@@ -152,7 +152,7 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 											opacity: arrived ? 1 : 0,
 											transition: instant
 												? "none"
-												: `opacity var(--motion-cinematic) var(--ease-house) ${i * 140}ms`,
+												: `opacity var(--motion-cinematic) var(--ease-hause) ${i * 140}ms`,
 										}}
 									/>
 								</div>
@@ -164,7 +164,7 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 										transform: arrived ? "none" : "translateY(4px)",
 										transition: instant
 											? "none"
-											: `opacity var(--motion-considered) var(--ease-house) ${arrived ? 1200 + i * 140 : 0}ms, transform var(--motion-considered) var(--ease-house) ${arrived ? 1200 + i * 140 : 0}ms`,
+											: `opacity var(--motion-considered) var(--ease-hause) ${arrived ? 1200 + i * 140 : 0}ms, transform var(--motion-considered) var(--ease-hause) ${arrived ? 1200 + i * 140 : 0}ms`,
 									}}
 								>
 									{label}
@@ -175,10 +175,10 @@ export function Transformation({ kicker, objectLabel, blockLabels, from, to }: T
 				</div>
 
 				<div className="flex justify-center gap-10 voice-evidence text-xs tracking-[0.1em] uppercase mb-8">
-					<span style={{ opacity: arrived ? 0.4 : 1, transition: `opacity var(--motion-considered) var(--ease-house)` }}>
+					<span style={{ opacity: arrived ? 0.4 : 1, transition: `opacity var(--motion-considered) var(--ease-hause)` }}>
 						{from.label}
 					</span>
-					<span style={{ opacity: arrived ? 1 : 0.4, transition: `opacity var(--motion-considered) var(--ease-house)` }}>
+					<span style={{ opacity: arrived ? 1 : 0.4, transition: `opacity var(--motion-considered) var(--ease-hause)` }}>
 						{to.label}
 					</span>
 				</div>

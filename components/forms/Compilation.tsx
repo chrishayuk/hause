@@ -92,7 +92,7 @@ export function Compilation({
 	const buildStage = done - 2; // results assemble during the stage before the proof stage
 
 	return (
-		<section ref={sectionRef} className="house-grid py-20 sm:py-28">
+		<section ref={sectionRef} className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12 md:col-start-2 md:col-span-10 lg:col-span-9">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-3 opacity-50">{kicker}</p>
 				<p className="voice-editorial text-2xl sm:text-3xl mb-10 max-w-2xl">{headline}</p>
@@ -103,7 +103,7 @@ export function Compilation({
 						style={{
 							opacity: verified ? 0.28 : 1,
 							transitionDuration: "var(--motion-cinematic)",
-							transitionTimingFunction: "var(--ease-house)",
+							transitionTimingFunction: "var(--ease-hause)",
 						}}
 					>
 						<p className="voice-evidence text-[10px] tracking-[0.1em] uppercase opacity-50 mb-1">{sourceLabel}</p>
@@ -135,7 +135,7 @@ export function Compilation({
 									style={{
 										opacity: lit ? 1 : 0.2,
 										transitionDuration: "var(--motion-considered)",
-										transitionTimingFunction: "var(--ease-house)",
+										transitionTimingFunction: "var(--ease-hause)",
 									}}
 								>
 									<p
@@ -163,7 +163,7 @@ export function Compilation({
 										background: "var(--bg)",
 										opacity: visible ? 1 : 0,
 										transitionDuration: "var(--motion-considered)",
-										transitionTimingFunction: "var(--ease-house)",
+										transitionTimingFunction: "var(--ease-hause)",
 										transitionDelay: visible ? `${i * 180}ms` : "0ms",
 									}}
 								>

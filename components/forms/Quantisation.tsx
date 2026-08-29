@@ -93,7 +93,7 @@ export function Quantisation({ phases, note, values = DEFAULT_VALUES }: Quantisa
 	const atRest = phase === phases.length - 1;
 
 	return (
-		<section className="house-grid py-10 sm:py-14">
+		<section className="hause-grid py-10 sm:py-14">
 			<div ref={ref} className="col-span-12 flex flex-col items-center">
 				<div aria-hidden="true" className="relative w-full max-w-xl border" style={{ height: H, borderColor: "var(--color-mist)" }}>
 					{p.levels > 0 &&
@@ -125,7 +125,7 @@ export function Quantisation({ phases, note, values = DEFAULT_VALUES }: Quantisa
 										marginLeft: -2,
 										background: "var(--color-mist)",
 										opacity: atRest && moved ? 0.9 : 0,
-										transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-house)",
+										transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-hause)",
 									}}
 								/>
 								<div
@@ -137,7 +137,7 @@ export function Quantisation({ phases, note, values = DEFAULT_VALUES }: Quantisa
 										height: 7,
 										marginLeft: -3.5,
 										background: "var(--color-accent)",
-										transition: instant ? "none" : "top var(--motion-cinematic) var(--ease-house)",
+										transition: instant ? "none" : "top var(--motion-cinematic) var(--ease-hause)",
 									}}
 								/>
 							</div>
@@ -152,7 +152,7 @@ export function Quantisation({ phases, note, values = DEFAULT_VALUES }: Quantisa
 						className="voice-evidence text-[10px] tracking-[0.06em] uppercase mt-2 text-center max-w-md"
 						style={{
 							opacity: atRest ? 0.4 : 0,
-							transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-house) 600ms",
+							transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-hause) 600ms",
 						}}
 					>
 						{note}

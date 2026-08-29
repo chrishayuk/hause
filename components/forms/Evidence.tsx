@@ -4,7 +4,7 @@ import type { Status } from "../../types";
 
 export function Evidence({ items }: { items: { label: string; status: Status; detail: string }[] }) {
 	return (
-		<Reveal className="house-grid py-16 sm:py-24">
+		<Reveal className="hause-grid py-16 sm:py-24">
 			<div className="col-span-12 md:col-start-2 md:col-span-10">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-8 opacity-50">EVIDENCE</p>
 				<div className="flex flex-col gap-8">

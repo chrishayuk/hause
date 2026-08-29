@@ -12,7 +12,7 @@ export type RefusalProps = {
  * Built for systems whose personality is that they refuse rather than
  * guess: the refusal is an instrument readout — structured fields under
  * a refuted-red rule, closed by the governing principle in editorial
- * voice. The lines stagger in at the house cadence on mount; re-key to
+ * voice. The lines stagger in at the hause cadence on mount; re-key to
  * replay (the PaceDemo idiom).
  *
  * RefusalReadout is the bare readout for embedding inside another form
@@ -51,7 +51,7 @@ export function RefusalReadout({ title, lines, principle }: Omit<RefusalProps, "
 
 export function Refusal({ kicker, title, lines, principle }: RefusalProps) {
 	return (
-		<Reveal className="house-grid py-16 sm:py-24">
+		<Reveal className="hause-grid py-16 sm:py-24">
 			<div className="col-span-12 md:col-start-2 md:col-span-9">
 				{kicker && <p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-8 opacity-50">{kicker}</p>}
 				<RefusalReadout title={title} lines={lines} principle={principle} />

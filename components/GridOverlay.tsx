@@ -16,7 +16,7 @@ export function GridOverlay({ children }: { children: ReactNode }) {
 			<div className="relative">
 				{children}
 				{show && (
-					<div className="absolute inset-0 house-grid pointer-events-none" aria-hidden="true">
+					<div className="absolute inset-0 hause-grid pointer-events-none" aria-hidden="true">
 						{Array.from({ length: 12 }).map((_, i) => (
 							<div
 								key={i}

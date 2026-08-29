@@ -3,7 +3,7 @@ import { Reveal } from "../Reveal";
 
 export function Connection({ text, links }: { text: string; links: { href: string; label: string }[] }) {
 	return (
-		<Reveal className="house-grid py-16 sm:py-24">
+		<Reveal className="hause-grid py-16 sm:py-24">
 			<div className="col-span-12 md:col-start-2 md:col-span-9">
 				<p className="voice-system text-lg sm:text-xl opacity-85 leading-relaxed mb-6">{text}</p>
 				<div className="flex flex-col gap-3">

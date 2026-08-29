@@ -4,7 +4,7 @@ import type { Status } from "../../types";
 
 export function Question({ text, status, detail }: { text: string; status: Status; detail?: string }) {
 	return (
-		<Reveal className="house-grid py-20 sm:py-28">
+		<Reveal className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12 md:col-start-2 md:col-span-9">
 				<div className="mb-6">
 					<StatusMark status={status} />

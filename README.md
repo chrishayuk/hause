@@ -1,8 +1,8 @@
-# HOUSE
+# HAUSE
 
 A cinematic visual language for ideas, systems and explanations — not a component library, not brand guidelines. Extracted from [chrishayuk](https://github.com/chrishayuk/chrishayuk) once a second consumer (vindex3.org) made copy-pasting the design system across repos the wrong move.
 
-Read `tokens.css` and the files under `components/` before this README — they're the source of truth. This file just explains how a project wires HOUSE in.
+Read `tokens.css` and the files under `components/` before this README — they're the source of truth. This file just explains how a project wires HAUSE in.
 
 ## What's in here
 
@@ -27,7 +27,7 @@ components/
 
 Every form under `forms/` is one of three kinds. The split was not designed
 up front — it emerged from real chapters (the vindex3.org build), which is
-the only way HOUSE accepts structure.
+the only way HAUSE accepts structure.
 
 **Statements** — prose forms in the three voices; server-renderable, no
 interaction. The reader reads.
@@ -52,7 +52,7 @@ Three motion idioms, one per mode boundary: the one-shot `Reveal`, the
 staged swap (`.swap-in`), and the in-view loop (pause off-screen, rest
 state designed). A new form should say which mode it is in its doc comment.
 
-**HOUSE knows nothing about any specific site's content model.** No file here imports from outside this package. `Inquiry` takes a `resolve` function as a prop rather than importing one — the caller (the site) supplies what a query means; HOUSE only supplies how the result is experienced. That boundary is the whole point of this being a separate repo.
+**HAUSE knows nothing about any specific site's content model.** No file here imports from outside this package. `Inquiry` takes a `resolve` function as a prop rather than importing one — the caller (the site) supplies what a query means; HAUSE only supplies how the result is experienced. That boundary is the whole point of this being a separate repo.
 
 ## Using it in a project
 
@@ -61,7 +61,7 @@ This isn't published to a registry — it's consumed as a local path dependency 
 ```json
 // package.json
 "dependencies": {
-  "@chrishayuk/house": "file:../house"
+  "@chrishayuk/hause": "file:../hause"
 }
 ```
 
@@ -69,7 +69,7 @@ Then `npm install`. Because this package ships raw `.tsx`/`.ts` source (no build
 
 ```ts
 const nextConfig: NextConfig = {
-  transpilePackages: ["@chrishayuk/house"],
+  transpilePackages: ["@chrishayuk/hause"],
 };
 ```
 
@@ -78,17 +78,17 @@ Pull the tokens into your global stylesheet:
 ```css
 /* app/globals.css */
 @import "tailwindcss";
-@import "@chrishayuk/house/tokens.css";
+@import "@chrishayuk/hause/tokens.css";
 ```
 
-Fonts are the one thing HOUSE doesn't own — each site loads Fraunces / Inter / Geist Mono itself via `next/font/google` in its own `layout.tsx` and applies the resulting CSS variables **on `<html>`**, not `<body>` (see chrishayuk's `DESIGN.md` for exactly why — a CSS custom-property inheritance gotcha, not a style preference).
+Fonts are the one thing HAUSE doesn't own — each site loads Fraunces / Inter / Geist Mono itself via `next/font/google` in its own `layout.tsx` and applies the resulting CSS variables **on `<html>`**, not `<body>` (see chrishayuk's `DESIGN.md` for exactly why — a CSS custom-property inheritance gotcha, not a style preference).
 
 Import components by subpath:
 
 ```tsx
-import { Statement } from "@chrishayuk/house/components/forms/Statement";
-import { ModeToggle } from "@chrishayuk/house/components/ModeToggle";
-import type { Status } from "@chrishayuk/house/types";
+import { Statement } from "@chrishayuk/hause/components/forms/Statement";
+import { ModeToggle } from "@chrishayuk/hause/components/ModeToggle";
+import type { Status } from "@chrishayuk/hause/types";
 ```
 
 ## Light / Dark
@@ -97,7 +97,7 @@ Two authored environments, not a `prefers-color-scheme` inversion — default li
 
 ```html
 <script dangerouslySetInnerHTML={{ __html:
-  `try{var m=localStorage.getItem('house-mode');if(m==='dark')document.documentElement.dataset.mode='dark';}catch(e){}`
+  `try{var m=localStorage.getItem('hause-mode');if(m==='dark')document.documentElement.dataset.mode='dark';}catch(e){}`
 }} />
 ```
 

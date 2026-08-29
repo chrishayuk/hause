@@ -9,7 +9,7 @@ import type { DecompositionProps } from "./Decomposition";
  * Comparison's: the same argument — one object, its parts, the thing
  * that assembles them — performed instead of stepped. The source
  * holds as a closed deck of volumes, unfolds into its parts at
- * --motion-cinematic with the house stagger, then the result arrives
+ * --motion-cinematic with the hause stagger, then the result arrives
  * beneath and seals the set in accent. Plays once in view; REPLAY
  * runs it again.
  *
@@ -72,7 +72,7 @@ export function Unfolding({ kicker, source, parts, result }: DecompositionProps)
 	const unfolded = phase >= 1;
 
 	return (
-		<Reveal className="house-grid py-20 sm:py-28">
+		<Reveal className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-10 opacity-50">{kicker}</p>
 
@@ -88,7 +88,7 @@ export function Unfolding({ kicker, source, parts, result }: DecompositionProps)
 									left: "50%",
 									top: "38%",
 									transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
-									transition: instant ? "none" : `transform var(--motion-cinematic) var(--ease-house) ${i * 140}ms`,
+									transition: instant ? "none" : `transform var(--motion-cinematic) var(--ease-hause) ${i * 140}ms`,
 									zIndex: n - i,
 								}}
 							>
@@ -99,7 +99,7 @@ export function Unfolding({ kicker, source, parts, result }: DecompositionProps)
 											backgroundImage:
 												"repeating-linear-gradient(45deg, var(--color-accent) 0, var(--color-accent) 1px, transparent 1px, transparent 5px)",
 											opacity: unfolded ? 0.75 : 0.25,
-											transition: instant ? "none" : `opacity var(--motion-cinematic) var(--ease-house) ${i * 140}ms`,
+											transition: instant ? "none" : `opacity var(--motion-cinematic) var(--ease-hause) ${i * 140}ms`,
 										}}
 									/>
 								</div>
@@ -108,7 +108,7 @@ export function Unfolding({ kicker, source, parts, result }: DecompositionProps)
 									style={{
 										color: "var(--fg)",
 										opacity: unfolded ? 1 : 0,
-										transition: instant ? "none" : `opacity var(--motion-considered) var(--ease-house) ${unfolded ? 1100 + i * 140 : 0}ms`,
+										transition: instant ? "none" : `opacity var(--motion-considered) var(--ease-hause) ${unfolded ? 1100 + i * 140 : 0}ms`,
 									}}
 								>
 									{part.label}
@@ -123,7 +123,7 @@ export function Unfolding({ kicker, source, parts, result }: DecompositionProps)
 						style={{
 							top: "72%",
 							opacity: phase === 0 ? 1 : 0,
-							transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-house)",
+							transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-hause)",
 						}}
 					>
 						{source.label}
@@ -139,7 +139,7 @@ export function Unfolding({ kicker, source, parts, result }: DecompositionProps)
 						transform: phase >= 2 ? "none" : "translateY(10px)",
 						transition: instant
 							? "none"
-							: "opacity var(--motion-cinematic) var(--ease-house), transform var(--motion-cinematic) var(--ease-house)",
+							: "opacity var(--motion-cinematic) var(--ease-hause), transform var(--motion-cinematic) var(--ease-hause)",
 					}}
 				>
 					<p className="voice-evidence text-base sm:text-lg mb-1" style={{ color: "var(--color-accent)" }}>

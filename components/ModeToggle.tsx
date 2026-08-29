@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 /**
  * LIGHT / DARK — two authored environments, not a system-preference switch.
  * Deliberately text, not a sun/moon icon: the control itself should read as
- * part of the house voice, not app chrome.
+ * part of the hause voice, not app chrome.
  */
 export function ModeToggle() {
 	// Server-rendered default is always light; the blocking script in layout.tsx
@@ -22,7 +22,7 @@ export function ModeToggle() {
 		setMode(next);
 		document.documentElement.dataset.mode = next;
 		try {
-			window.localStorage.setItem("house-mode", next);
+			window.localStorage.setItem("hause-mode", next);
 		} catch {
 			// localStorage can throw (private mode, disabled site data) — the
 			// toggle still works for this page view, it just won't persist.

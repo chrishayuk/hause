@@ -26,7 +26,7 @@ export type ChannelProps = {
  * swaps, never morphs. Plays once in view, rests on the final stage,
  * REPLAY runs it again; prefers-reduced-motion rests statically. The
  * stream classes live in tokens.css (channel-flow-wide / -narrow),
- * with finite iteration counts — house motion never runs forever.
+ * with finite iteration counts — hause motion never runs forever.
  */
 export function Channel({ from, to, channelLabel, stages }: ChannelProps) {
 	const ref = useRef<HTMLDivElement>(null);
@@ -82,7 +82,7 @@ export function Channel({ from, to, channelLabel, stages }: ChannelProps) {
 	const atRest = stage === stages.length - 1;
 
 	return (
-		<section className="house-grid py-10 sm:py-14">
+		<section className="hause-grid py-10 sm:py-14">
 			<div className="col-span-12 flex flex-col items-center">
 				<div ref={ref} aria-hidden="true" className="w-full max-w-xl">
 					<div className="flex items-stretch gap-0">

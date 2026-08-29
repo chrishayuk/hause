@@ -8,10 +8,10 @@ import { Decomposition, type DecompositionProps } from "./forms/Decomposition";
 
 /**
  * The result of resolving a query. Every variant except "lookup" and "none"
- * carries exactly the props one of HOUSE's own forms already takes — Inquiry
+ * carries exactly the props one of HAUSE's own forms already takes — Inquiry
  * doesn't invent new rendering, it routes to the real primitive.
  *
- * This type lives in HOUSE because Inquiry has to know the shapes it can
+ * This type lives in HAUSE because Inquiry has to know the shapes it can
  * render. Nothing here knows what a "Codex entry" is — resolve() (injected
  * by the caller) is the only place that searches real content. That's the
  * boundary: the resolver decides what matters, Inquiry decides how it's

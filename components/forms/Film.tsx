@@ -61,7 +61,7 @@ export function Film({ title, description, src, poster, captions }: FilmProps) {
 	};
 
 	return (
-		<Reveal className="house-grid py-16 sm:py-24">
+		<Reveal className="hause-grid py-16 sm:py-24">
 			<div className="col-span-12">
 				<div ref={frameRef} className="relative">
 					{src ? (

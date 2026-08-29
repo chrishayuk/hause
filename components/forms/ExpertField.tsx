@@ -13,7 +13,7 @@ export type ExpertFieldProps = {
 };
 
 /**
- * HOUSE's first Simulation-mode primitive: understanding through
+ * HAUSE's first Simulation-mode primitive: understanding through
  * manipulation, not just reading. A field of units, mostly dormant;
  * selecting a scenario lights up the subset that activates for it.
  *
@@ -27,7 +27,7 @@ export function ExpertField({ statement, totalUnits, scenarios, caption }: Exper
 	const columns = Math.ceil(Math.sqrt(totalUnits));
 
 	return (
-		<Reveal className="house-grid py-20 sm:py-28">
+		<Reveal className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12">
 				{statement && <p className="voice-editorial text-3xl sm:text-4xl leading-tight mb-10 max-w-2xl">{statement}</p>}
 
@@ -60,7 +60,7 @@ export function ExpertField({ statement, totalUnits, scenarios, caption }: Exper
 									background: isActive ? "var(--color-accent)" : "var(--color-mist)",
 									opacity: isActive ? 1 : 0.25,
 									transitionDuration: "var(--motion-considered)",
-									transitionTimingFunction: "var(--ease-house)",
+									transitionTimingFunction: "var(--ease-hause)",
 								}}
 							/>
 						);

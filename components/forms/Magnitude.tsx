@@ -83,7 +83,7 @@ export function Magnitude({ items, note }: MagnitudeProps) {
 	const current = items[phase];
 
 	return (
-		<section className="house-grid py-10 sm:py-14">
+		<section className="hause-grid py-10 sm:py-14">
 			<div ref={ref} className="col-span-12 flex flex-col items-center">
 				<div aria-hidden="true" className="flex items-end justify-center gap-6 sm:gap-10 w-full" style={{ height: BASE + 30 }}>
 					{items.map((s, i) => {
@@ -101,7 +101,7 @@ export function Magnitude({ items, note }: MagnitudeProps) {
 										background: speck ? "var(--fg)" : "var(--bg)",
 										transition: instant
 											? "none"
-											: "width var(--motion-cinematic) var(--ease-house), height var(--motion-cinematic) var(--ease-house)",
+											: "width var(--motion-cinematic) var(--ease-hause), height var(--motion-cinematic) var(--ease-hause)",
 									}}
 								>
 									{!speck && (
@@ -112,7 +112,7 @@ export function Magnitude({ items, note }: MagnitudeProps) {
 													i === phase ? "var(--color-accent)" : "var(--color-mist)"
 												} 0, ${i === phase ? "var(--color-accent)" : "var(--color-mist)"} 1px, transparent 1px, transparent 6px)`,
 												opacity: i === phase ? 0.7 : 0.5,
-												transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-house)",
+												transition: instant ? "none" : "opacity var(--motion-considered) var(--ease-hause)",
 											}}
 										/>
 									)}

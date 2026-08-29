@@ -14,7 +14,7 @@ export type ComparisonProps = {
 };
 
 /**
- * HOUSE's first Comparison-mode primitive: one object, two interpretations,
+ * HAUSE's first Comparison-mode primitive: one object, two interpretations,
  * the same underlying pieces reorganising as the visitor drags between them.
  * Deliberately tests different ground than ExpertField (Simulation) — object
  * continuity across states, a user-driven continuous control rather than
@@ -45,7 +45,7 @@ export function Comparison({
 	}));
 
 	return (
-		<Reveal className="house-grid py-20 sm:py-28">
+		<Reveal className="hause-grid py-20 sm:py-28">
 			<div className="col-span-12">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-3 opacity-50">{kicker}</p>
 				<p className="voice-evidence text-sm mb-10 opacity-70">{objectLabel}</p>

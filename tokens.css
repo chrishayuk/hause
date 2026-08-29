@@ -1,24 +1,24 @@
 /* ================================================================
-   HOUSE — design tokens
+   HAUSE — design tokens
    Structure is fixed. Atmosphere is variable.
 
-   This file is the portable part of HOUSE: palette, voices, grid,
+   This file is the portable part of HAUSE: palette, voices, grid,
    motion. It assumes Tailwind is available (the @theme inline block
    below is Tailwind v4 syntax) but nothing here depends on chrishayuk
-   content or routing — lifting HOUSE into another project should mean
-   copying src/house/ wholesale and importing this file, not untangling
+   content or routing — lifting HAUSE into another project should mean
+   copying src/hause/ wholesale and importing this file, not untangling
    it from the site first.
    ================================================================ */
 
 :root {
-	/* House palette (warm neutrals, not pure black/white) */
+	/* Hause palette (warm neutrals, not pure black/white) */
 	--color-ink: #0b0b0b;
 	--color-paper: #f2f0eb;
 	--color-graphite: #292929;
 	--color-mist: #b8b6b1;
 	--color-white: #fafaf8;
 
-	/* House default accent — exhibitions may override per-section via inline vars */
+	/* Hause default accent — exhibitions may override per-section via inline vars */
 	--color-accent: #b5651d;
 
 	/* Semantic status — small marks, never badges */
@@ -33,7 +33,7 @@
 	--fg: var(--color-ink);
 
 	/* Motion */
-	--ease-house: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-hause: cubic-bezier(0.22, 1, 0.36, 1);
 	--motion-immediate: 150ms;
 	--motion-considered: 450ms;
 	--motion-cinematic: 1200ms;
@@ -45,7 +45,7 @@
    atmosphere (surface, contrast, what Inside looks like against it).
 
    Default is light — an explicit editorial choice, not the OS
-   preference. house.mode.dark applies when a viewer opts in (see
+   preference. hause.mode.dark applies when a viewer opts in (see
    ModeToggle); there is no automatic prefers-color-scheme switch.
    ---------------------------------------------------------------- */
 
@@ -86,8 +86,8 @@ body {
 	margin: 0;
 	min-height: 100vh;
 	transition:
-		background-color var(--motion-considered) var(--ease-house),
-		color var(--motion-considered) var(--ease-house);
+		background-color var(--motion-considered) var(--ease-hause),
+		color var(--motion-considered) var(--ease-hause);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -133,17 +133,17 @@ a {
 }
 
 /* ----------------------------------------------------------------
-   House grid — 12 columns, wide margins, invisible skeleton
+   Hause grid — 12 columns, wide margins, invisible skeleton
    ---------------------------------------------------------------- */
 
-.house-grid {
+.hause-grid {
 	display: grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
 	gap: clamp(16px, 2.4vw, 32px);
 	padding-inline: clamp(20px, 6vw, 96px);
 }
 
-.house-bleed {
+.hause-bleed {
 	padding-inline: 0;
 }
 
@@ -156,8 +156,8 @@ a {
 	opacity: 0;
 	transform: translateY(18px);
 	transition:
-		opacity var(--motion-considered) var(--ease-house),
-		transform var(--motion-considered) var(--ease-house);
+		opacity var(--motion-considered) var(--ease-hause),
+		transform var(--motion-considered) var(--ease-hause);
 }
 
 .reveal[data-visible="true"] {
@@ -214,7 +214,7 @@ a {
 }
 
 .graph-pulse {
-	animation: pulse-in var(--motion-considered) var(--ease-house) both;
+	animation: pulse-in var(--motion-considered) var(--ease-hause) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -248,7 +248,7 @@ a {
 }
 
 .swap-in {
-	animation: swap-in var(--motion-cinematic) var(--ease-house) both;
+	animation: swap-in var(--motion-cinematic) var(--ease-hause) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -260,7 +260,7 @@ a {
 /* ----------------------------------------------------------------
    Channel — payload streaming through a fixed-capacity conduit.
    Each animation shifts exactly one pattern period, so the loop is
-   seamless; iteration counts are finite (the stream settles, house
+   seamless; iteration counts are finite (the stream settles, hause
    motion never runs forever). Wide payloads move slowly; narrow
    payloads, the same capacity, arrive more often.
    ---------------------------------------------------------------- */
@@ -305,7 +305,7 @@ a {
 
 .pace-demo-box {
 	animation-name: pace-demo;
-	animation-timing-function: var(--ease-house);
+	animation-timing-function: var(--ease-hause);
 	animation-fill-mode: both;
 }
 

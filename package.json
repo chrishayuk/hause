@@ -1,8 +1,8 @@
 {
-	"name": "@chrishayuk/house",
+	"name": "@chrishayuk/hause",
 	"version": "0.1.0",
 	"private": true,
-	"description": "HOUSE — a cinematic visual language for ideas, systems and explanations. Design tokens plus a small set of semantic 'form' primitives, not a component library.",
+	"description": "HAUSE — a cinematic visual language for ideas, systems and explanations. Design tokens plus a small set of semantic 'form' primitives, not a component library.",
 	"type": "module",
 	"sideEffects": [
 		"*.css"

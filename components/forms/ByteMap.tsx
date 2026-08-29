@@ -33,7 +33,7 @@ export function ByteMap({ kicker, title, fields, totalLabel, caption }: ByteMapP
 	const total = fields.reduce((a, f) => a + f.bytes, 0);
 
 	return (
-		<Reveal className="house-grid py-16 sm:py-24">
+		<Reveal className="hause-grid py-16 sm:py-24">
 			<div className="col-span-12 md:col-start-2 md:col-span-10 lg:col-span-9">
 				<p className="voice-evidence text-xs tracking-[0.14em] uppercase mb-3 opacity-50">{kicker}</p>
 				<p className="voice-evidence text-base sm:text-lg mb-8">{title}</p>
@@ -50,7 +50,7 @@ export function ByteMap({ kicker, title, fields, totalLabel, caption }: ByteMapP
 								minWidth: 0,
 								borderColor: "var(--fg)",
 								background: hover === i ? "var(--color-accent)" : "transparent",
-								transition: "background-color var(--motion-immediate) var(--ease-house)",
+								transition: "background-color var(--motion-immediate) var(--ease-hause)",
 							}}
 						>
 							<span
@@ -75,7 +75,7 @@ export function ByteMap({ kicker, title, fields, totalLabel, caption }: ByteMapP
 								style={{
 									borderColor: "var(--color-mist)",
 									background: hover === i ? "color-mix(in srgb, var(--color-accent) 10%, transparent)" : "transparent",
-									transition: "background-color var(--motion-immediate) var(--ease-house)",
+									transition: "background-color var(--motion-immediate) var(--ease-hause)",
 								}}
 							>
 								<span className="voice-evidence text-sm" style={{ color: "var(--color-accent)" }}>
