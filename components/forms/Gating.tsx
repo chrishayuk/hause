@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { tick } from "../../sound";
 
 /**
@@ -59,16 +59,50 @@ export function Gating({
 	footnote?: string;
 }) {
 	const [stage, setStage] = useState(0);
+	const held = useRef(false);
+	const rootRef = useRef<HTMLDivElement>(null);
+
+	// One considered pass on first view, then rest; any click takes over.
+	useEffect(() => {
+		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+		const el = rootRef.current;
+		if (!el) return;
+		let interval: ReturnType<typeof setInterval> | undefined;
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (!entry.isIntersecting) return;
+				observer.disconnect();
+				let i = 0;
+				interval = setInterval(() => {
+					if (held.current || i >= stages.length - 1) {
+						clearInterval(interval);
+						return;
+					}
+					i += 1;
+					setStage(i);
+				}, 2200);
+			},
+			{ threshold: 0.45 }
+		);
+		observer.observe(el);
+		return () => {
+			observer.disconnect();
+			if (interval) clearInterval(interval);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const s = stages[stage];
 	const kept = new Set(keep);
 	return (
 		<section className="hause-grid py-12 sm:py-16">
-			<div className="col-span-12 md:col-start-3 md:col-span-8 flex flex-col items-center">
+			<div ref={rootRef} className="col-span-12 md:col-start-3 md:col-span-8 flex flex-col items-center">
 				<div className="flex flex-wrap gap-2 mb-8 justify-center">
 					{stages.map((st, i) => (
 						<button
 							key={st.chip + i}
 							onClick={() => {
+								held.current = true;
 								tick();
 								setStage(i);
 							}}
@@ -83,7 +117,7 @@ export function Gating({
 						</button>
 					))}
 				</div>
-				<div className="w-full flex flex-col items-center">
+				<div className="w-full max-w-xl flex flex-col items-center">
 					<div
 						aria-hidden="true"
 						className="flex overflow-hidden border"
@@ -109,7 +143,7 @@ export function Gating({
 					</div>
 					<p className="voice-evidence text-[10px] opacity-50 mt-1">{s.label}</p>
 				</div>
-				<div className="w-full border p-5 mt-8" style={{ borderColor: "var(--color-mist)" }}>
+				<div key={stage} className="graph-pulse w-full max-w-xl border p-5 mt-8" style={{ borderColor: "var(--color-mist)", background: "var(--bg)" }}>
 					<p className="voice-editorial text-lg sm:text-xl mb-2">{s.title}</p>
 					<p className="voice-system text-sm opacity-80 leading-relaxed max-w-xl">{s.text}</p>
 					{s.payoff && (
