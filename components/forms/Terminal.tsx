@@ -47,6 +47,8 @@ export function Terminal({
 	seeds = [],
 	execute,
 	complete,
+	autorun,
+	notice,
 	sessionKey,
 	height = 420,
 	clearLabel = "CLEAR",
@@ -67,6 +69,10 @@ export function Terminal({
 	execute: (line: string) => Promise<TerminalResult> | TerminalResult;
 	/** Tab completion: candidate continuations for the current input. */
 	complete?: (line: string) => string[];
+	/** A command run once on mount — deep links into the terminal. */
+	autorun?: string;
+	/** Appended (not reset) when it changes — e.g. a transport coming live. */
+	notice?: TerminalLine;
 	/** When this changes, the scrollback resets to the current banner. */
 	sessionKey?: string | number;
 	height?: number;
@@ -90,6 +96,22 @@ export function Terminal({
 		if (sessionKey === undefined) return;
 		setLines(bannerRef.current);
 	}, [sessionKey]);
+
+	const ranRef = useRef(false);
+	useEffect(() => {
+		if (!autorun || ranRef.current) return;
+		ranRef.current = true;
+		const id = setTimeout(() => void run(autorun), 400);
+		return () => clearTimeout(id);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [autorun]);
+
+	useEffect(() => {
+		if (!notice) return;
+		setLines((prev) => [...prev, notice]);
+		scroll();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [notice]);
 
 	function scroll() {
 		requestAnimationFrame(() => endRef.current?.scrollIntoView({ block: "nearest" }));
