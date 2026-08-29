@@ -106,7 +106,7 @@ export function Gating({
 								tick();
 								setStage(i);
 							}}
-							className="voice-evidence text-[11px] px-3 py-1.5 border"
+							className="voice-evidence text-xs px-4 py-2 border"
 							style={{
 								borderColor: i === stage ? "var(--color-accent)" : "var(--color-mist)",
 								color: i === stage ? "var(--color-accent)" : undefined,
@@ -117,13 +117,13 @@ export function Gating({
 						</button>
 					))}
 				</div>
-				<div className="w-full max-w-xl flex flex-col items-center">
+				<div className="w-full max-w-3xl flex flex-col items-center">
 					<div
 						aria-hidden="true"
 						className="flex overflow-hidden border"
 						style={{
 							width: s.width === "wide" ? "100%" : "33%",
-							height: 34,
+							height: 56,
 							borderColor: "var(--fg)",
 							transition: "width var(--motion-considered) var(--ease-hause)",
 						}}
@@ -141,10 +141,10 @@ export function Gating({
 							/>
 						))}
 					</div>
-					<p className="voice-evidence text-[10px] opacity-50 mt-1">{s.label}</p>
+					<p className="voice-evidence text-[11px] opacity-55 mt-2">{s.label}</p>
 				</div>
-				<div key={stage} className="graph-pulse w-full max-w-xl border p-5 mt-8" style={{ borderColor: "var(--color-mist)", background: "var(--bg)" }}>
-					<p className="voice-editorial text-lg sm:text-xl mb-2">{s.title}</p>
+				<div key={stage} className="graph-pulse w-full max-w-3xl border p-6 mt-8" style={{ borderColor: "var(--color-mist)", background: "var(--bg)" }}>
+					<p className="voice-editorial text-xl sm:text-2xl mb-2">{s.title}</p>
 					<p className="voice-system text-sm opacity-80 leading-relaxed max-w-xl">{s.text}</p>
 					{s.payoff && (
 						<p className="voice-evidence text-xs mt-4" style={{ color: "var(--color-accent)" }}>
@@ -152,7 +152,7 @@ export function Gating({
 						</p>
 					)}
 				</div>
-				{fallback && <p className="voice-system text-sm opacity-70 leading-relaxed max-w-xl mt-6 text-center">{fallback}</p>}
+				{fallback && <p className="voice-system text-sm opacity-70 leading-relaxed max-w-2xl mt-8 text-center">{fallback}</p>}
 				{footnote && <p className="voice-evidence text-xs opacity-40 leading-relaxed max-w-xl mt-3 text-center">{footnote}</p>}
 			</div>
 		</section>
