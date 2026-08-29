@@ -33,8 +33,13 @@ export type TerminalLine = {
 
 /** A designed result: a command need not return text. DESIGNED is the
  * HAUSE rendering; RAW is the structured object it was rendered from —
- * the proof the answer is typed output, not prose. */
-export type TerminalPanel = { designed: React.ReactNode; raw?: unknown };
+ * the proof the answer is typed output, not prose; GRAPH is where it
+ * came from — the relationships that ground it. */
+export type TerminalPanel = {
+	designed: React.ReactNode;
+	raw?: unknown;
+	graph?: { from: string; rel: string; to: string }[];
+};
 
 export type TerminalResult = {
 	lines: TerminalLine[];
@@ -51,12 +56,17 @@ type ScrollItem = { kind: "line"; line: TerminalLine } | { kind: "panel"; panel:
 const asItems = (lines: TerminalLine[]): ScrollItem[] => lines.map((line) => ({ kind: "line", line }));
 
 function PanelBlock({ panel }: { panel: TerminalPanel }) {
-	const [view, setView] = useState<"designed" | "raw">("designed");
+	const [view, setView] = useState<"designed" | "raw" | "graph">("designed");
+	const views: ("designed" | "raw" | "graph")[] = [
+		"designed",
+		...(panel.raw !== undefined ? (["raw"] as const) : []),
+		...(panel.graph?.length ? (["graph"] as const) : []),
+	];
 	return (
 		<div className="border my-2 p-4" style={{ borderColor: "var(--color-accent)", background: "var(--bg)" }}>
-			{panel.raw !== undefined && (
+			{views.length > 1 && (
 				<div className="flex gap-2 mb-3">
-					{(["designed", "raw"] as const).map((v) => (
+					{views.map((v) => (
 						<button
 							key={v}
 							onClick={() => {
@@ -75,12 +85,22 @@ function PanelBlock({ panel }: { panel: TerminalPanel }) {
 					))}
 				</div>
 			)}
-			{view === "designed" ? (
-				panel.designed
-			) : (
+			{view === "designed" && panel.designed}
+			{view === "raw" && (
 				<pre className="voice-evidence text-[11px] leading-relaxed overflow-x-auto m-0" style={{ color: "var(--fg)" }}>
 					{JSON.stringify(panel.raw, null, 2)}
 				</pre>
+			)}
+			{view === "graph" && (
+				<div className="flex flex-col gap-1.5">
+					{panel.graph?.map((e, i) => (
+						<p key={i} className="voice-evidence text-[12px] m-0 flex items-baseline gap-2 flex-wrap" style={{ color: "var(--fg)" }}>
+							<span>{e.from}</span>
+							<span className="text-[10px] tracking-[0.08em] uppercase opacity-50">— {e.rel} →</span>
+							<span style={{ color: "var(--color-accent)" }}>{e.to}</span>
+						</p>
+					))}
+				</div>
 			)}
 		</div>
 	);
