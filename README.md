@@ -27,7 +27,10 @@ components/
 
 Every form under `forms/` is one of three kinds. The split was not designed
 up front — it emerged from real chapters (the vindex3.org build), which is
-the only way HAUSE accepts structure.
+the only way HAUSE accepts structure. The canonical index is
+[`manifest.ts`](manifest.ts) — every consumer that counts or lists the
+forms derives from it, so the lists below are prose, and the manifest is
+the evidence.
 
 **Statements** — prose forms in the three voices; server-renderable, no
 interaction. The reader reads.
@@ -37,8 +40,11 @@ Connection · Refusal`
 **Instruments** — interactive forms; understanding through manipulation.
 The reader operates them, and every one carries a text fallback so the
 point survives with the interaction removed.
-`Decomposition · ExpertField · Comparison · Variants · Ladder · Agreement ·
-Derivation · Anatomy · ByteMap · FollowReveal · Inquiry`
+`Anatomy · Decomposition · ExpertField · Comparison · Variants · Ladder ·
+Agreement · Derivation · ByteMap · FollowReveal · Terminal · Gating`
+
+(`Inquiry` lives outside `forms/` — a routing primitive over the real
+forms, not a form itself.)
 
 **Performances** — cinematic forms; they play themselves. In-view start, a
 designed resting state (which is what reduced-motion and no-JS get), REPLAY
