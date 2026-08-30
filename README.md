@@ -123,3 +123,36 @@ Two authored environments, not a `prefers-color-scheme` inversion — default li
 - **A Mode gets built for a real chapter, not manufactured as a demo.** `ExpertField` (Simulation) and `Comparison` (one object, two interpretations) both exist because a real exhibition needed them, in that order, discovered through making — not designed as an abstract taxonomy up front. When adding a new Mode, build it against real content first.
 - **Always-present text fallback.** Every interactive form (`Decomposition`, `ExpertField`, `Comparison`) renders a plain-language sentence describing its point even with the interaction removed — for `prefers-reduced-motion`, no-JS, and crawlers. Keep this pattern.
 - **`prefers-reduced-motion` gets a designed static state, not just `animation: none`.** Check `Reveal`, `.graph-pulse`, `.pace-demo-box` in `tokens.css` for the pattern.
+
+## Machine legibility — SEO and AEO as design-system concerns
+
+HAUSE is a design system for AI, and that cuts both ways: AIs compose
+answers *from* the forms, and machines — crawlers, answer engines, agent
+browsers — must be able to *read* what the forms say. Legibility to
+machines is not an afterthought bolted onto a site; it is part of the
+grammar, carried by the library itself:
+
+- **The `Answer` form.** A natural-language question as a real heading and
+  a 40–100 word answer a reader or a machine can lift whole, with a stable
+  anchor so the exact question is citable — not just the page. It sits
+  beneath the editorial surface and says the plain thing plainly; the
+  beautiful heading keeps its job.
+- **`seo.ts` + `JsonLd`.** Builders that emit structured data from records
+  a site already holds — WebSite, TechArticle, BreadcrumbList, DefinedTerm
+  (a knowledge-graph entity, said in schema.org), SoftwareApplication,
+  QAPage. The crawlable answer can never drift from the rendered one,
+  because both project from the same record.
+- **Query-shaped `<title>`, designed headings.** The browser title says
+  what the page answers, in the words people search with; the visible
+  HAUSE heading stays exactly as designed. You get both, always.
+- **ARIA state on every instrument.** Agent browsers read `aria-pressed`,
+  `aria-expanded`, and labels to understand interactive interfaces — the
+  Terminal's DESIGNED|RAW|GRAPH tabs carry them, and every new instrument
+  must.
+- **Nothing lives only in the animation.** The always-present text
+  fallback (above) is also the AEO rule: canvas, WebGL, and animation
+  coordinates are invisible to crawlers, so every form's point must
+  survive with the interaction stripped.
+
+The test for all of it: strip the page to text, and it should still
+answer the question it was designed to answer.
