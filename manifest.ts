@@ -44,6 +44,7 @@ export const FORM_MANIFEST: FormRecord[] = [
 	{ name: "Refusal", mode: "statement", line: "Fail-closed rendered as design language, not as an error state.", origin: "vindex3", exhibited: true },
 	{ name: "Excerpt", mode: "statement", line: "Someone else's words, typeset — verbatim source material with its markdown rendered and its trims marked.", origin: "vindex3 · Ask", date: "2026-08-29", exhibited: true },
 	{ name: "Answer", mode: "statement", line: "The question asked the way people ask it, answered first — one lift-able paragraph beneath the editorial surface, addressable by anchor.", origin: "vindex3 · the legibility layer", date: "2026-08-30", exhibited: true },
+	{ name: "Snippet", mode: "statement", line: "A labeled block of code or terminal output, verbatim on the ink — the on-ramp form, promoted when two sites needed the same shape.", origin: "hause.design · Use", date: "2026-08-30", exhibited: true },
 	// ── Instruments — the reader operates ──
 	{ name: "Anatomy", mode: "instrument", line: "An annotated cutaway — one artifact drawn as its layers, fully disclosed.", exhibited: true },
 	{ name: "Decomposition", mode: "instrument", line: "One object, its parts, the thing that assembles them — stepped by hand.", exhibited: true },
