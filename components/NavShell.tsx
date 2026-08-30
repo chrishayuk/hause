@@ -7,12 +7,13 @@ import { tick } from "../sound";
 /**
  * NAVSHELL — the persistent header, at every width.
  *
- * Desktop: brand left, destinations and controls right, with each
- * link's own reveal budget (some chapters appear only as the viewport
- * affords them). Mobile: brand, the controls, and a text MENU toggle —
- * no hamburger iconography; the control reads as hause voice — opening
- * a full-width panel where EVERY destination is reachable, grouped,
- * in a column. The panel closes on navigation.
+ * Desktop: brand left, a CURATED row of destinations and the controls
+ * right — a growing site cannot list everything in one bar, so links
+ * marked panelOnly skip the row entirely. The text MENU toggle now
+ * lives at every width — no hamburger iconography; the control reads
+ * as hause voice — opening a full-width panel where EVERY destination
+ * is reachable, grouped, in a column. The panel closes on navigation;
+ * the SiteFooter is the always-open counterpart.
  *
  * Chrome, not a form: like ModeToggle and SoundToggle it lives beside
  * the forms, serving the two sites that share this exact pattern.
@@ -23,6 +24,9 @@ export type NavLink = {
 	label: string;
 	/** Desktop reveal budget — when set, hidden below that breakpoint. */
 	hide?: "sm" | "md" | "lg";
+	/** Never in the desktop row — reachable through the MENU panel and
+	 * the SiteFooter. The row stays curated; the panel stays complete. */
+	panelOnly?: boolean;
 	/** Rendered in the accent colour (a privileged destination). */
 	accent?: boolean;
 	/** Rendered in a hairline box (a practical doorway). */
@@ -41,7 +45,7 @@ function DesktopLink({ link }: { link: NavLink }) {
 	return (
 		<Link
 			href={link.href}
-			className={`voice-evidence text-xs tracking-[0.1em] uppercase transition-opacity ${
+			className={`voice-evidence text-xs tracking-[0.1em] uppercase whitespace-nowrap transition-opacity ${
 				link.boxed ? "border px-2.5 py-1 opacity-80 hover:opacity-100" : "opacity-70 hover:opacity-100"
 			} ${link.hide ? HIDE[link.hide] : ""}`}
 			style={{
@@ -83,9 +87,11 @@ export function NavShell({
 			</div>
 			<nav className="col-span-7 sm:col-span-6 md:col-span-9 flex justify-end items-center gap-3 sm:gap-6 lg:gap-8 flex-nowrap">
 				<span className="hidden sm:flex items-center gap-3 sm:gap-6 lg:gap-8 flex-nowrap">
-					{links.map((l) => (
-						<DesktopLink key={l.href + l.label} link={l} />
-					))}
+					{links
+						.filter((l) => !l.panelOnly)
+						.map((l) => (
+							<DesktopLink key={l.href + l.label} link={l} />
+						))}
 				</span>
 				{controls}
 				<button
@@ -95,7 +101,7 @@ export function NavShell({
 					}}
 					aria-expanded={open}
 					aria-label="Site menu"
-					className="sm:hidden voice-evidence text-xs tracking-[0.12em] uppercase border px-2.5 py-1"
+					className="voice-evidence text-xs tracking-[0.12em] uppercase border px-2.5 py-1"
 					style={{
 						borderColor: open ? "var(--color-accent)" : "var(--color-mist)",
 						color: open ? "var(--color-accent)" : undefined,
@@ -105,7 +111,7 @@ export function NavShell({
 				</button>
 			</nav>
 			{open && (
-				<div className="col-span-12 sm:hidden border-t mt-5 pt-5 flex flex-col gap-5" style={{ borderColor: "var(--color-mist)" }}>
+				<div className="col-span-12 border-t mt-5 pt-5 flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:gap-x-14" style={{ borderColor: "var(--color-mist)" }}>
 					{groups.map((g, gi) => (
 						<div key={gi} className="flex flex-col gap-3">
 							{g.label && (
