@@ -8,7 +8,7 @@ export type Rung = {
 	id: string;
 	question?: string;
 	gate?: string;
-	status?: "PASSED" | "OPEN" | "BUILDING";
+	status?: "PASSED" | "OPEN" | "BUILDING" | "DISPROVED";
 	detail?: string;
 };
 
@@ -22,6 +22,7 @@ const RUNG_COLOR: Record<NonNullable<Rung["status"]>, string> = {
 	PASSED: "var(--color-status-supported)",
 	OPEN: "var(--color-status-open)",
 	BUILDING: "var(--color-accent)",
+	DISPROVED: "var(--color-status-refuted)",
 };
 
 /**
