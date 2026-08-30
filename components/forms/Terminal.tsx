@@ -69,6 +69,8 @@ function PanelBlock({ panel }: { panel: TerminalPanel }) {
 					{views.map((v) => (
 						<button
 							key={v}
+							aria-pressed={view === v}
+							aria-label={`Show the ${v} view of this result`}
 							onClick={() => {
 								tick();
 								setView(v);
