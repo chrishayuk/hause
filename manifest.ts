@@ -59,6 +59,7 @@ export const FORM_MANIFEST: FormRecord[] = [
 	{ name: "Terminal", mode: "instrument", line: "A query surface whose chrome is the form and whose meaning is one executor.", origin: "vindex3 · the Explorer", date: "2026-08-29", exhibited: true },
 	{ name: "Gating", mode: "instrument", line: "A stream widened into a working space, judged channel by channel, brought back home.", origin: "vindex3 · the Anatomy", date: "2026-08-29", exhibited: true },
 	{ name: "Provenance", mode: "instrument", line: "The publication record beneath the page — dates, version, identifiers, history — disclosed on demand, absent where nothing is registered.", origin: "vindex3 · citing the specification", date: "2026-08-31", exhibited: true },
+	{ name: "Lens", mode: "instrument", line: "One concept at several depths — the explanation, the object, the clause — on one URL, with the reader's depth remembered.", origin: "vindex3 · representation", date: "2026-08-31", exhibited: true },
 	{ name: "Citation", mode: "instrument", line: "The reference itself, in the formats people paste — plain, BibTeX, APA, CSL-JSON, all from one record.", origin: "vindex3 · citing the specification", date: "2026-08-31", exhibited: true },
 	// ── Performances — the forms play themselves ──
 	{ name: "Transformation", mode: "performance", line: "Comparison's cinematic sibling — identical props, performed.", origin: "vindex3", exhibited: true },

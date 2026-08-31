@@ -5,7 +5,8 @@
  * passage, a cited document — presented as an object: source and
  * section in evidence voice above an accent rule, the text in system
  * voice with its light markdown (emphasis, inline code, blockquotes,
- * simple tables) rendered rather than leaking as asterisks and pipes.
+ * lists, fenced code and simple tables) rendered rather than leaking as
+ * asterisks, hyphens, backticks and pipes.
  * A trimmed excerpt ends at a word boundary with a visible mark —
  * never mid-word, never silently.
  *
@@ -43,6 +44,8 @@ function inline(text: string, keyBase: string): React.ReactNode[] {
 type Chunk =
 	| { kind: "para"; lines: string[] }
 	| { kind: "quote"; lines: string[] }
+	| { kind: "list"; items: string[] }
+	| { kind: "code"; lines: string[] }
 	| { kind: "table"; rows: string[][] };
 
 function chunk(text: string): Chunk[] {
@@ -52,13 +55,38 @@ function chunk(text: string): Chunk[] {
 		if (current) chunks.push(current);
 		current = null;
 	};
+	let fenced = false;
 	for (const raw of text.split("\n")) {
 		const line = raw.trimEnd();
+		// A fence opens and closes verbatim territory: inside it, nothing is
+		// interpreted — a spec's JSON keeps its braces, quotes and shape.
+		if (/^\s*```/.test(line)) {
+			if (fenced) push();
+			else {
+				push();
+				current = { kind: "code", lines: [] };
+			}
+			fenced = !fenced;
+			continue;
+		}
+		if (fenced) {
+			if (current?.kind === "code") current.lines.push(raw);
+			continue;
+		}
 		if (!line.trim()) {
 			push();
 			continue;
 		}
-		if (/^\|.*\|$/.test(line.trim())) {
+		if (/^\s*[-*]\s+/.test(line)) {
+			if (current?.kind !== "list") {
+				push();
+				current = { kind: "list", items: [] };
+			}
+			current.items.push(line.replace(/^\s*[-*]\s+/, ""));
+		} else if (current?.kind === "list") {
+			// A wrapped continuation line belongs to the item above it.
+			current.items[current.items.length - 1] += ` ${line.trim()}`;
+		} else if (/^\|.*\|$/.test(line.trim())) {
 			const cells = line.trim().slice(1, -1).split("|").map((c) => c.trim());
 			if (cells.every((c) => /^:?-{2,}:?$/.test(c))) continue; // separator row
 			if (current?.kind !== "table") {
@@ -114,7 +142,8 @@ export function Excerpt({
 		<div className="border-l-2 pl-5 py-1 max-w-2xl" style={{ borderColor: "var(--color-accent)" }}>
 			<p className="voice-evidence text-[11px] tracking-[0.08em] uppercase opacity-60 mb-3 mt-0">
 				{source}
-				{heading ? <> — §{heading}</> : null}
+				{/* A numbered section earns a §; a prose heading does not. */}
+				{heading ? <> — {/^\d/.test(heading) ? "§" : ""}{heading}</> : null}
 			</p>
 			<div className="flex flex-col gap-3">
 				{chunks.map((c, ci) => {
@@ -138,6 +167,29 @@ export function Excerpt({
 									</tbody>
 								</table>
 							</div>
+						);
+					if (c.kind === "code")
+						return (
+							<pre
+								key={ci}
+								className="voice-evidence text-[11px] sm:text-xs leading-relaxed border p-3 sm:p-4 overflow-x-auto m-0"
+								style={{ borderColor: "var(--color-mist)", background: "var(--color-ink)", color: "var(--color-white)" }}
+							>
+								{c.lines.join("\n")}
+							</pre>
+						);
+					if (c.kind === "list")
+						return (
+							<ul key={ci} className="flex flex-col gap-1.5 m-0 pl-0 list-none">
+								{c.items.map((item, ii) => (
+									<li key={ii} className="voice-system text-sm opacity-85 leading-relaxed grid grid-cols-[0.9rem_1fr]">
+										<span aria-hidden="true" className="opacity-40">
+											·
+										</span>
+										<span>{inline(item, `l${ci}-${ii}`)}</span>
+									</li>
+								))}
+							</ul>
 						);
 					if (c.kind === "quote")
 						return (

@@ -42,7 +42,7 @@ The reader operates them, and every one carries a text fallback so the
 point survives with the interaction removed.
 `Anatomy · Decomposition · ExpertField · Comparison · Variants · Ladder ·
 Agreement · Derivation · ByteMap · FollowReveal · Terminal · Gating ·
-Provenance · Citation`
+Provenance · Citation · Lens`
 
 (`Inquiry` lives outside `forms/` — a routing primitive over the real
 forms, not a form itself.)
@@ -211,3 +211,19 @@ performance of research.
 As with everything else here, HAUSE knows nothing about your content:
 the site holds the records, the library holds the forms, the
 formatters and the machine surfaces.
+
+## Depth is a design problem, not a navigation problem
+
+Technical writing keeps splitting one subject into a tutorial and a
+reference, then asking the reader to guess which one holds their answer.
+The `Lens` instrument refuses the split: one concept, one URL, several
+depths — **LEARN** what it means, **INSPECT** the real object, **SPEC**
+the words that govern it — with the reader's chosen depth remembered
+across pages and written into the fragment, so a reader who thinks in
+clauses stays in clauses and can link someone straight to the depth they
+meant.
+
+Every panel stays in the DOM. Depth is disclosure, not content gating —
+which is also why the normative text is legible to a crawler whether or
+not anyone clicked the tab, and why a reader with no JavaScript still
+lands on a complete first depth rather than an empty frame.
