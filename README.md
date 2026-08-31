@@ -277,3 +277,33 @@ Two properties by one author is the weakest admissible evidence of
 reuse, and the library says so rather than counting it as proof. The
 test that matters is an exhibition whose content has nothing to do with
 the one the form was born in.
+
+## A capability that matters earns a record
+
+The second rule this library learned by failing rather than by design.
+
+A keyword list tells a system which words to notice. A record tells it
+what the thing means. The difference is invisible until something has to
+resolve an input nobody anticipated — and then it is the whole
+difference.
+
+Two evaluations found it from opposite directions on the same day.
+CHOOSING-1 gave a model 124 unfamiliar descriptions and asked which form
+each needed: from the manifest's one-line records it answered 122; the
+deployed keyword resolver, given the same 124, answered 8. ROUTING-1
+then asked sixty questions of the assistant itself, and the spaces
+backed by records — what is this form, where did it come from — answered
+24 of 24, while the spaces backed by hand-written keyword lists answered
+16 of 36.
+
+So: **a capability that matters earns a record; a keyword list is only
+scaffolding until the record exists.** The manifest is a record. The
+selection grammar is a record. The problems are records. Where a surface
+still holds a list of phrases, that is not an implementation detail — it
+is a capability that has not been given its object yet, and it will fail
+on the first sentence nobody thought to add.
+
+This sits beside the other rule the same programme produced: a recurring
+visual need earns a form, a one-page visual need earns an
+implementation. Both are the same instinct — do not promote scaffolding,
+and do not leave a real thing as scaffolding either.
