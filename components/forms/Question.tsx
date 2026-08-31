@@ -2,6 +2,18 @@ import { Reveal } from "../Reveal";
 import { StatusMark } from "../StatusMark";
 import type { Status } from "../../types";
 
+/**
+ * QUESTION — an open question, given the same typographic dignity as an
+ * answer.
+ *
+ * Editorial voice at display size, led by its status mark, with room
+ * for the working answer beneath. Most systems bury what they have not
+ * settled in a roadmap; this form puts it at the size of a claim,
+ * because an honest open question is more informative than a confident
+ * paragraph about the same subject.
+ *
+ * A statement: the reader reads.
+ */
 export function Question({ text, status, detail }: { text: string; status: Status; detail?: string }) {
 	return (
 		<Reveal className="hause-grid py-20 sm:py-28">

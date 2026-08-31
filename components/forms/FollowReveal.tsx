@@ -4,6 +4,21 @@ import { useState } from "react";
 import Link from "next/link";
 import { Reveal } from "../Reveal";
 
+/**
+ * FOLLOWREVEAL — a path through connected ideas, replayed at the hause
+ * stagger.
+ *
+ * A sentence, a control, and the path: each node carrying the relation
+ * that brought it there — reads, operates, supports, contradicts — so
+ * the shape of the argument is visible as a shape and not only as
+ * prose. TRACE THE GRAPH replays the stagger for a reader who wants to
+ * see the order again.
+ *
+ * The nodes are links and remain links with the animation removed;
+ * the replay is emphasis, never the only way to read the path.
+ *
+ * An instrument: the reader operates it.
+ */
 export function FollowReveal({ text, path }: { text: string; path: { href: string; label: string; relation: string }[] }) {
 	const [pulseKey, setPulseKey] = useState(0);
 

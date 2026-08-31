@@ -1,3 +1,17 @@
+/**
+ * HERO — the room's first wall.
+ *
+ * Kicker, headline, dek: where the chapter says what room you have
+ * walked into before it says anything else. The kicker names the room
+ * in evidence voice the way a museum labels one; the headline is
+ * editorial at the largest size the system has, because the claim
+ * carries the room; the dek walks beside the reader in system voice.
+ *
+ * It takes all twelve columns and appears once per page. A second Hero
+ * is a second chapter, and should be a second URL.
+ *
+ * A statement: the reader reads.
+ */
 export function Hero({ kicker, title, dek }: { kicker: string; title: string; dek: string }) {
 	return (
 		<section className="hause-grid pt-20 pb-28 sm:pt-28 sm:pb-40">

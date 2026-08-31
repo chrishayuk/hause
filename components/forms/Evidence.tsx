@@ -2,6 +2,19 @@ import { Reveal } from "../Reveal";
 import { StatusMark } from "../StatusMark";
 import type { Status } from "../../types";
 
+/**
+ * EVIDENCE — rows of labelled findings with status marks.
+ *
+ * Receipts, not decoration. Each row is a finding, its status, and the
+ * detail that earns it — dates, machines, measurements, in evidence
+ * voice, where numbers are believed.
+ *
+ * SUPPORTED and REFUTED sit in the same list on purpose. A page that
+ * only shows its wins is advertising; the refuted row beside the
+ * supported one is what makes either of them worth reading.
+ *
+ * A statement: the reader reads.
+ */
 export function Evidence({ items }: { items: { label: string; status: Status; detail: string }[] }) {
 	return (
 		<Reveal className="hause-grid py-16 sm:py-24">

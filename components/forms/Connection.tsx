@@ -1,6 +1,20 @@
 import Link from "next/link";
 import { Reveal } from "../Reveal";
 
+/**
+ * CONNECTION — a bridge out of the chapter: one sentence, then the doors.
+ *
+ * The last form in a chapter. The sentence says what the next idea is
+ * and why it follows; the doors are links that name where they go
+ * rather than saying "next". A chapter that ends without one leaves the
+ * reader at a wall.
+ *
+ * The sentence should raise the next chapter's question, not summarise
+ * this one — a summary is a door that opens onto the room you are
+ * already standing in.
+ *
+ * A statement: the reader reads.
+ */
 export function Connection({ text, links }: { text: string; links: { href: string; label: string }[] }) {
 	return (
 		<Reveal className="hause-grid py-16 sm:py-24">

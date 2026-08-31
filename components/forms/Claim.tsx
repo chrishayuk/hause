@@ -2,6 +2,20 @@ import { Reveal } from "../Reveal";
 import { StatusMark } from "../StatusMark";
 import type { Status } from "../../types";
 
+/**
+ * CLAIM — an assertion that knows it must answer to evidence.
+ *
+ * A belief, said plainly, carrying a status mark: OPEN, ONGOING,
+ * SUPPORTED, REFUTED, SUPERSEDED. The mark is not decoration — it is
+ * the difference between a design system that states what it believes
+ * and one that states what it has shown, and it means a page can hold a
+ * load-bearing belief without pretending the belief is settled.
+ *
+ * Use it for the beliefs a project would defend. Use Evidence for the
+ * receipts that hold one up, and Question for what is still open.
+ *
+ * A statement: the reader reads.
+ */
 export function Claim({ text, status, detail }: { text: string; status: Status; detail?: string }) {
 	return (
 		<Reveal className="hause-grid py-14 sm:py-20">

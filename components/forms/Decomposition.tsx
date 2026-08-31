@@ -12,6 +12,23 @@ export type DecompositionProps = {
 	result: Part;
 };
 
+/**
+ * DECOMPOSITION — one object, its parts, the thing that assembles them,
+ * stepped by hand.
+ *
+ * Three states: the whole, the parts laid out, and the result the parts
+ * make. The reader advances it, so the pace of the argument belongs to
+ * them — which is the difference between this and Unfolding, its
+ * cinematic sibling, which takes identical props and performs itself.
+ *
+ * Identical props are deliberate: the same content can be an instrument
+ * on a page a reader is studying and a performance on a page they are
+ * being carried through, and the decision is the chapter's, not the
+ * content's.
+ *
+ * An instrument: the reader operates it, and the text fallback carries
+ * the point when the interaction is gone.
+ */
 export function Decomposition({ kicker, source, parts, result }: DecompositionProps) {
 	const [step, setStep] = useState(0);
 	const steps = [source.label, "DECOMPOSES", result.label];
