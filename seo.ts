@@ -11,6 +11,8 @@
  * Render with the JsonLd component from components/JsonLd.
  */
 
+import { doiUrl, type CitationRecord } from "./cite";
+
 type Ld = Record<string, unknown>;
 
 export function webSiteLd(o: { name: string; url: string; description: string }): Ld {
@@ -111,5 +113,53 @@ export function qaLd(o: { question: string; answer: string; url: string }): Ld {
 			answerCount: 1,
 			acceptedAnswer: { "@type": "Answer", text: o.answer },
 		},
+	};
+}
+
+const CITATION_TYPE: Record<CitationRecord["kind"], string> = {
+	specification: "TechArticle",
+	"research-note": "ScholarlyArticle",
+	article: "Article",
+	software: "SoftwareSourceCode",
+	dataset: "Dataset",
+	page: "WebPage",
+};
+
+/**
+ * The graph surface of a CitationRecord — the same record the page
+ * prints and the head declares, said in schema.org. Identifiers become
+ * PropertyValues (a DOI is one identifier among several: a commit and
+ * an artifact hash identify the work just as precisely), and nothing
+ * absent from the record is invented here.
+ */
+export function citationLd(rec: CitationRecord): Ld {
+	const authors = rec.authors.map((a) => ({
+		"@type": "Person",
+		name: typeof a === "string" ? a : [a.given, a.family].filter(Boolean).join(" "),
+	}));
+	const identifiers = [
+		...(rec.doi ? [{ "@type": "PropertyValue", propertyID: "DOI", value: rec.doi }] : []),
+		...(rec.identifiers ?? []).map((i) => ({ "@type": "PropertyValue", propertyID: i.label, value: i.value })),
+	];
+	return {
+		"@context": "https://schema.org",
+		"@type": CITATION_TYPE[rec.kind],
+		name: rec.title,
+		headline: rec.title,
+		url: rec.url,
+		mainEntityOfPage: rec.url,
+		author: authors.length === 1 ? authors[0] : authors,
+		datePublished: rec.published,
+		...(rec.revised ? { dateModified: rec.revised } : {}),
+		...(rec.version ? { version: rec.version } : {}),
+		...(rec.abstract ? { description: rec.abstract } : {}),
+		...(rec.about?.length ? { about: rec.about.map((name) => ({ "@type": "Thing", name })) } : {}),
+		...(rec.publisher ? { publisher: { "@type": "Organization", name: rec.publisher } } : {}),
+		...(rec.license ? { license: rec.license } : {}),
+		...(identifiers.length ? { identifier: identifiers } : {}),
+		...(rec.doi ? { sameAs: doiUrl(rec.doi) } : {}),
+		...(rec.partOf
+			? { isPartOf: { "@type": "CreativeWork", name: rec.partOf.title, ...(rec.partOf.url ? { url: rec.partOf.url } : {}) } }
+			: {}),
 	};
 }

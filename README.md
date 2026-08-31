@@ -41,7 +41,8 @@ Connection · Refusal · Excerpt`
 The reader operates them, and every one carries a text fallback so the
 point survives with the interaction removed.
 `Anatomy · Decomposition · ExpertField · Comparison · Variants · Ladder ·
-Agreement · Derivation · ByteMap · FollowReveal · Terminal · Gating`
+Agreement · Derivation · ByteMap · FollowReveal · Terminal · Gating ·
+Provenance · Citation`
 
 (`Inquiry` lives outside `forms/` — a routing primitive over the real
 forms, not a form itself.)
@@ -156,3 +157,57 @@ grammar, carried by the library itself:
 
 The test for all of it: strip the page to text, and it should still
 answer the question it was designed to answer.
+
+## Provenance and citation — publishing as a design-system concern
+
+A design system for AI has to model the objects an AI actually reasons
+over. Buttons and cards are not those objects; claims, evidence,
+sources and provenance are. Citation is where that stops being a thesis
+and becomes machinery, so HAUSE carries it: `cite.ts`, and two forms.
+
+**One record, four surfaces.** A `CitationRecord` — title, authors,
+first-publication date, version, canonical URL, and whatever
+identifiers actually exist — projects onto all four places a
+publication has to exist at once, and can never drift between them:
+
+- **the page** — `Provenance`, one quiet line (published · revised ·
+  version · DOI where there is one) that expands to the full record:
+  the commit, the artifact hash, the archive record, the dated history
+  of how the work came to be said.
+- **the export** — `Citation`, the reference in the formats people
+  paste. Three, not six: BibTeX for LaTeX, APA for prose, CSL-JSON
+  because every reference manager turns it into the other three hundred.
+- **the head** — `citationMeta()` emits `citation_*` tags, which is how
+  Zotero, Scholar and every "add to library" button read a page without
+  being told anything about your site. Spread it into Next's
+  `metadata.other`.
+- **the graph** — `citationLd()` in `seo.ts`, the same record said in
+  schema.org, with identifiers as PropertyValues.
+
+**Two levels, one system.** Everything substantive is *citable by
+default*: stable URL, title, author, first-publication date, version,
+and an export — no registration, no cost, nothing to decide. A work
+that makes a claim worth defending can additionally become a
+*registered publication*: an immutable version plus a registered
+identifier (a DOI, a SWHID, an archive record). The second is a
+deliberate act, not a side effect of publishing, and it changes nothing
+about the first. A DOI is infrastructure, not aesthetics.
+
+**The rules, which are the same rule.** `published` means *first*
+published — a revision sets `revised` and never quietly moves the date,
+because the date is what a priority claim rests on. A substantive
+change is a new version, not a silent edit; the old version stays
+addressable. And an identifier that has not been registered is
+**absent** — no placeholder DOI, no "registration pending" — exactly
+the discipline the manifest applies to an unrecorded origin. The record
+states what is true and stops.
+
+**The register stays the site's.** A citable page is not a paper: it
+looks like whatever it already looked like, and the apparatus sits
+underneath — one quiet evidence-voice line, and a block at the foot for
+anyone who needs the reference. Behaviour of research, without the
+performance of research.
+
+As with everything else here, HAUSE knows nothing about your content:
+the site holds the records, the library holds the forms, the
+formatters and the machine surfaces.
