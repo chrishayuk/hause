@@ -73,16 +73,24 @@ level: a well-made drawer closing, not an app chirping.
 
 ## Using it in a project
 
-This isn't published to a registry — it's consumed as a local path dependency between sibling checkouts:
+This isn't published to a registry. All three consumers install it straight from the repository:
+
+```bash
+npm install github:chrishayuk/hause
+```
 
 ```json
-// package.json
+// package.json — what that writes
 "dependencies": {
-  "@chrishayuk/hause": "file:../hause"
+  "@chrishayuk/hause": "github:chrishayuk/hause"
 }
 ```
 
-Then `npm install`. Because this package ships raw `.tsx`/`.ts` source (no build step), the consuming Next.js app has to compile it itself — add it to `next.config.ts`:
+A sibling checkout (`"file:../hause"`) also works and is convenient while
+changing the library and a consumer together — but the lockfile then
+pins a path rather than a commit, so a deploy that runs `npm ci`
+elsewhere will not find it. Use the GitHub form for anything that ships;
+`npm update @chrishayuk/hause` moves a consumer to the current commit. Because this package ships raw `.tsx`/`.ts` source (no build step), the consuming Next.js app has to compile it itself — add it to `next.config.ts`:
 
 ```ts
 const nextConfig: NextConfig = {
@@ -96,6 +104,12 @@ Pull the tokens into your global stylesheet:
 /* app/globals.css */
 @import "tailwindcss";
 @import "@chrishayuk/hause/tokens.css";
+
+/* Tailwind v4 skips node_modules when scanning for class names, so the
+   utilities used only inside the forms are never generated without this.
+   All three consumers found it the same way: a page that rendered with
+   none of its styles. */
+@source "../../node_modules/@chrishayuk/hause";
 ```
 
 Fonts are the one thing HAUSE doesn't own — each site loads Fraunces / Inter / Geist Mono itself via `next/font/google` in its own `layout.tsx` and applies the resulting CSS variables **on `<html>`**, not `<body>` (see chrishayuk's `DESIGN.md` for exactly why — a CSS custom-property inheritance gotcha, not a style preference).
@@ -110,11 +124,11 @@ import type { Status } from "@chrishayuk/hause/types";
 
 ## Light / Dark
 
-Two authored environments, not a `prefers-color-scheme` inversion — default light, explicit opt-in via `ModeToggle`, `data-mode="dark"` on `<html>` flips the `--bg`/`--fg` tokens. To avoid a flash on load, each consuming site's `layout.tsx` needs a small blocking inline script in `<head>` that reads `localStorage` before paint, plus `suppressHydrationWarning` on `<html>` for the resulting (expected) attribute mismatch. Copy this verbatim rather than reinventing it — see any consuming site's `layout.tsx`:
+Two authored environments, not a `prefers-color-scheme` inversion — **dark is the default**, an editorial choice rather than the OS preference, and a viewer opts into light through `ModeToggle`, which sets `data-mode="light"` on `<html>` and flips the `--bg`/`--fg` tokens. (`tokens.css` is the authority here; this paragraph said the opposite for two days after the default changed, which is the drift the library argues against, found by a reader rather than by a build.) To avoid a flash on load, each consuming site's `layout.tsx` needs a small blocking inline script in `<head>` that reads `localStorage` before paint, plus `suppressHydrationWarning` on `<html>` for the resulting (expected) attribute mismatch. Copy this verbatim rather than reinventing it — see any consuming site's `layout.tsx`:
 
 ```html
 <script dangerouslySetInnerHTML={{ __html:
-  `try{var m=localStorage.getItem('hause-mode');if(m==='dark')document.documentElement.dataset.mode='dark';}catch(e){}`
+  `try{var m=localStorage.getItem('hause-mode');if(m==='light')document.documentElement.dataset.mode='light';}catch(e){}`
 }} />
 ```
 
