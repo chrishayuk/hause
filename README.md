@@ -227,3 +227,39 @@ Every panel stays in the DOM. Depth is disclosure, not content gating —
 which is also why the normative text is legible to a crawler whether or
 not anyone clicked the tab, and why a reader with no JavaScript still
 lands on a complete first depth rather than an empty frame.
+
+## How a form enters the library
+
+Four stages, and the third is the one that does the work.
+
+**DISCOVERED** — a real page exposes an explanatory need. Not a gap in a
+taxonomy, not a component someone would like to have: a chapter that
+cannot be built with what exists.
+
+**BUILT** — one implementation solves that need, in the exhibition that
+raised it. It lives in that site, doing real work, knowing everything
+about the content it carries. Most things stop here, and should.
+
+**REUSED** — a second, genuinely different context needs the same
+semantic act, and gets it *without the abstraction being bent to fit the
+first consumer*. Reuse is evidence, not duplication: a second instance
+on the same page is duplication; a second exhibition with a different
+subject is evidence. The manifest records this as `reusedBy`, measured
+from the consuming sites' real pages — exhibiting a form in a specimen
+book is not using one.
+
+**PROMOTED** — the abstraction has survived reuse, its semantics are
+stable, its text and machine fallback are defined, and its props no
+longer know which exhibition caused it. Only then does HAUSE own it.
+
+The point of the third rung is that promotion stops being a matter of
+taste. The question "why is this a first-class form?" gets answered with
+"because reality asked for it more than once", and the record shows
+where. A form that has served one exhibition has been generalised
+against one kind of content — which is a claim about the author's
+imagination, not about the form.
+
+Two properties by one author is the weakest admissible evidence of
+reuse, and the library says so rather than counting it as proof. The
+test that matters is an exhibition whose content has nothing to do with
+the one the form was born in.
