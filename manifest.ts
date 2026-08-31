@@ -25,6 +25,14 @@ export type FormRecord = {
 	line: string;
 	/** Where the form originated — only where the history records it. */
 	origin?: string;
+	/**
+	 * What could not be built without it. Birthplace explains where a form
+	 * came from; this explains why it exists at all, which is the claim the
+	 * library actually makes. Stated only where the form's own doc comment
+	 * or the commit that added it says so — never reconstructed from
+	 * memory to make the record look complete.
+	 */
+	because?: string;
 	/** When it entered the library — only where the history records it. */
 	date?: string;
 	/** False while the book holds the form without exhibiting a specimen. */
@@ -41,26 +49,26 @@ export const FORM_MANIFEST: FormRecord[] = [
 	{ name: "Question", mode: "statement", line: "An open question given the same typographic dignity as an answer.", exhibited: true },
 	{ name: "Timeline", mode: "statement", line: "Dated entries, in order — history as prose, not a widget.", exhibited: true },
 	{ name: "Connection", mode: "statement", line: "A bridge out of the chapter: one sentence, then the doors.", exhibited: true },
-	{ name: "Refusal", mode: "statement", line: "Fail-closed rendered as design language, not as an error state.", origin: "vindex3", exhibited: true },
-	{ name: "Excerpt", mode: "statement", line: "Someone else's words, typeset — verbatim source material with its markdown rendered and its trims marked.", origin: "vindex3 · Ask", date: "2026-08-29", exhibited: true },
-	{ name: "Answer", mode: "statement", line: "The question asked the way people ask it, answered first — one lift-able paragraph beneath the editorial surface, addressable by anchor.", origin: "vindex3 · the legibility layer", date: "2026-08-30", exhibited: true },
-	{ name: "Snippet", mode: "statement", line: "A labeled block of code or terminal output, verbatim on the ink — the on-ramp form, promoted when two sites needed the same shape.", origin: "hause.design · Use", date: "2026-08-30", exhibited: true },
+	{ name: "Refusal", mode: "statement", line: "Fail-closed rendered as design language, not as an error state.", origin: "vindex3", because: "vindex3 needed fail-closed to arrive as design language rather than as an error state — a system whose personality is that it refuses rather than guesses.", exhibited: true },
+	{ name: "Excerpt", mode: "statement", line: "Someone else's words, typeset — verbatim source material with its markdown rendered and its trims marked.", origin: "vindex3 · Ask", date: "2026-08-29", because: "Ask VINDEX3 had to show the specification's own passages verbatim, with their markdown rendered and their trims marked honestly.", exhibited: true },
+	{ name: "Answer", mode: "statement", line: "The question asked the way people ask it, answered first — one lift-able paragraph beneath the editorial surface, addressable by anchor.", origin: "vindex3 · the legibility layer", date: "2026-08-30", because: "The legibility layer needed a question a machine could lift whole, sitting beneath the editorial surface without touching it.", exhibited: true },
+	{ name: "Snippet", mode: "statement", line: "A labeled block of code or terminal output, verbatim on the ink — the on-ramp form, promoted when two sites needed the same shape.", origin: "hause.design · Use", date: "2026-08-30", because: "hause.design's Use page invented the shape and vindex3's Get Started needed the same one — two sites doing one thing differently is what a design system exists to stop.", exhibited: true },
 	// ── Instruments — the reader operates ──
 	{ name: "Anatomy", mode: "instrument", line: "An annotated cutaway — one artifact drawn as its layers, fully disclosed.", exhibited: true },
 	{ name: "Decomposition", mode: "instrument", line: "One object, its parts, the thing that assembles them — stepped by hand.", exhibited: true },
 	{ name: "ExpertField", mode: "instrument", line: "A field of units, mostly dormant; each scenario lights the subset that answers.", origin: "the codex", exhibited: true },
 	{ name: "Comparison", mode: "instrument", line: "One object, two interpretations, dragged between.", origin: "the codex", exhibited: true },
-	{ name: "Variants", mode: "instrument", line: "Physically present variants of one identity — and a designed refusal for the absent one.", origin: "vindex3", exhibited: true },
-	{ name: "Ladder", mode: "instrument", line: "A gated progression — rungs climbed in order, each closed only by its own criterion.", origin: "vindex3", exhibited: true },
+	{ name: "Variants", mode: "instrument", line: "Physically present variants of one identity — and a designed refusal for the absent one.", origin: "vindex3", because: "vindex3 had to show physically present variants of one identity, and a designed refusal for the absent one.", exhibited: true },
+	{ name: "Ladder", mode: "instrument", line: "A gated progression — rungs climbed in order, each closed only by its own criterion.", origin: "vindex3", because: "The Record needed a gated progression whose rungs close only by their own criterion, never by narrative.", exhibited: true },
 	{ name: "Agreement", mode: "instrument", line: "N independently-derived values that must be identical — with a FAIL row.", exhibited: true },
 	{ name: "Derivation", mode: "instrument", line: "A value folded down a graded scale by caps — derived, never asserted.", exhibited: true },
 	{ name: "ByteMap", mode: "instrument", line: "A physical layout drawn to scale — each field's width is its width in bytes.", exhibited: true },
 	{ name: "FollowReveal", mode: "instrument", line: "A path through connected ideas, replayed at the hause stagger.", exhibited: true },
-	{ name: "Terminal", mode: "instrument", line: "A query surface whose chrome is the form and whose meaning is one executor.", origin: "vindex3 · the Explorer", date: "2026-08-29", exhibited: true },
-	{ name: "Gating", mode: "instrument", line: "A stream widened into a working space, judged channel by channel, brought back home.", origin: "vindex3 · the Anatomy", date: "2026-08-29", exhibited: true },
-	{ name: "Provenance", mode: "instrument", line: "The publication record beneath the page — dates, version, identifiers, history — disclosed on demand, absent where nothing is registered.", origin: "vindex3 · citing the specification", date: "2026-08-31", exhibited: true },
-	{ name: "Lens", mode: "instrument", line: "One concept at several depths — the explanation, the object, the clause — on one URL, with the reader's depth remembered.", origin: "vindex3 · representation", date: "2026-08-31", exhibited: true },
-	{ name: "Citation", mode: "instrument", line: "The reference itself, in the formats people paste — plain, BibTeX, APA, CSL-JSON, all from one record.", origin: "vindex3 · citing the specification", date: "2026-08-31", exhibited: true },
+	{ name: "Terminal", mode: "instrument", line: "A query surface whose chrome is the form and whose meaning is one executor.", origin: "vindex3 · the Explorer", date: "2026-08-29", because: "vindex3's Explorer needed a query surface — psql, for a model — fronting a live endpoint rather than a recording of one.", exhibited: true },
+	{ name: "Gating", mode: "instrument", line: "A stream widened into a working space, judged channel by channel, brought back home.", origin: "vindex3 · the Anatomy", date: "2026-08-29", because: "The Anatomy chapter had to show a feed-forward network widen, judge channel by channel, and come back home.", exhibited: true },
+	{ name: "Provenance", mode: "instrument", line: "The publication record beneath the page — dates, version, identifiers, history — disclosed on demand, absent where nothing is registered.", origin: "vindex3 · citing the specification", date: "2026-08-31", because: "The specification's chapters needed the publication record beneath them — dates, version, identifiers, history.", exhibited: true },
+	{ name: "Lens", mode: "instrument", line: "One concept at several depths — the explanation, the object, the clause — on one URL, with the reader's depth remembered.", origin: "vindex3 · representation", date: "2026-08-31", because: "The representation chapter had to hold the explanation, the live object and the ABI clause at one address.", exhibited: true },
+	{ name: "Citation", mode: "instrument", line: "The reference itself, in the formats people paste — plain, BibTeX, APA, CSL-JSON, all from one record.", origin: "vindex3 · citing the specification", date: "2026-08-31", because: "The specification had to be citable: the reference itself, in the formats people paste.", exhibited: true },
 	// ── Performances — the forms play themselves ──
 	{ name: "Transformation", mode: "performance", line: "Comparison's cinematic sibling — identical props, performed.", origin: "vindex3", exhibited: true },
 	{ name: "Unfolding", mode: "performance", line: "Decomposition's cinematic sibling — the parts arrive on their own.", origin: "vindex3", exhibited: true },
