@@ -1,22 +1,43 @@
 # HAUSE
 
-A cinematic visual language for ideas, systems and explanations — not a component library, not brand guidelines. Extracted from [chrishayuk](https://github.com/chrishayuk/chrishayuk) once a second consumer (vindex3.org) made copy-pasting the design system across repos the wrong move.
+<!-- generated:description -->
+HAUSE is a semantic design system for AI interfaces: a vocabulary of communicative acts and the visual forms that render them. It ships as React/TSX, tokens and machine-readable helpers, but it is not a general-purpose component kit.
+<!-- /generated -->
 
-Read `tokens.css` and the files under `components/` before this README — they're the source of truth. This file just explains how a project wires HAUSE in.
+Extracted from [chrishayuk](https://github.com/chrishayuk/chrishayuk) once a second consumer (vindex3.org) made copy-pasting the design system across repos the wrong move. The specimen book at [hause.design](https://hause.design) is the library exhibited in itself.
+
+Read `tokens.css`, `manifest.ts` and the files under `components/` before this README — they're the source of truth. This file explains how a project wires HAUSE in; the parts of it that list the library are written from `manifest.ts` by `scripts/readme.ts`, not by hand.
 
 ## What's in here
 
 ```
 tokens.css     palette, three type voices (editorial/system/evidence), 12-col grid,
                motion tokens, Light/Dark, status marks, reveal/pulse animations
-types.ts       Status ("OPEN" | "ONGOING" | "SUPPORTED" | "REFUTED" | "SUPERSEDED")
+types.ts       Status ("OPEN" | "ONGOING" | "SUPPORTED" | "REFUTED" | "SUPERSEDED"),
+               and STATUSES — the same vocabulary as a value
+manifest.ts    the one index: every form with its mode, one-line record, recorded
+               origin and reuse — and HAUSE_LINE, the library's own description
+seo.ts         JSON-LD builders — WebSite, TechArticle, BreadcrumbList, DefinedTerm,
+               SoftwareApplication, QAPage, and citationLd for the graph
+cite.ts        CitationRecord, the formatters (plain, BibTeX, APA, CSL-JSON) and
+               citationMeta() for the head
+sound.ts       the synthesized palette — tick, swap, settle, refuse
+figure.ts      the figure hand — hatch, reducedMotion, useInView
+scripts/
+  readme.ts           writes this file's lists and package.json's description
+                       from the manifest; --check fails when they drift
 components/
   Reveal.tsx          scroll-triggered reveal wrapper
   StatusMark.tsx       word + dot status indicator
   GridOverlay.tsx      "SHOW STRUCTURE" 12-column overlay
   PaceDemo.tsx         Immediate / Considered / Cinematic motion demo
   ModeToggle.tsx       LIGHT / DARK control
+  SoundToggle.tsx      the tactile voice's opt-in — off by default, always
   Inquiry.tsx          "Ask the Codex"-style query -> real-form primitive
+  JsonLd.tsx           one JSON-LD block — the same fact, said for machines
+  NavShell.tsx         the header at every width: a curated row, a full panel
+  SiteFooter.tsx       the complete index at the foot of every page
+  Analytics.tsx        measurement wired once, decided per site
   forms/               the chapter primitives — all in one flat directory,
                         because the import path is the public API and it does
                         not move. The taxonomy below is documentation, not
@@ -29,20 +50,31 @@ Every form under `forms/` is one of three kinds. The split was not designed
 up front — it emerged from real chapters (the vindex3.org build), which is
 the only way HAUSE accepts structure. The canonical index is
 [`manifest.ts`](manifest.ts) — every consumer that counts or lists the
-forms derives from it, so the lists below are prose, and the manifest is
-the evidence.
+forms derives from it, and so do the lists below: `scripts/readme.ts`
+writes them, and the specimen book's test suite fails when they and the
+manifest disagree.
+
+<!-- generated:count -->
+35 forms: 12 statements · 15 instruments · 8 performances.
+<!-- /generated -->
 
 **Statements** — prose forms in the three voices; server-renderable, no
 interaction. The reader reads.
-`Hero · Statement · Observation · Claim · Evidence · Question · Timeline ·
-Connection · Refusal · Excerpt`
+
+<!-- generated:forms:statement -->
+`Hero · Statement · Observation · Claim · Evidence · Question ·
+Timeline · Connection · Refusal · Excerpt · Answer · Snippet`
+<!-- /generated -->
 
 **Instruments** — interactive forms; understanding through manipulation.
 The reader operates them, and every one carries a text fallback so the
 point survives with the interaction removed.
-`Anatomy · Decomposition · ExpertField · Comparison · Variants · Ladder ·
-Agreement · Derivation · ByteMap · FollowReveal · Terminal · Gating ·
-Provenance · Citation · Lens`
+
+<!-- generated:forms:instrument -->
+`Anatomy · Decomposition · ExpertField · Comparison · Variants ·
+Ladder · Agreement · Derivation · ByteMap · FollowReveal · Terminal ·
+Gating · Provenance · Lens · Citation`
+<!-- /generated -->
 
 (`Inquiry` lives outside `forms/` — a routing primitive over the real
 forms, not a form itself.)
@@ -52,8 +84,12 @@ designed resting state (which is what reduced-motion and no-JS get), REPLAY
 where the piece runs once, a gentle in-view loop where a scrolling reader
 must never find it finished. Never a crossfade between two physical forms
 of one thing — staged swaps only.
-`Film · Transformation · Unfolding · Compilation · Procession · Magnitude ·
-Channel · Quantisation`
+
+<!-- generated:forms:performance -->
+`Transformation · Unfolding · Compilation · Procession · Magnitude ·
+Channel · Quantisation · Film`
+(Film: held, not yet exhibited — the book refuses to fake a specimen.)
+<!-- /generated -->
 
 Three motion idioms, one per mode boundary: the one-shot `Reveal`, the
 staged swap (`.swap-in`), and the in-view loop (pause off-screen, rest
@@ -73,7 +109,7 @@ level: a well-made drawer closing, not an app chirping.
 
 ## Using it in a project
 
-This isn't published to a registry. All three consumers install it straight from the repository:
+This isn't published to a registry. Both external consumers, and the specimen book, install it straight from the repository:
 
 ```bash
 npm install github:chrishayuk/hause
@@ -107,8 +143,8 @@ Pull the tokens into your global stylesheet:
 
 /* Tailwind v4 skips node_modules when scanning for class names, so the
    utilities used only inside the forms are never generated without this.
-   All three consumers found it the same way: a page that rendered with
-   none of its styles. */
+   Every consumer found it the same way: a page that rendered with none
+   of its styles. */
 @source "../../node_modules/@chrishayuk/hause";
 ```
 

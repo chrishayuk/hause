@@ -3,7 +3,8 @@
  *
  * Everything that counts the forms derives from this file: the
  * specimen book's holdings page, its homepage refusal, the Terminal
- * specimen's SHOW FORMS, the README's mode lists. Copy that states a
+ * specimen's SHOW FORMS, the README's mode lists (written by
+ * scripts/readme.ts, checked by the book's test suite). Copy that states a
  * count without reading this file is editorial where evidence was
  * owed — exactly the drift the Agreement form exists to catch.
  *
@@ -20,6 +21,27 @@
  * - A form enters this manifest in the same change that adds its file
  *   under components/forms/ — or the book drifts from the library.
  */
+
+/**
+ * WHAT HAUSE IS — one record, every surface.
+ *
+ * The README's first paragraph, package.json's description, the book's
+ * <meta> description, its footer and its citation abstract all project
+ * from these two sentences, the way a CitationRecord projects onto the
+ * page, the export, the head and the graph. On 2026-09-03 four
+ * self-descriptions were in circulation and disagreed; a description
+ * that lives in one place cannot.
+ */
+export const HAUSE_LINE =
+	"HAUSE is a semantic design system for AI interfaces: a vocabulary of communicative acts and the visual forms that render them.";
+
+export const HAUSE_BOUNDARY =
+	"It ships as React/TSX, tokens and machine-readable helpers, but it is not a general-purpose component kit.";
+
+/** Both sentences, for the surfaces with room for the boundary. */
+export function hauseDescription(): string {
+	return `${HAUSE_LINE} ${HAUSE_BOUNDARY}`;
+}
 
 export type FormMode = "statement" | "instrument" | "performance";
 
