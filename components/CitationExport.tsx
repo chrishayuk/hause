@@ -1,0 +1,7 @@
+"use client";
+import "../citation-export.css";
+import { useState } from "react";
+export function CitationExport({ formats, id, heading = "CITE THIS RECORD", context }: { formats: { id: string; label: string; text: string }[]; id: string; heading?: string; context?: string }) {
+ const [active,setActive] = useState(0); const [message,setMessage] = useState(""); const current = formats[active];
+ return <section className="reference-section" id="cite"><h2>{heading}</h2>{context && <p className="reference-context">{context}</p>}<div className="reference-tabs">{formats.map((f,i) => <button key={f.id} aria-pressed={active===i} onClick={() => {setActive(i);setMessage("");}}>{f.label}</button>)}</div><pre className="reference-output">{current.text}</pre><div className="reference-actions"><button onClick={async () => {try {await navigator.clipboard.writeText(current.text);setMessage("Reference copied.");} catch {setMessage("Select the reference above to copy it.");}}}>COPY REFERENCE</button><a download={`${id}.${(current.id === "csl-json" || current.id === "csl") ? "json" : current.id === "bibtex" ? "bib" : "txt"}`} href={`data:text/plain;charset=utf-8,${encodeURIComponent(current.text)}`}>DOWNLOAD</a><span role="status">{message}</span></div><noscript><details><summary>All reference formats</summary>{formats.slice(1).map(f => <div key={f.id}><h3>{f.label}</h3><pre className="reference-output">{f.text}</pre></div>)}</details></noscript></section>;
+}

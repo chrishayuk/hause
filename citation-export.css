@@ -1,0 +1,13 @@
+@layer hause-components {
+/* Baseline reading forms. Exhibitions may author spacing and type around these. */
+.reference-section{border-top:1px solid currentColor;padding-block:2rem}
+.reference-tabs,.reference-actions{display:flex;flex-wrap:wrap;gap:1.25rem;margin-block:1rem}
+.reference-tabs button,.reference-actions button,.reference-actions a{min-height:44px;background:transparent;color:inherit;cursor:pointer}
+.reference-tabs button[aria-pressed=true]{text-decoration:underline;text-underline-offset:.4em}
+.reference-output{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;font-family:monospace;line-height:1.8}
+.film-chapters>button{display:grid;grid-template-columns:5rem 1fr auto;gap:1rem;width:100%;text-align:left;min-height:44px;color:inherit;background:transparent;cursor:pointer}
+.film-transcript summary{cursor:pointer;min-height:44px;padding-block:1rem}
+.transcript-passage{display:grid;grid-template-columns:5rem 1fr auto;gap:1rem;padding-block:1rem}
+@media(max-width:600px){.transcript-passage{grid-template-columns:4rem 1fr}.transcript-passage>a{grid-column:2}}
+
+}

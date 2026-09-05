@@ -1,0 +1,7 @@
+@layer hause-components {
+.hause-film{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;color:#fff}
+.hause-film>iframe,.hause-film>img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;border:0}
+.hause-film-enter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1rem;background:#0003;color:inherit;border:0;cursor:pointer;min-height:44px}
+.hause-film-enter:focus-visible{outline:2px solid currentColor;outline-offset:-5px}
+
+}

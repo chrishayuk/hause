@@ -343,3 +343,31 @@ This sits beside the other rule the same programme produced: a recurring
 visual need earns a form, a one-page visual need earns an
 implementation. Both are the same instinct — do not promote scaffolding,
 and do not leave a real thing as scaffolding either.
+
+## Film and publication capabilities
+
+The CHRISHAYUK publication contributed shared film infrastructure on 5 September
+2026. These extend existing acts and their publication surfaces; they do not
+increase the semantic form count. The originating publication is the current
+consumer. The specimen book demonstrates the contracts, not independent evidence
+of reuse in a second publication.
+
+- `Motion.tsx` provides `MotionProvider` / `useMotion`; `motion.ts` decides which
+  visible media source owns playback. Reduced motion, data saving, global pause,
+  page visibility and modal suspension are coordinated.
+- `YouTubeFilm.tsx` is a poster-first, explicitly activated external screening.
+  `film.css` supplies its neutral baseline; the publication supplies art direction.
+- `FilmChapters.tsx` and `TimedTranscript.tsx` navigate source timestamps and retain
+  caption provenance. Text is readable without activating a player.
+- `CitationExport.tsx` accepts the formats produced by `cite.ts`, with download,
+  copy feedback and a no-JS disclosure. `citation-export.css` supplies reading
+  defaults in an overridable cascade layer.
+- `mode.ts` supplies `modeScript`, paired with `ModeToggle.tsx` for an authored
+  light or dark default and a persisted viewer choice applied before paint.
+- `cite.ts` also covers films, images, literal corporate authors and unknown
+  publication dates; `seo.ts` supplies `publicationMetadata` and `videoObjectLd`
+  from the same source records. A retrieval date is never a publication date.
+
+See [PUBLICATION.md](PUBLICATION.md) for contracts, examples and limits, and the
+[live specimen](https://hause.design/publication). Raw TypeScript consumers using
+`noEmit` should enable `allowImportingTsExtensions` for source-module imports.

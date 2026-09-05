@@ -10,11 +10,11 @@ import { useEffect, useState } from "react";
  * control still reads as hause voice, not app chrome — the bulb lit
  * (rays) in light, at rest in dark.
  */
-export function ModeToggle() {
+export function ModeToggle({ defaultMode = "dark" }: { defaultMode?: "light" | "dark" } = {}) {
 	// Server-rendered default is always dark; the blocking script in layout.tsx
 	// sets the real attribute before paint, and this syncs to it after hydration
 	// (a one-frame glyph flicker at worst, never a page-color flash).
-	const [mode, setMode] = useState<"light" | "dark">("dark");
+	const [mode, setMode] = useState<"light" | "dark">(defaultMode);
 
 	useEffect(() => {
 		setMode(document.documentElement.dataset.mode === "light" ? "light" : "dark");
@@ -40,7 +40,7 @@ export function ModeToggle() {
 			aria-pressed={light}
 			title={light ? "Light" : "Dark"}
 			className="transition-opacity hover:opacity-100"
-			style={{ opacity: light ? 0.9 : 0.45, lineHeight: 0 }}
+			style={{ minWidth: 44, minHeight: 44, display: "inline-grid", placeItems: "center", lineHeight: 0 }}
 		>
 			<svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" strokeWidth="1.1" aria-hidden="true">
 				<path d="M8.5 3.2a3.9 3.9 0 0 1 2.2 7.1c-.5.4-.7.9-.7 1.4h-3c0-.5-.2-1-.7-1.4A3.9 3.9 0 0 1 8.5 3.2z" strokeLinejoin="round" />

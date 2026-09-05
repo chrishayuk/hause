@@ -27,21 +27,23 @@
  */
 
 /** "Chris Hay", or the split form where the automatic split would be wrong. */
-export type Author = string | { family: string; given?: string };
+export type Author = string | { family: string; given?: string } | { literal: string };
 
 /**
  * What kind of published object this is. Drives the reference shape,
  * the BibTeX entry type, the CSL type and the schema.org @type — one
  * declaration rather than four.
  */
-export type CitationKind = "specification" | "research-note" | "article" | "software" | "dataset" | "page";
+export type CitationKind = "specification" | "research-note" | "article" | "software" | "dataset" | "page" | "film" | "image";
 
 export type CitationRecord = {
 	/** The title as it should appear in a bibliography. */
 	title: string;
+	/** Stable identifier, when supplied by the record graph. */
+	id?: string;
 	authors: Author[];
-	/** ISO date of FIRST publication (YYYY-MM-DD). Never "last modified". */
-	published: string;
+	/** ISO date of FIRST publication (YYYY-MM-DD). Omit when unknown; never substitute retrieval. */
+	published?: string;
 	/** ISO date of the revision on view, where the work has been revised. */
 	revised?: string;
 	/** The version of the work itself — "3.0 Candidate", "1.0", "0.5.0". */
@@ -75,12 +77,13 @@ export type CitationRecord = {
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const MONTHS_SHORT = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
-const parts = (iso: string) => {
+const parts = (iso?: string) => {
+	if (!iso) return { y: undefined, m: 1, d: 1, hasDay: false, hasMonth: false };
 	const [y, m, d] = iso.split("-").map((n) => parseInt(n, 10));
 	return { y, m: m || 1, d: d || 1, hasDay: iso.length >= 10, hasMonth: iso.length >= 7 };
 };
 
-export function year(iso: string): number {
+export function year(iso?: string): number | undefined {
 	return parts(iso).y;
 }
 
@@ -106,7 +109,7 @@ export function longDate(iso: string): string {
  * object form exists. Pass it rather than fighting the heuristic.
  */
 export function nameParts(a: Author): { family: string; given?: string } {
-	if (typeof a !== "string") return a;
+	if (typeof a !== "string") return "literal" in a ? { family: a.literal } : a;
 	const t = a.trim().split(/\s+/);
 	if (t.length === 1) return { family: t[0] };
 	return { family: t[t.length - 1], given: t.slice(0, -1).join(" ") };
@@ -133,11 +136,14 @@ export function authorsApa(authors: Author[]): string {
 }
 
 /** BibTeX's "Family, Given and Family, Given". */
+const tex = (s: string) => s.replace(/[\\{}%&#_$]/g, c => c === "\\" ? "\\textbackslash{}" : `\\${c}`);
+
 export function authorsBibtex(authors: Author[]): string {
 	return authors
 		.map((a) => {
+			if (typeof a !== "string" && "literal" in a) return `{${tex(a.literal)}}`;
 			const { family, given } = nameParts(a);
-			return given ? `${family}, ${given}` : family;
+			return given ? `${tex(family)}, ${tex(given)}` : tex(family);
 		})
 		.join(" and ");
 }
@@ -151,8 +157,9 @@ const slugWord = (title: string) =>
 
 /** "hay2026vindex3" — deterministic, so a re-export never changes a bibliography. */
 export function citationKey(rec: CitationRecord): string {
+	if (rec.id) return rec.id;
 	const { family } = nameParts(rec.authors[0] ?? "anon");
-	return `${family.toLowerCase().replace(/[^a-z0-9]/g, "")}${year(rec.published)}${slugWord(rec.title)}`;
+	return `${family.toLowerCase().replace(/[^a-z0-9]/g, "")}${year(rec.published) ?? "n.d."}${slugWord(rec.title)}`;
 }
 
 export function doiUrl(doi: string): string {
@@ -166,6 +173,8 @@ const KIND_LABEL: Record<CitationKind, string> = {
 	software: "Software",
 	dataset: "Dataset",
 	page: "Web page",
+	film: "Video",
+	image: "Photograph",
 };
 
 export function kindLabel(kind: CitationKind): string {
@@ -179,7 +188,7 @@ export function kindLabel(kind: CitationKind): string {
  */
 export function plainCitation(rec: CitationRecord): string {
 	const bits = [
-		`${authorsApa(rec.authors)} (${year(rec.published)}).`,
+		`${authorsApa(rec.authors)} (${year(rec.published) ?? "n.d."}).`,
 		`${rec.title}${rec.version && !rec.partOf ? ` (Version ${rec.version})` : ""}.`,
 		partOfPhrase(rec),
 		rec.publisher ? `${rec.publisher}.` : "",
@@ -198,7 +207,7 @@ function partOfPhrase(rec: CitationRecord): string {
 /** APA 7, the shape a web-published object actually takes. */
 export function apaCitation(rec: CitationRecord): string {
 	const p = parts(rec.published);
-	const date = p.hasDay ? `${p.y}, ${MONTHS[p.m - 1]} ${p.d}` : p.hasMonth ? `${p.y}, ${MONTHS[p.m - 1]}` : `${p.y}`;
+	const date = !rec.published ? "n.d." : p.hasDay ? `${p.y}, ${MONTHS[p.m - 1]} ${p.d}` : p.hasMonth ? `${p.y}, ${MONTHS[p.m - 1]}` : `${p.y}`;
 	const bits = [
 		`${authorsApa(rec.authors)} (${date}).`,
 		`${rec.title}${rec.version && !rec.partOf ? ` (Version ${rec.version})` : ""} [${KIND_LABEL[rec.kind]}].`,
@@ -216,6 +225,8 @@ const BIBTEX_TYPE: Record<CitationKind, string> = {
 	software: "misc",
 	dataset: "misc",
 	page: "misc",
+	film: "misc",
+	image: "misc",
 };
 
 /** Double-braced title: "VINDEX3" keeps its capitals through any style. */
@@ -225,16 +236,16 @@ export function bibtex(rec: CitationRecord): string {
 	const report = type === "techreport";
 	const fields: [string, string | undefined][] = [
 		["author", authorsBibtex(rec.authors)],
-		["title", `{${rec.title}}`],
-		[report ? "institution" : "howpublished", rec.publisher],
+		["title", `{${tex(rec.title)}}`],
+		[report ? "institution" : "howpublished", rec.publisher ? tex(rec.publisher) : undefined],
 		[report ? "type" : "note", KIND_LABEL[rec.kind]],
 		["version", rec.version],
-		["year", String(p.y)],
+		["year", p.y ? String(p.y) : undefined],
 		["month", p.hasMonth ? MONTHS_SHORT[p.m - 1] : undefined],
 		["series", rec.partOf ? `${rec.partOf.title}${rec.partOf.version ? ` ${rec.partOf.version}` : ""}` : undefined],
 		["url", rec.url],
 		["doi", rec.doi],
-		["urldate", rec.revised ?? rec.published],
+		// Publication and revision dates are not access dates.
 	];
 	const body = fields
 		.filter(([, v]) => v)
@@ -250,6 +261,8 @@ const CSL_TYPE: Record<CitationKind, string> = {
 	software: "software",
 	dataset: "dataset",
 	page: "webpage",
+	film: "motion_picture",
+	image: "graphic",
 };
 
 /** CSL-JSON — the one every reference manager reads, and the reason there are only three formats. */
@@ -261,10 +274,11 @@ export function cslJson(rec: CitationRecord): string {
 		type: CSL_TYPE[rec.kind],
 		title: rec.title,
 		author: rec.authors.map((a) => {
+			if (typeof a !== "string" && "literal" in a) return { literal: a.literal };
 			const { family, given } = nameParts(a);
 			return given ? { family, given } : { family };
 		}),
-		issued: { "date-parts": [issued] },
+		...(rec.published ? { issued: { "date-parts": [issued] } } : {}),
 		URL: rec.url,
 		...(rec.publisher ? { publisher: rec.publisher } : {}),
 		...(rec.version ? { version: rec.version } : {}),
@@ -308,7 +322,7 @@ export function citationMeta(rec: CitationRecord): Record<string, string | strin
 			const { family, given } = nameParts(a);
 			return given ? `${given} ${family}` : family;
 		}),
-		citation_publication_date: scholarDate,
+		...(rec.published ? { citation_publication_date: scholarDate } : {}),
 		citation_public_url: rec.url,
 		citation_language: "en",
 	};

@@ -43,7 +43,7 @@ export function Provenance({ record, history, citeHref, id }: ProvenanceProps) {
 	const ids = record.identifiers ?? [];
 
 	const line = [
-		`PUBLISHED ${displayDate(record.published)}`,
+		record.published ? `PUBLISHED ${displayDate(record.published)}` : "PUBLICATION DATE UNKNOWN",
 		record.revised ? `REVISED ${displayDate(record.revised)}` : "",
 		record.version ? `VERSION ${record.version}` : "",
 	].filter(Boolean);
@@ -92,7 +92,7 @@ export function Provenance({ record, history, citeHref, id }: ProvenanceProps) {
 				{open && (
 					<div className="graph-pulse mt-4 max-w-3xl">
 						<Row label="title">{record.title}</Row>
-						<Row label="authors">{record.authors.map((a) => (typeof a === "string" ? a : [a.given, a.family].filter(Boolean).join(" "))).join(" · ")}</Row>
+						<Row label="authors">{record.authors.map((a) => (typeof a === "string" ? a : "literal" in a ? a.literal : [a.given, a.family].filter(Boolean).join(" "))).join(" · ")}</Row>
 						<Row label="canonical">
 							<a href={record.url} className="underline underline-offset-2">
 								{record.url}

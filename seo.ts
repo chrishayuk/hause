@@ -11,7 +11,7 @@
  * Render with the JsonLd component from components/JsonLd.
  */
 
-import { doiUrl, type CitationRecord } from "./cite";
+import { citationMeta, doiUrl, type CitationRecord } from "./cite.ts";
 
 type Ld = Record<string, unknown>;
 
@@ -123,6 +123,8 @@ const CITATION_TYPE: Record<CitationRecord["kind"], string> = {
 	software: "SoftwareSourceCode",
 	dataset: "Dataset",
 	page: "WebPage",
+	film: "VideoObject",
+	image: "ImageObject",
 };
 
 /**
@@ -134,8 +136,8 @@ const CITATION_TYPE: Record<CitationRecord["kind"], string> = {
  */
 export function citationLd(rec: CitationRecord): Ld {
 	const authors = rec.authors.map((a) => ({
-		"@type": "Person",
-		name: typeof a === "string" ? a : [a.given, a.family].filter(Boolean).join(" "),
+		"@type": typeof a !== "string" && "literal" in a ? "Organization" : "Person",
+		name: typeof a === "string" ? a : "literal" in a ? a.literal : [a.given, a.family].filter(Boolean).join(" "),
 	}));
 	const identifiers = [
 		...(rec.doi ? [{ "@type": "PropertyValue", propertyID: "DOI", value: rec.doi }] : []),
@@ -149,7 +151,7 @@ export function citationLd(rec: CitationRecord): Ld {
 		url: rec.url,
 		mainEntityOfPage: rec.url,
 		author: authors.length === 1 ? authors[0] : authors,
-		datePublished: rec.published,
+		...(rec.published ? { datePublished: rec.published } : {}),
 		...(rec.revised ? { dateModified: rec.revised } : {}),
 		...(rec.version ? { version: rec.version } : {}),
 		...(rec.abstract ? { description: rec.abstract } : {}),
@@ -162,4 +164,36 @@ export function citationLd(rec: CitationRecord): Ld {
 			? { isPartOf: { "@type": "CreativeWork", name: rec.partOf.title, ...(rec.partOf.url ? { url: rec.partOf.url } : {}) } }
 			: {}),
 	};
+}
+
+/** A film's original publication and its local catalogue page are distinct URLs.
+ * Supply only facts from the media record; missing dates stay absent.
+ */
+export function videoObjectLd(o: {
+ citation: CitationRecord; pageUrl: string; thumbnailUrl: string; embedUrl: string;
+ durationSeconds?: number | null; uploadDate?: string; participants?: string[];
+}): Ld {
+ const base = citationLd(o.citation);
+ return { ...base, "@type": "VideoObject", "@id": `${o.pageUrl}#film`,
+  url: o.pageUrl, mainEntityOfPage: o.pageUrl, sameAs: o.citation.url,
+  creator: base.author, thumbnailUrl: o.thumbnailUrl, embedUrl: o.embedUrl,
+  ...(o.uploadDate || o.citation.published ? { uploadDate: o.uploadDate || o.citation.published } : {}),
+  ...(o.durationSeconds && o.durationSeconds > 0 ? { duration: `PT${o.durationSeconds}S` } : {}),
+  ...(o.participants?.length ? { actor: o.participants.map(name => ({ "@type": "Person", name })) } : {}),
+ };
+}
+
+/** Framework-neutral head values. The site supplies facts and the indexing policy. */
+export function publicationMetadata(o: {
+ title: string; description: string; url: string; siteName: string;
+ image?: string; indexable?: boolean; citation?: CitationRecord;
+}) {
+ return { title: o.title, description: o.description,
+  alternates: { canonical: o.url }, robots: { index: o.indexable === true, follow: o.indexable === true },
+  openGraph: { type: "website" as const, title: o.title, description: o.description, url: o.url,
+   siteName: o.siteName, ...(o.image ? { images: [{ url: o.image, alt: o.title }] } : {}) },
+  twitter: { card: "summary_large_image" as const, title: o.title, description: o.description,
+   ...(o.image ? { images: [o.image] } : {}) },
+  ...(o.citation ? { other: citationMeta(o.citation) } : {}),
+ };
 }
