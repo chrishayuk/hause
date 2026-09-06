@@ -13,3 +13,15 @@ Contributed from the CHRISHAYUK publication. Editorial layouts remain in the con
 The new reading/player CSS is in a low-priority `hause-components` cascade layer, so exhibitions can supply art direction. Existing Film and Citation forms keep their established behaviour; adopting the shared motion coordinator is opt-in.
 
 Run portable metadata/citation/theme checks with `node --experimental-strip-types --test tests/publication.test.ts`. The public date on a locally published research record is still required by its publication workflow even though a catalogued external work can have an unknown date.
+
+## Recorded evidence
+
+Contributed from ADDRESS-BUILD-1 in the CHRISHAYUK notebook, 7 September 2026.
+`components/EvidenceTable` renders semantic tables with column units/precision,
+explicit baseline rows, sample-count columns, source references and distinguishable
+not-measured/not-applicable cells. `components/MeasurementTrace` renders measured
+tracks across discrete stages, with authored domains, baselines, caution bands,
+annotations and pause/play/replay via MotionProvider. Every value and caution is
+server-rendered; animation only changes emphasis. Data and interpretation remain
+in the publication. These are capabilities, not additions to the form count.
+See [EVIDENCE.md](EVIDENCE.md) for contracts, examples and extraction status.

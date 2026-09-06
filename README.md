@@ -29,6 +29,8 @@ scripts/
 components/
   Reveal.tsx          scroll-triggered reveal wrapper
   StatusMark.tsx       word + dot status indicator
+  EvidenceTable.tsx    recorded values, units, baselines and explicit missingness
+  MeasurementTrace.tsx measured tracks, stage selection and coordinated replay
   GridOverlay.tsx      "SHOW STRUCTURE" 12-column overlay
   PaceDemo.tsx         Immediate / Considered / Cinematic motion demo
   ModeToggle.tsx       LIGHT / DARK control
@@ -43,6 +45,9 @@ components/
                         not move. The taxonomy below is documentation, not
                         directory structure.
 ```
+
+Evidence publication contracts live in `evidence.ts`; neutral styles in `evidence.css`.
+See [EVIDENCE.md](EVIDENCE.md) for the component contracts and first-consumer record.
 
 ## The three modes
 
@@ -371,3 +376,16 @@ of reuse in a second publication.
 See [PUBLICATION.md](PUBLICATION.md) for contracts, examples and limits, and the
 [live specimen](https://hause.design/publication). Raw TypeScript consumers using
 `noEmit` should enable `allowImportingTsExtensions` for source-module imports.
+
+## Recorded evidence in publications
+
+`EvidenceTable` and `MeasurementTrace` were extracted from the CHRISHAYUK
+address-depth notebook on 7 September 2026. They are shared publication
+capabilities under `components/`, not newly promoted forms in the manifest.
+The table preserves units, precision, baselines, sources and explicit missing
+measurements. The trace shows every recorded sample and lets readers move
+through ordered stages using the shared MotionProvider. It never interpolates
+unmeasured stages. The consumer supplies data, domains, cautions and interpretation.
+
+The hause.design publication room demonstrates these contracts. This is a
+specimen, not evidence of independent reuse in another subject area.
