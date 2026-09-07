@@ -389,3 +389,6 @@ unmeasured stages. The consumer supplies data, domains, cautions and interpretat
 
 The hause.design publication room demonstrates these contracts. This is a
 specimen, not evidence of independent reuse in another subject area.
+
+`Share` (`components/Share.tsx`) supplies LinkedIn, X and Copy controls using
+`share.ts` and `share.css`. See PUBLICATION.md for its source and privacy contract.

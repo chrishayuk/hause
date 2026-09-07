@@ -1,0 +1,11 @@
+@layer hause-components {
+.hause-share{display:flex;gap:16px 24px;flex-wrap:wrap;align-items:baseline;font:12px/1.7 var(--font-geist-mono,monospace);padding:24px 0;border-block:1px solid var(--rule,var(--color-mist,#8886));color:var(--fg,inherit)}
+.hause-share-label{text-transform:uppercase;letter-spacing:.08em;font-size:10px;margin-right:12px}
+.hause-share a{text-decoration:underline;text-underline-offset:4px;padding:10px 0}
+.hause-share summary{cursor:pointer;padding:10px 0}
+.hause-share details[open]{flex-basis:100%}.hause-share-copy{max-width:620px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hause-share-copy label{flex-basis:100%}.hause-share textarea{box-sizing:border-box;display:block;width:100%;resize:vertical;background:var(--bg,transparent);color:inherit;border:1px solid var(--rule,#8886);padding:14px;font:14px/1.7 var(--font-inter,sans-serif)}
+.hause-share button{cursor:pointer;background:transparent;color:inherit;border:1px solid var(--rule,#8886);padding:10px 16px;min-height:44px;font:inherit}
+.hause-share :is(a,summary,button,textarea):focus-visible{outline:2px solid var(--color-accent,currentColor);outline-offset:4px}
+@media print{.hause-share{display:none}}
+}

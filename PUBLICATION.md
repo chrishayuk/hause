@@ -25,3 +25,18 @@ annotations and pause/play/replay via MotionProvider. Every value and caution is
 server-rendered; animation only changes emphasis. Data and interpretation remain
 in the publication. These are capabilities, not additions to the form count.
 See [EVIDENCE.md](EVIDENCE.md) for contracts, examples and extraction status.
+
+## Reader-initiated sharing
+
+`Share` from `@chrishayuk/hause/components/Share` accepts `url`, `text`, optional `label` and `className`. The publication supplies a canonical public URL and a concise proposition, preserving any uncertainty. `share.ts` exports the same `shareLinks` builder for other renderers; `share.css` supplies overridable reading defaults.
+
+LinkedIn receives the canonical link and builds its preview from the destination's metadata; its share URL does not prefill post prose. X receives the supplied text and URL in a composer. Neither link publishes anything automatically. No provider SDK, tracking pixel, account or subscriber store is added. Keep the proposed X text short enough for its composer.
+
+Copy opens a native disclosure with selectable text, and enhances it with clipboard feedback when JavaScript and clipboard access are available. A blocked clipboard leaves the text available. Use a single MotionProvider around other media as usual; Share itself has no motion.
+
+```tsx
+<Share url="https://example.org/notebook/a-question"
+  text="The question that makes this record worth reading." />
+```
+
+The consumer decides which records may be shared. Do not expose unlisted drafts. Source cards, editorial post drafts and publication status remain consumer-owned. First consumer: CHRISHAYUK, September 2026. This is publication infrastructure, not a newly promoted semantic form.
