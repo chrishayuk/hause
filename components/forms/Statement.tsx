@@ -15,10 +15,19 @@ import { Reveal } from "../Reveal";
  *
  * A statement: the reader reads.
  */
-export function Statement({ text }: { text: string }) {
+export type StatementProps = {
+	text: string;
+	/** A second authored beat; never inferred by splitting the text. */
+	continuation?: string;
+	/** The room presentation needs exhibition.css and remains visible without JS. */
+	presentation?: "default" | "room";
+};
+
+export function Statement({ text, continuation, presentation = "default" }: StatementProps) {
+	if (presentation === "room") return <div className="exhibition-authored-statement" data-hause-act="statement"><p className="voice-editorial"><span>{text}</span>{continuation && <> <em>{continuation}</em></>}</p></div>;
 	return (
 		<Reveal className="hause-grid py-20 sm:py-32">
-			<p className="col-span-12 md:col-start-2 md:col-span-10 voice-editorial text-3xl sm:text-5xl lg:text-6xl leading-[1.05]">{text}</p>
+			<p className="col-span-12 md:col-start-2 md:col-span-10 voice-editorial text-3xl sm:text-5xl lg:text-6xl leading-[1.05]">{text}{continuation && <> <em>{continuation}</em></>}</p>
 		</Reveal>
 	);
 }

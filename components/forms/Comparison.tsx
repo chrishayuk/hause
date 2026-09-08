@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Reveal } from "../Reveal";
+import { ComparisonPanels } from "../exhibition/ComparisonPanels";
 
 type Side = { label: string; properties: string[] };
 
@@ -11,6 +12,9 @@ export type ComparisonProps = {
 	blockLabels: string[];
 	left: Side;
 	right: Side;
+	/** Authored readings of the same object. Native selection, no block motion.
+	 * Import exhibition.css. Both panels remain in the server-rendered record. */
+	panels?: { left: ReactNode; right: ReactNode };
 };
 
 /**
@@ -30,8 +34,10 @@ export function Comparison({
 	blockLabels,
 	left,
 	right,
+	panels,
 }: ComparisonProps) {
 	const [value, setValue] = useState(0);
+	if (panels) return <ComparisonPanels kicker={kicker} objectLabel={objectLabel} leftLabel={left.label} rightLabel={right.label} left={panels.left} right={panels.right} />;
 	const t = value / 100;
 	const isRight = value >= 50;
 	const n = blockLabels.length;

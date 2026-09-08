@@ -60,7 +60,7 @@ writes them, and the specimen book's test suite fails when they and the
 manifest disagree.
 
 <!-- generated:count -->
-35 forms: 12 statements · 15 instruments · 8 performances.
+36 forms: 12 statements · 15 instruments · 9 performances.
 <!-- /generated -->
 
 **Statements** — prose forms in the three voices; server-renderable, no
@@ -91,9 +91,9 @@ must never find it finished. Never a crossfade between two physical forms
 of one thing — staged swaps only.
 
 <!-- generated:forms:performance -->
-`Transformation · Unfolding · Compilation · Procession · Magnitude ·
-Channel · Quantisation · Film`
-(Film: held, not yet exhibited — the book refuses to fake a specimen.)
+`StagedTransition · Transformation · Unfolding · Compilation ·
+Procession · Magnitude · Channel · Quantisation · Film`
+(StagedTransition, Film: held, not yet exhibited — the book refuses to fake a specimen.)
 <!-- /generated -->
 
 Three motion idioms, one per mode boundary: the one-shot `Reveal`, the
@@ -392,3 +392,18 @@ specimen, not evidence of independent reuse in another subject area.
 
 `Share` (`components/Share.tsx`) supplies LinkedIn, X and Copy controls using
 `share.ts` and `share.css`. See PUBLICATION.md for its source and privacy contract.
+
+## Exhibition composition
+
+`exhibition.css` supplies the portable exhibition frames and the room presentation
+of `Statement`. `components/exhibition/Exhibition.tsx` exports `ExhibitionEntrance`,
+`ReferenceStudies`, `UniformGrid`, `ReleasedActs`, `ArchiveExhibit`, `ReadingRooms`
+and `GrammarComparison`. These compose existing acts and authored material; they
+are layout helpers, not additional semantic forms. Reference imagery is a consumer
+slot, so sources, rights and domain-specific diagrams stay with the exhibition.
+
+`Statement` accepts optional `continuation` and `presentation="room"`: two explicit
+beats on a centred measure. `StagedTransition` is a performance with `from`, `to`,
+`kicker`, a three-beat `score` and a `caption`. It requires `MotionProvider`,
+respects reduced motion, and leaves the final state and all three explanations
+readable when paused or without JavaScript. See `EXHIBITION.md` for adoption.
