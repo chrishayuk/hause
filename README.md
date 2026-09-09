@@ -50,6 +50,17 @@ components/
 Evidence publication contracts live in `evidence.ts`; neutral styles in `evidence.css`.
 See [EVIDENCE.md](EVIDENCE.md) for the component contracts and first-consumer record.
 
+Material plates, native before/after and collection choices, and recorded outcome
+matrices live in `components/exhibition/`. See [EXHIBITION-MEDIA.md](EXHIBITION-MEDIA.md)
+for their contracts and the hause.design donation. These do not change the form count.
+DecisionTrail stages URL-owned selections; GraphNeighbourhood presents directed
+records with source-backed relationships. `exhibition-graph.ts` validates and
+selects a focused neighbourhood without inventing or truncating edges.
+SequencePlayer stages finite reader-started frames with a static score;
+`record-difference.ts` compares inventory identities rather than totals alone.
+Portable defaults are in `exhibition-media.css`; `exhibition-outcomes.ts` derives
+counts from recorded scoring decisions without inventing success from label equality.
+
 Notebook studies use `components/exhibition/Study.tsx`: StudyRoom, StudySequence
 and StudyMeasures. Their portable `study.css` also styles FieldNotes, Refusal's
 still presentation and TextCorrection. See [STUDIES.md](STUDIES.md) for the
