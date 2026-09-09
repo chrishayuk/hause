@@ -31,6 +31,7 @@ components/
   StatusMark.tsx       word + dot status indicator
   EvidenceTable.tsx    recorded values, units, baselines and explicit missingness
   MeasurementTrace.tsx measured tracks, stage selection and coordinated replay
+  FieldNotes.tsx       native disclosure and CitationScope for fragment navigation
   GridOverlay.tsx      "SHOW STRUCTURE" 12-column overlay
   PaceDemo.tsx         Immediate / Considered / Cinematic motion demo
   ModeToggle.tsx       LIGHT / DARK control
@@ -49,6 +50,11 @@ components/
 Evidence publication contracts live in `evidence.ts`; neutral styles in `evidence.css`.
 See [EVIDENCE.md](EVIDENCE.md) for the component contracts and first-consumer record.
 
+Notebook studies use `components/exhibition/Study.tsx`: StudyRoom, StudySequence
+and StudyMeasures. Their portable `study.css` also styles FieldNotes, Refusal's
+still presentation and TextCorrection. See [STUDIES.md](STUDIES.md) for the
+first-consumer record and the distinction between composition and semantic forms.
+
 ## The three modes
 
 Every form under `forms/` is one of three kinds. The split was not designed
@@ -60,7 +66,7 @@ writes them, and the specimen book's test suite fails when they and the
 manifest disagree.
 
 <!-- generated:count -->
-36 forms: 12 statements · 15 instruments · 9 performances.
+37 forms: 12 statements · 15 instruments · 10 performances.
 <!-- /generated -->
 
 **Statements** — prose forms in the three voices; server-renderable, no
@@ -91,9 +97,9 @@ must never find it finished. Never a crossfade between two physical forms
 of one thing — staged swaps only.
 
 <!-- generated:forms:performance -->
-`StagedTransition · Transformation · Unfolding · Compilation ·
-Procession · Magnitude · Channel · Quantisation · Film`
-(StagedTransition, Film: held, not yet exhibited — the book refuses to fake a specimen.)
+`StagedTransition · TextCorrection · Transformation · Unfolding ·
+Compilation · Procession · Magnitude · Channel · Quantisation · Film`
+(StagedTransition, TextCorrection, Film: held, not yet exhibited — the book refuses to fake a specimen.)
 <!-- /generated -->
 
 Three motion idioms, one per mode boundary: the one-shot `Reveal`, the

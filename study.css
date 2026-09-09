@@ -1,0 +1,49 @@
+/* Portable publication composition. Evidence and sequence belong to the author. */
+.hause-study-room{padding:clamp(50px,7vw,100px) clamp(22px,4vw,64px);margin-block:35px 70px;min-width:0;border-top:1px solid var(--rule,#8885)}
+.hause-study-room[data-tone=dark]{background:#11130f;color:#f1eee5;--fg:#f1eee5;--bg:#11130f;--muted:#b7b8aa;--rule:#d4d9c13d;--color-accent:#e3b56b;--accent:#e3b56b;--color-mist:#b7b8aa}
+.hause-study-room[data-tone=accent]{background:#dbc6a5;color:#211c15;--fg:#211c15;--bg:#dbc6a5;--muted:#564a39;--rule:#564a394a;--color-accent:#654119;--accent:#654119}
+.hause-study-room>header{max-width:1080px;margin:0 auto 55px}
+.hause-study-room>header>.exhibition-label{display:block;margin-bottom:35px;color:var(--muted,#76766c)}
+.hause-study-room>header>h2{font:400 clamp(38px,6vw,88px)/1.08 var(--font-fraunces,Georgia);letter-spacing:-.05em;text-wrap:balance;max-width:21ch;margin:0}
+.hause-study-room>header>h2 em{color:var(--accent,var(--color-accent));font-weight:400}
+.hause-study-room>header>p{font:clamp(17px,1.8vw,23px)/1.65 var(--font-inter,Arial);max-width:55ch;margin:30px 0 0;text-wrap:pretty}
+.hause-study-content{max-width:1080px;min-width:0;margin:auto}
+.hause-study-sequence,.hause-study-measures{margin:40px 0;min-width:0}
+.hause-study-sequence figcaption,.hause-study-measures figcaption{margin-bottom:28px;color:var(--muted,#76766c)}
+.hause-study-sequence ol{list-style:none;padding:0;margin:0;display:flex;gap:clamp(20px,4vw,55px)}
+.hause-study-sequence li{flex:1;min-width:0;border-top:1px solid var(--rule,#8885);padding-top:25px;position:relative}
+.hause-study-sequence li+li::before{content:'→';position:absolute;left:calc(-1 * clamp(20px,4vw,55px) + 6px);top:54px;color:var(--accent,var(--color-accent));font:22px Georgia}
+.hause-study-sequence li>span{display:block;margin-bottom:20px;font-size:9px}
+.hause-study-sequence strong{display:block;font:400 clamp(25px,3.5vw,48px)/1.12 var(--font-fraunces,Georgia);letter-spacing:-.035em;overflow-wrap:anywhere;text-wrap:balance}
+.hause-study-sequence li>p,.hause-study-note{font:13px/1.8 var(--font-inter,Arial);color:var(--muted,#76766c);margin:20px 0 0;max-width:75ch}
+.hause-study-measures dl{display:flex;flex-wrap:wrap;gap:35px 60px;margin:0}
+.hause-study-measures dl>div{flex:1;min-width:min(190px,100%);border-top:1px solid var(--rule,#8885);padding-top:24px}
+.hause-study-measures dt{font:10px/1.6 var(--font-geist-mono,monospace);text-transform:uppercase;letter-spacing:.07em}
+.hause-study-measures dd{margin:18px 0 0;font:400 clamp(64px,8vw,115px)/1 var(--font-fraunces,Georgia);letter-spacing:-.06em}
+.hause-study-measures dd.hause-study-measure-detail{font:12px/1.6 var(--font-geist-mono,monospace);letter-spacing:0;color:var(--muted,#76766c)}
+.hause-field-notes{border-block:1px solid var(--rule,#8885);margin:30px auto 55px;max-width:1050px}
+.hause-field-notes>summary{display:flex;justify-content:space-between;gap:25px;cursor:pointer;padding:22px 0;font:9px/1.7 var(--font-geist-mono,monospace);letter-spacing:.07em;color:var(--muted,#76766c);list-style:none}
+.hause-field-notes>summary::-webkit-details-marker{display:none}
+.hause-field-notes>summary>span:last-child{text-align:right}
+.hause-field-notes>summary:focus-visible,.hause-text-correction button:focus-visible{outline:2px solid var(--accent,var(--color-accent));outline-offset:5px}
+.hause-field-notes[open]{padding-bottom:25px}
+.hause-refusal-still{margin:40px 8.333%;border-left:2px solid var(--color-status-refuted,#b33e24);padding:4px 0 4px 22px}
+.hause-refusal-still h3{font:11px/1.6 var(--font-geist-mono,monospace);letter-spacing:.07em;color:var(--color-status-refuted,#b33e24);margin:0 0 18px}
+.hause-refusal-still ul{padding-left:18px;margin:0;font-size:14px;line-height:1.85}
+.hause-refusal-still li+li{margin-top:14px}
+.hause-refusal-still>.voice-editorial{font:clamp(25px,3vw,37px)/1.25 var(--font-fraunces,Georgia);letter-spacing:-.03em;margin-top:25px}
+.hause-text-correction{margin:25px 0;min-width:0}
+.hause-correction-stage{display:grid;gap:24px;min-width:0}
+.hause-correction-before{font:clamp(16px,2.2vw,30px)/1.7 var(--font-geist-mono,monospace);overflow-wrap:anywhere;color:var(--muted,#76766c)}
+.hause-correction-before s{text-decoration-color:var(--accent,var(--color-accent));text-decoration-thickness:2px}
+.hause-correction-after{font:400 clamp(32px,5vw,68px)/1.12 var(--font-fraunces,Georgia);letter-spacing:-.035em;text-wrap:balance;color:var(--accent,var(--color-accent))}
+.hause-text-correction>figcaption{font:11px/1.8 var(--font-geist-mono,monospace);color:var(--muted,#76766c);max-width:60ch;margin-top:22px}
+.hause-text-correction button{font:9px var(--font-geist-mono,monospace);color:inherit;background:none;border:0;border-bottom:1px solid var(--rule,#8885);padding:16px 0;min-height:44px;margin-top:20px;cursor:pointer}
+.hause-text-correction[data-playing=true] .hause-correction-before s{animation:hause-correct-before 5s both}
+.hause-text-correction[data-playing=true] .hause-correction-after{animation:hause-correct-after 5s both}
+.hause-text-correction[data-compact=true] .hause-correction-after{font-size:clamp(30px,4vw,54px)}
+@keyframes hause-correct-before{0%,25%{text-decoration-color:transparent}70%,100%{text-decoration-color:var(--accent,var(--color-accent))}}
+@keyframes hause-correct-after{0%,45%{opacity:0;transform:translateY(10px)}65%,100%{opacity:1;transform:none}}
+@media(max-width:700px){.hause-study-room{padding:45px 22px;margin-block:20px 45px}.hause-study-room>header{margin-bottom:35px}.hause-study-sequence ol{flex-direction:column;gap:35px}.hause-study-sequence li{padding:22px 0 0}.hause-study-sequence li+li::before{content:'↓';left:auto;right:0;top:-23px}.hause-study-sequence li>span{margin-bottom:12px}.hause-study-sequence strong{overflow-wrap:normal}.hause-study-measures dl{gap:35px}.hause-refusal-still{margin-inline:0;padding-left:18px}}
+@media(prefers-reduced-motion:reduce){.hause-text-correction[data-playing=true] .hause-correction-before s,.hause-text-correction[data-playing=true] .hause-correction-after{animation:none}}
+@media print{.hause-field-notes::details-content{content-visibility:visible!important}.hause-field-notes>summary{display:none}.hause-text-correction button{display:none}.hause-correction-stage *{animation:none!important}}

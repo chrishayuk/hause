@@ -1,6 +1,8 @@
 import { Reveal } from "../Reveal";
+import "../../study.css";
 
 export type RefusalProps = {
+	presentation?: "animated" | "still";
 	kicker?: string;
 	title: string;
 	lines: string[];
@@ -49,7 +51,13 @@ export function RefusalReadout({ title, lines, principle }: Omit<RefusalProps, "
 	);
 }
 
-export function Refusal({ kicker, title, lines, principle }: RefusalProps) {
+export function Refusal({ kicker, title, lines, principle, presentation = "animated" }: RefusalProps) {
+	if (presentation === "still") return <section className="hause-refusal-still" data-hause-act="refusal">
+		{kicker && <p className="voice-evidence">{kicker}</p>}
+		<h3 className="voice-evidence">{title}</h3>
+		<ul className="voice-system">{lines.map((line, i) => <li key={i}>{line}</li>)}</ul>
+		<p className="voice-editorial">{principle}</p>
+	</section>;
 	return (
 		<Reveal className="hause-grid py-16 sm:py-24">
 			<div className="col-span-12 md:col-start-2 md:col-span-9">
