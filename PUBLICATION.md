@@ -84,3 +84,8 @@ collapse authored columns into source order; no canvas, page-curl asset, imposed
 scrolling or GPU renderer is required. No-JavaScript and print readers receive
 all folios and manuscript sections. Existing playback instruments keep their own
 motion coordinator; this shell changes presentation, never a recorded outcome.
+
+`Manuscript` presents the full authored account as continuous prose, with optional
+contents and chapter anchors. It is distinct from concise `Codex` folios. Codex
+turns keep the desk in place and use inert visual copies for a directional leaf
+animation; live instruments stay mounted. Reduced motion and pause skip the turn.

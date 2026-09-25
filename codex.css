@@ -52,10 +52,22 @@
 .hause-codex[data-enlarged=true] .codex-desk { grid-template-columns: minmax(0,1fr); }
 .hause-codex[data-enlarged=true] .codex-edge { position: static; flex-direction: row; flex-wrap: wrap; }
 .hause-codex[data-enlarged=true] .codex-pagination { padding-left: 0; }
-@media (prefers-reduced-motion: no-preference) {
- .hause-codex[data-motion=enabled] .codex-folio:not([hidden]) { animation: codex-turn 460ms cubic-bezier(.22,.7,.2,1) both; transform-origin: left center; }
- @keyframes codex-turn { from { opacity: .35; transform: perspective(2000px) rotateY(-6deg); } to { opacity: 1; transform: perspective(2000px) rotateY(0deg); } }
-}
+/* A leaf crosses the spine; the desk and its live HTML stay in place. */
+.hause-codex { overflow-anchor: none; }
+.codex-book { position: relative; scroll-margin-top: 100px; }
+.codex-book[data-turning=true] { overflow: clip; }
+.codex-turn-layer { position: absolute; inset: 0; z-index: 5; pointer-events: none; perspective: 2200px; }
+.codex-turn-leaf { position: absolute; inset: 0 0 0 50%; transform-origin: left center; transform-style: preserve-3d; will-change: transform; }
+.codex-turn-layer[data-direction=backward] .codex-turn-leaf { inset: 0 50% 0 0; transform-origin: right center; }
+.codex-turn-face { position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; background: var(--codex-paper); }
+.codex-turn-front { transform: rotateY(0deg); }
+.codex-turn-back { transform: rotateY(180deg); }
+.codex-turn-face::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,#22251f18,transparent 14%,transparent 90%,#22251f0a); pointer-events: none; }
+.codex-turn-stationary { position: absolute; inset: 0; clip-path: inset(0 50% 0 0); background: var(--codex-paper); }
+.codex-turn-layer[data-direction=backward] .codex-turn-stationary { clip-path: inset(0 0 0 50%); }
+.codex-turn-layer .codex-folio { background: var(--codex-paper); margin: 0; }
+.codex-turn-layer *, .codex-turn-layer *::before, .codex-turn-layer *::after { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .codex-turn-layer { display: none; } }
 @media (max-width: 900px) {
  .codex-desk { grid-template-columns: minmax(0,1fr); }
  .codex-edge { position: static; flex-direction: row; flex-wrap: wrap; gap: 8px 20px; }
@@ -81,5 +93,11 @@
  .codex-heading { transform: none !important; box-shadow: none !important; min-height: 0 !important; }
  .codex-folio { break-before: page; }
  .codex-book { box-shadow: none; }
- .codex-edge, .codex-pagination, .codex-modes, .codex-opening { display: none !important; }
+ .codex-edge, .codex-pagination, .codex-modes, .codex-opening, .codex-turn-layer { display: none !important; }
 }
+
+/* Read is a continuous essay: one column, without the binding or folio index. */
+.hause-codex[data-view=read] .codex-desk { display: block; }
+.hause-codex[data-view=read] .codex-edge { display: none; }
+.hause-codex[data-view=read] .codex-book { max-width: 940px; margin-inline: auto; box-shadow: none; }
+.hause-codex[data-view=read] .codex-manuscript > h2 { max-width: 28ch; margin: 0 auto 40px; font-size: 32px; }

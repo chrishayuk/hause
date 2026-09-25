@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useRef, useState, type ReactNode, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type ReactNode, type KeyboardEvent, type MouseEvent } from "react";
 import { useMotion } from "./Motion";
 import "../codex.css";
 import { validateCodex, codexTurn } from "../codex";
+import { snapshotCodexPage, animateCodexTurn } from "../codex-page-turn";
 
 export type CodexFolio = { id: string; label: string; kind?: "operate" | "evidence"; children: ReactNode };
 type View = "cover" | "folios" | "read" | "history";
@@ -20,34 +21,82 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
   const touch = useRef<number | null>(null);
   const { paused } = useMotion();
   const active = folios[index];
+  const book = useRef<HTMLDivElement>(null);
+  const navigate = useRef<(fragment: string, initial?: boolean) => void>(() => {});
+  const cancelTurn = useRef<(() => void) | null>(null);
+  const motionPaused = useRef(paused);
   useEffect(() => {
-    const reveal = () => {
-      let fragment: string; try { fragment = decodeURIComponent(location.hash.slice(1)); } catch { return; }
-      const target = fragment ? document.getElementById(fragment) : null;
+    motionPaused.current = paused;
+    if (paused) cancelTurn.current?.();
+  }, [paused]);
+  useEffect(() => {
+    let frame = 0;
+    function reveal(fragment: string, initial = false) {
+      cancelAnimationFrame(frame);
+      cancelTurn.current?.();
+      let decoded: string; try { decoded = decodeURIComponent(fragment); } catch { return; }
+      if (!decoded && !initial) { setView('cover'); return; }
+      const target = decoded ? document.getElementById(decoded) : null;
       if (!target || !root.current?.contains(target)) return;
       const page = target.closest<HTMLElement>("[data-codex-page]");
-      if (!page) return;
-      if (page.dataset.codexPage === "read") setView("read");
-      else if (page.dataset.codexPage === "history") setView("history");
-      else {
-        const found = folios.findIndex(folio => folio.id === page.id);
-        if (found < 0) return;
-        setIndex(found); setView("folios");
-      }
+      if (!page || !book.current) return;
+      const previous = book.current.querySelector<HTMLElement>('[data-codex-page]:not([hidden])');
+      const found = folios.findIndex(folio => folio.id === page.id);
+      const previousIndex = folios.findIndex(folio => folio.id === previous?.id);
+      const canTurn = !initial && previous && previous !== page && found >= 0 && previousIndex >= 0
+        && !motionPaused.current && !matchMedia('(prefers-reduced-motion: reduce)').matches
+        && typeof book.current.animate === 'function';
+      const height = book.current.offsetHeight;
+      const snapshot = canTurn ? snapshotCodexPage(previous) : null;
+      const surface = book.current;
+      if (snapshot) surface.style.height = `${height}px`;
+      if (page.dataset.codexPage === 'read') setView('read');
+      else if (page.dataset.codexPage === 'history') setView('history');
+      else if (found >= 0) { setIndex(found); setView('folios'); }
       for (let node: HTMLElement | null = target; node && root.current.contains(node); node = node.parentElement) {
         if (node instanceof HTMLDetailsElement) node.open = true;
       }
       target.querySelectorAll<HTMLDetailsElement>(":scope > details").forEach(detail => { detail.open = true; });
-      requestAnimationFrame(() => { target.scrollIntoView({ behavior: "instant", block: "start" }); if (target instanceof HTMLElement && target.hasAttribute("tabindex")) target.focus({ preventScroll: true }); });
-    };
-    reveal(); window.addEventListener("hashchange", reveal);
-    return () => window.removeEventListener("hashchange", reveal);
+      const finish = () => {
+        // Ordinary turns keep the desk in place. Only entering the book or following
+        // a specific annotation moves the reading position.
+        if (initial || !previous || target !== page) target.scrollIntoView({ behavior: 'instant', block: 'start' });
+        const focus = target.hasAttribute('tabindex') ? target : page;
+        focus.focus({ preventScroll: true });
+      };
+      // Install cleanup before React paints, including a rapid second navigation.
+      cancelTurn.current = () => { cancelAnimationFrame(frame); surface.style.removeProperty('height'); };
+      const ready = () => {
+        // React may defer a commit; never measure or snapshot a hidden destination.
+        if (page.hidden) { frame = requestAnimationFrame(ready); return; }
+        if (snapshot && !motionPaused.current) cancelTurn.current = animateCodexTurn(surface, snapshot, page, found > previousIndex, height, finish);
+        else { surface.style.removeProperty('height'); cancelTurn.current = null; finish(); }
+      };
+      frame = requestAnimationFrame(ready);
+    }
+    navigate.current = reveal;
+    const changed = () => reveal(location.hash.slice(1));
+    reveal(location.hash.slice(1), true);
+    window.addEventListener('hashchange', changed);
+    return () => { cancelAnimationFrame(frame); cancelTurn.current?.(); window.removeEventListener('hashchange', changed); };
   }, [folios]);
+  function visit(fragment: string) {
+    if (location.hash !== `#${fragment}`) window.history.pushState(window.history.state, '', `#${fragment}`);
+    navigate.current(fragment);
+  }
+  function links(event: MouseEvent) {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+    const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
+    if (!link || link.target || link.hasAttribute('download')) return;
+    let target: HTMLElement | null;
+    try { target = document.getElementById(decodeURIComponent(link.hash.slice(1))); } catch { return; }
+    if (!target || !root.current?.contains(target) || !target.closest('[data-codex-page]')) return;
+    event.preventDefault();
+    visit(link.hash.slice(1));
+  }
   function go(next: number) {
     const folio = folios[codexTurn(folios.length, next)];
-    if (!folio) return;
-    // A fragment records the actual spread and makes back/forward meaningful.
-    location.hash = folio.id;
+    if (folio && folio.id !== active?.id) visit(folio.id);
   }
   function keys(event: KeyboardEvent) {
     if (event.key === "Escape") { setEnlarged(false); return; }
@@ -58,7 +107,7 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
   }
   const firstOperation = folios.find(folio => folio.kind === "operate");
   const firstEvidence = folios.find(folio => folio.kind === "evidence");
-  return <div ref={root} className="hause-codex" id={id} data-view={view} data-enlarged={enlarged} data-motion={paused ? "paused" : "enabled"}>
+  return <div ref={root} className="hause-codex" id={id} onClick={links} data-view={view} data-enlarged={enlarged} data-motion={paused ? "paused" : "enabled"}>
     <header className="codex-heading">
       <p className="codex-collection">{collection}</p>
       <h1>{title}</h1>
@@ -76,12 +125,12 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
     </nav>
     <div className="codex-desk">
       <nav className="codex-edge" aria-label="Folio index">{folios.map((folio, i) => <a href={`#${folio.id}`} key={folio.id} aria-current={view === "folios" && index === i ? "page" : undefined}><span>{String(i + 1).padStart(2, "0")}</span><span>{folio.label}</span></a>)}</nav>
-      <div className="codex-book" tabIndex={0} onKeyDown={keys} aria-label="Notebook spread. Left and right arrow keys turn pages.">
+      <div ref={book} className="codex-book" tabIndex={0} onKeyDown={keys} aria-label="Notebook spread. Left and right arrow keys turn pages.">
         {folios.map((folio, i) => <section key={folio.id} id={folio.id} className="codex-folio" data-codex-page="folio" tabIndex={-1} hidden={view !== "folios" || index !== i} aria-label={`Spread ${i + 1}: ${folio.label}`}>
           <div className="codex-folio-label"><span>{collection}</span><span>{String(i + 1).padStart(2, "0")} / {String(folios.length).padStart(2, "0")}</span></div>
           {folio.children}
         </section>)}
-        <section id={`${id}-read`} data-codex-page="read" tabIndex={-1} className="codex-manuscript" hidden={view !== "read"}><h2>Read the manuscript</h2>{manuscript}</section>
+        <section id={`${id}-read`} data-codex-page="read" tabIndex={-1} className="codex-manuscript" hidden={view !== "read"}><h2>The full account</h2>{manuscript}</section>
         <section id={`${id}-history`} data-codex-page="history" tabIndex={-1} className="codex-history" hidden={view !== "history"}><h2>The record over time</h2>{history}</section>
       </div>
     </div>

@@ -9,6 +9,7 @@ export function AnchoredDisclosure({children,label,className}:{children:ReactNod
    let id:string;try{id=decodeURIComponent(location.hash.slice(1));}catch{return;}
    const target=id?document.getElementById(id):null;
    if(!target||!root.current?.contains(target))return;
+   if(target.closest("[data-codex-page]"))return;
    root.current.open=true;
    target.scrollIntoView({behavior:'instant',block:'start'});
   };

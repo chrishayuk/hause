@@ -467,3 +467,7 @@ not historical folio numbers. Content is selectable and server-rendered, with a
 linear no-JavaScript and print fallback. Motion obeys MotionProvider and reduced
 motion. The publication supplies actual data, instruments and revision history.
 This is a composition capability, not an additional semantic form.
+
+`components/Manuscript.tsx` provides continuous prose, a contents disclosure and
+chapter rhythm for the full reading view. `codex-page-turn.ts` handles temporary,
+inert visual copies for directional page turns while live folios remain mounted.

@@ -8,3 +8,18 @@
 .hause-notebook-support > summary { padding-block: 18px; min-height: 44px; cursor: pointer; font: 14px/1.7 var(--font-system,var(--font-inter,Arial)),sans-serif; }
 .hause-notebook-support > p { max-width: var(--reading-measure); line-height: 1.85; margin-block: 24px; }
 .hause-notebook-support summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+.hause-manuscript { max-width: 62ch; margin-inline: auto; font: 18px/1.9 var(--font-system,var(--font-inter,Arial)),sans-serif; }
+.manuscript-introduction > p:first-child { font: 400 clamp(22px,2.5vw,28px)/1.6 var(--font-display,var(--font-fraunces,Georgia)),serif; }
+.manuscript-contents { margin-block: 40px 64px; border-block: 1px solid var(--rule,#8885); font: 14px/1.8 var(--font-system,var(--font-inter,Arial)),sans-serif; }
+.manuscript-contents summary { cursor: pointer; padding-block: 16px; min-height: 44px; }
+.manuscript-contents ol { padding: 0 0 24px 24px; }
+.manuscript-contents a { display: inline-block; padding-block: 8px; }
+.manuscript-chapter { margin-block: 64px; scroll-margin-top: 110px; }
+.manuscript-chapter h3 { font: 400 clamp(27px,3vw,36px)/1.25 var(--font-display,var(--font-fraunces,Georgia)),serif; letter-spacing: -.02em; margin-bottom: 32px; }
+.manuscript-chapter p { margin-block: 24px; max-width: none; font: inherit; }
+.manuscript-chapter [id] { scroll-margin-top: 110px; }
+.manuscript-chapter .manuscript-reference { font-size: 13px; }
+.manuscript-end { border-top: 1px solid var(--rule,#8885); padding-top: 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; font-size: 13px; }
+.manuscript-end a { min-height: 44px; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width:600px) { .hause-manuscript { font-size: 17px; line-height: 1.85; } }

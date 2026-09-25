@@ -15,6 +15,8 @@ export function NotebookEdition({ as: Element = "main", children, className = ""
       try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
       const target = id ? document.getElementById(id) : null;
       if (!target || !root.current?.contains(target)) return;
+      // The codex owns its hidden spreads and reading position.
+      if (target.closest("[data-codex-page]")) return;
       // Preserve deep links to sources, controls and manuscripts, including a
       // section whose first child is the disclosure containing its full record.
       for (let node: HTMLElement | null = target; node && root.current.contains(node); node = node.parentElement) {
