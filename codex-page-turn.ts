@@ -45,7 +45,7 @@ export function animateCodexTurn(book: HTMLElement, outgoing: HTMLElement, incom
     page.style.height = `${Math.max(fromHeight, height)}px`;
     page.style.minHeight = '0';
     page.style.transform = `translateX(${offset}px)`;
-    surface.append(page);
+    surface.appendChild(page);
     return surface;
   }
   // The stationary old half remains beneath the reverse of the turning leaf.
@@ -53,9 +53,9 @@ export function animateCodexTurn(book: HTMLElement, outgoing: HTMLElement, incom
   // A second visual copy needs its own fragment namespace as well.
   const front = face('codex-turn-face codex-turn-front', snapshotCodexPage(outgoing), forward ? -width / 2 : 0);
   const back = face('codex-turn-face codex-turn-back', snapshotCodexPage(incoming), forward ? 0 : -width / 2);
-  leaf.append(front, back);
-  layer.append(stationary, leaf);
-  book.append(layer);
+  leaf.appendChild(front); leaf.appendChild(back);
+  layer.appendChild(stationary); layer.appendChild(leaf);
+  book.appendChild(layer);
   book.dataset.turning = 'true';
   const duration = 780;
   const options: KeyframeAnimationOptions = { duration, easing: 'cubic-bezier(.32,.05,.22,1)', fill: 'both' };
