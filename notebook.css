@@ -1,0 +1,10 @@
+/* Opt-in publication layer. Authored objects keep their geometry and live controls. */
+.hause-notebook { --reading-measure: 62ch; --reading-gap: clamp(24px, 4vw, 64px); }
+.hause-notebook .hause-study-room > header > h2 { font: 400 clamp(32px,4.2vw,58px)/1.14 var(--font-display,var(--font-fraunces,Georgia)),serif; max-width: 25ch; letter-spacing: -.025em; }
+.hause-notebook .hause-study-room > header > p { max-width: 49ch; line-height: 1.8; }
+.hause-notebook [data-reading-figure="open"] { background: transparent; color: inherit; border: 0; box-shadow: none; padding: 24px 0; }
+.hause-notebook [data-reading-figure] > figcaption { font: 13px/1.7 var(--font-system,var(--font-inter,Arial)),sans-serif; letter-spacing: 0; text-transform: none; }
+.hause-notebook-support { border-top: 1px solid var(--rule,#8885); margin-top: 24px; }
+.hause-notebook-support > summary { padding-block: 18px; min-height: 44px; cursor: pointer; font: 14px/1.7 var(--font-system,var(--font-inter,Arial)),sans-serif; }
+.hause-notebook-support > p { max-width: var(--reading-measure); line-height: 1.85; margin-block: 24px; }
+.hause-notebook-support summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }

@@ -66,3 +66,21 @@ authorship and provenance obligations.
 `provenance.ts` supplies `auditContinuity`, `realDate` and `compareVersions`.
 Revision checks retain the first-publication date and require a later version,
 revision date and named predecessor. Hosts store and verify their own artifacts.
+
+
+## Codex composition
+
+A major entry can opt into `NotebookEdition` and `Codex`, with `ReadingFigure`,
+`FolioObject` and `Marginalia` as its working objects. Supply ordered `folios`
+with stable IDs, labels and optional `kind: "operate" | "evidence"`, plus the
+`manuscript` and `history` React slots. Mode and index links use real fragments;
+links to an object inside a hidden folio reveal it before scrolling. Existing
+instruments stay mounted when pages change. Do not invent historical numbering,
+revisions or measurements for the cover, marginalia or history view.
+
+The cover is skippable through Read, Operate, Evidence, History and the folio
+index. The drag strip is separate from text and instruments. Narrow screens
+collapse authored columns into source order; no canvas, page-curl asset, imposed
+scrolling or GPU renderer is required. No-JavaScript and print readers receive
+all folios and manuscript sections. Existing playback instruments keep their own
+motion coordinator; this shell changes presentation, never a recorded outcome.

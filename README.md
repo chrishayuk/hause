@@ -449,3 +449,21 @@ not additional semantic forms.
 checks every shipped source file against `hause.lock.json`. It supports an
 installed Git dependency or a complete source mirror. See [SYNC.md](SYNC.md)
 for the update and CI workflow.
+
+## Bound notebook entries
+
+`NotebookEdition.tsx` and `notebook.css` define an opt-in reading surface and
+fragment-aware supporting material. `ReadingFigure.tsx` keeps native figure
+semantics and forwarded refs; instruments with existing playback use
+`motion={false}`. Outside a NotebookEdition it renders the original figure.
+`FigureMotion` also accepts `as="figure"` and `reveal="surface"` for one restrained
+entrance without nesting figures or interpolating data.
+
+`Codex.tsx`, `codex.ts` and `codex.css` compose an individual entry as a bound object with
+HTML folios, a persistent index, keyboard and pointer page navigation, a reading
+view and an authored history. `FolioObject` supplies relative grid placement;
+`Marginalia` attaches qualifications and sources. Ordinals identify reading order,
+not historical folio numbers. Content is selectable and server-rendered, with a
+linear no-JavaScript and print fallback. Motion obeys MotionProvider and reduced
+motion. The publication supplies actual data, instruments and revision history.
+This is a composition capability, not an additional semantic form.
