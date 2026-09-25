@@ -62,6 +62,7 @@
 .codex-turn-face { position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; background: var(--codex-paper); }
 .codex-turn-front { transform: rotateY(0deg); }
 .codex-turn-back { transform: rotateY(180deg); }
+.codex-turn-shadow { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
 .codex-turn-face::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,#22251f18,transparent 14%,transparent 90%,#22251f0a); pointer-events: none; }
 .codex-turn-stationary { position: absolute; inset: 0; clip-path: inset(0 50% 0 0); background: var(--codex-paper); }
 .codex-turn-layer[data-direction=backward] .codex-turn-stationary { clip-path: inset(0 0 0 50%); }

@@ -54,6 +54,12 @@ export function animateCodexTurn(book: HTMLElement, outgoing: HTMLElement, incom
   // A second visual copy needs its own fragment namespace as well.
   const front = face('codex-turn-face codex-turn-front', snapshotCodexPage(outgoing), forward ? -width / 2 : 0);
   const back = face('codex-turn-face codex-turn-back', snapshotCodexPage(incoming), forward ? 0 : -width / 2);
+  const shadows = [front, back].map(surface => {
+    const shadow = document.createElement('div');
+    shadow.className = 'codex-turn-shadow';
+    surface.appendChild(shadow);
+    return shadow;
+  });
   leaf.appendChild(front); leaf.appendChild(back);
   layer.appendChild(stationary); layer.appendChild(leaf);
   book.appendChild(layer);
@@ -63,12 +69,14 @@ export function animateCodexTurn(book: HTMLElement, outgoing: HTMLElement, incom
   const duration = 780;
   const options: KeyframeAnimationOptions = { duration, easing: 'cubic-bezier(.32,.05,.22,1)', fill: 'both' };
   const turn = leaf.animate([{ transform: 'rotateY(0deg)' }, { transform: `rotateY(${forward ? -180 : 180}deg)` }], options);
-  const shade = leaf.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(.88)', offset: .48 }, { filter: 'brightness(1)' }], options);
+  // A filter/opacity on the preserve-3d leaf flattens both faces into one plane,
+  // exposing mirrored text after the midpoint. Shade each face's overlay instead.
+  const shades = shadows.map(shadow => shadow.animate([{ opacity: 0 }, { opacity: .12, offset: .48 }, { opacity: 0 }], options));
   let finished = false;
   const clean = () => {
     if (finished) return;
     finished = true;
-    turn.cancel(); shade.cancel(); layer.remove();
+    turn.cancel(); shades.forEach(shade => shade.cancel()); layer.remove();
     delete book.dataset.turning;
     done();
   };
