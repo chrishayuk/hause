@@ -424,3 +424,28 @@ beats on a centred measure. `StagedTransition` is a performance with `from`, `to
 `kicker`, a three-beat `score` and a `caption`. It requires `MotionProvider`,
 respects reduced motion, and leaves the final state and all three explanations
 readable when paused or without JavaScript. See `EXHIBITION.md` for adoption.
+
+## Publication reading helpers
+
+`FigureMotion.tsx` reveals recorded geometry once and supports replay through
+`MotionProvider`. It never interpolates measurements. Mark descendants with
+`data-figure-trace` or `data-figure-reveal`; the complete figure remains the
+no-JavaScript and reduced-motion edition. The consumer styles `.figure-motion`
+and `.figure-motion-replay`; `reading.css` supplies overridable control defaults.
+
+`AnchoredDisclosure.tsx` keeps native details/summary reading and opens a section
+when its content is linked by fragment. It accepts `label`, `children` and an
+optional `className`; the consumer supplies the editorial treatment.
+
+`legibility.ts` validates publication meaning and builds search/structured-data
+projections without replacing an authored title. `provenance.ts` checks revision
+continuity; persistence, source hashes and preserved artifacts remain with the
+publication. These helpers originated in chrishayuk.com, and are capabilities,
+not additional semantic forms.
+
+## Consumer synchronization
+
+`scripts/consumer-sync.mjs` pins a consumer to one exact HAUSE Git revision and
+checks every shipped source file against `hause.lock.json`. It supports an
+installed Git dependency or a complete source mirror. See [SYNC.md](SYNC.md)
+for the update and CI workflow.

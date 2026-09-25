@@ -49,3 +49,20 @@ Copy opens a native disclosure with selectable text, and enhances it with clipbo
 ```
 
 The consumer decides which records may be shared. Do not expose unlisted drafts. Source cards, editorial post drafts and publication status remain consumer-owned. First consumer: CHRISHAYUK, September 2026. This is publication infrastructure, not a newly promoted semantic form.
+
+## Reading and publication contracts
+
+`FigureMotion` and `AnchoredDisclosure` are shared reading helpers extracted
+from chrishayuk.com. A figure's numbers remain recorded values throughout its
+reveal. Motion belongs to `MotionProvider`; paused and reduced-motion readers
+receive the complete still figure. Styling, content and experimental claims
+belong to the publication. An anchored disclosure opens for a fragment inside
+it and remains an ordinary native details element without JavaScript.
+
+`legibility.ts` supplies `searchProjection`, `legibilityLd` and `auditLegibility`.
+An editorial search opt-out needs an authored reason and preserves meaning,
+authorship and provenance obligations.
+
+`provenance.ts` supplies `auditContinuity`, `realDate` and `compareVersions`.
+Revision checks retain the first-publication date and require a later version,
+revision date and named predecessor. Hosts store and verify their own artifacts.

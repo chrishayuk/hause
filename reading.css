@@ -1,0 +1,5 @@
+/* Publication baseline; consumer art direction may override the layer. */
+@layer hause-reading {
+ .figure-motion-replay { display: inline-flex; gap: 12px; align-items: center; min-height: 44px; margin-top: 12px; padding: 0; border: 0; background: none; color: inherit; font: 12px/1.6 var(--font-system), sans-serif; cursor: pointer; text-decoration: underline; text-underline-offset: 5px; }
+ @media (prefers-reduced-motion: reduce), print { .figure-motion-replay { display: none; } }
+}
