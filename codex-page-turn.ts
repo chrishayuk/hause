@@ -2,6 +2,7 @@
 export function snapshotCodexPage(page: HTMLElement) {
   const copy = page.cloneNode(true) as HTMLElement;
   copy.hidden = false;
+  copy.dataset.codexScrollTop = page.dataset.codexScrollTop ?? String(page.scrollTop);
   copy.removeAttribute('tabindex');
   copy.setAttribute('aria-hidden', 'true');
   copy.inert = true;
@@ -27,22 +28,22 @@ export function snapshotCodexPage(page: HTMLElement) {
   return copy;
 }
 
-export function animateCodexTurn(book: HTMLElement, outgoing: HTMLElement, incoming: HTMLElement, forward: boolean, fromHeight: number, done: () => void) {
+export function animateCodexTurn(book: HTMLElement, outgoing: HTMLElement, incoming: HTMLElement, forward: boolean, done: () => void) {
   const width = book.clientWidth;
-  const height = incoming.offsetHeight;
+  const height = book.clientHeight;
   const layer = document.createElement('div');
   layer.className = 'codex-turn-layer';
   layer.dataset.direction = forward ? 'forward' : 'backward';
   layer.setAttribute('aria-hidden', 'true');
   layer.inert = true;
-  layer.style.height = `${Math.max(fromHeight, height)}px`;
+  layer.style.height = `${height}px`;
   const leaf = document.createElement('div');
   leaf.className = 'codex-turn-leaf';
   function face(name: string, page: HTMLElement, offset: number) {
     const surface = document.createElement('div');
     surface.className = name;
     page.style.width = `${width}px`;
-    page.style.height = `${Math.max(fromHeight, height)}px`;
+    page.style.height = `${height}px`;
     page.style.minHeight = '0';
     page.style.transform = `translateX(${offset}px)`;
     surface.appendChild(page);
@@ -57,18 +58,18 @@ export function animateCodexTurn(book: HTMLElement, outgoing: HTMLElement, incom
   layer.appendChild(stationary); layer.appendChild(leaf);
   book.appendChild(layer);
   book.dataset.turning = 'true';
+  // Snapshots show the currently visible portion of an internally scrolled folio.
+  layer.querySelectorAll<HTMLElement>('[data-codex-scroll-top]').forEach(page => { page.scrollTop = Number(page.dataset.codexScrollTop); });
   const duration = 780;
   const options: KeyframeAnimationOptions = { duration, easing: 'cubic-bezier(.32,.05,.22,1)', fill: 'both' };
   const turn = leaf.animate([{ transform: 'rotateY(0deg)' }, { transform: `rotateY(${forward ? -180 : 180}deg)` }], options);
-  const size = book.animate([{ height: `${fromHeight}px` }, { height: `${height}px` }], options);
   const shade = leaf.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(.88)', offset: .48 }, { filter: 'brightness(1)' }], options);
   let finished = false;
   const clean = () => {
     if (finished) return;
     finished = true;
-    turn.cancel(); size.cancel(); shade.cancel(); layer.remove();
+    turn.cancel(); shade.cancel(); layer.remove();
     delete book.dataset.turning;
-    book.style.removeProperty('height');
     done();
   };
   turn.finished.then(clean, () => {});

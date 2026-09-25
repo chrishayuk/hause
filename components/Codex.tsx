@@ -46,10 +46,8 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
       const canTurn = !initial && previous && previous !== page && found >= 0 && previousIndex >= 0
         && !motionPaused.current && !matchMedia('(prefers-reduced-motion: reduce)').matches
         && typeof book.current.animate === 'function';
-      const height = book.current.offsetHeight;
       const snapshot = canTurn ? snapshotCodexPage(previous) : null;
       const surface = book.current;
-      if (snapshot) surface.style.height = `${height}px`;
       if (page.dataset.codexPage === 'read') setView('read');
       else if (page.dataset.codexPage === 'history') setView('history');
       else if (found >= 0) { setIndex(found); setView('folios'); }
@@ -65,12 +63,12 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
         focus.focus({ preventScroll: true });
       };
       // Install cleanup before React paints, including a rapid second navigation.
-      cancelTurn.current = () => { cancelAnimationFrame(frame); surface.style.removeProperty('height'); };
+      cancelTurn.current = () => { cancelAnimationFrame(frame); };
       const ready = () => {
         // React may defer a commit; never measure or snapshot a hidden destination.
         if (page.hidden) { frame = requestAnimationFrame(ready); return; }
-        if (snapshot && !motionPaused.current) cancelTurn.current = animateCodexTurn(surface, snapshot, page, found > previousIndex, height, finish);
-        else { surface.style.removeProperty('height'); cancelTurn.current = null; finish(); }
+        if (snapshot && !motionPaused.current) cancelTurn.current = animateCodexTurn(surface, snapshot, page, found > previousIndex, finish);
+        else { cancelTurn.current = null; finish(); }
       };
       frame = requestAnimationFrame(ready);
     }
