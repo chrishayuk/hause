@@ -89,3 +89,8 @@ motion coordinator; this shell changes presentation, never a recorded outcome.
 contents and chapter anchors. It is distinct from concise `Codex` folios. Codex
 turns keep the desk in place and use inert visual copies for a directional leaf
 animation; live instruments stay mounted. Reduced motion and pause skip the turn.
+
+`EditorialPlate` accepts publication-owned media and a required caption. Its
+wide, inset and portrait compositions establish a sequence of views and details
+without inventing media, credentials or evidence. Images remain still inside
+turning folios. The caption should carry the actual credit and provenance.

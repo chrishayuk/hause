@@ -24,7 +24,7 @@
 .codex-edge a[aria-current=page] { color: var(--fg,currentColor); border-top: 1px solid currentColor; }
 .codex-book { min-width: 0; background: var(--codex-paper); color: var(--codex-ink); --fg: var(--codex-ink); --bg: var(--codex-paper); --muted: var(--codex-muted); --rule: var(--codex-rule); --accent: #87583c; box-shadow: 3px 4px 0 #bebfb5,6px 7px 0 #8e9185,10px 18px 35px #0002; }
 .codex-book:focus-visible { outline: 2px solid currentColor; outline-offset: 12px; }
-.codex-folio { position: relative; padding: clamp(24px,3vw,48px); display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); column-gap: 24px; row-gap: 36px; min-height: 620px; align-content: start; scroll-margin-top: 100px; }
+.codex-folio { --codex-page-inset: clamp(24px,3vw,48px); position: relative; padding: var(--codex-page-inset); display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); column-gap: 24px; row-gap: 36px; min-height: 620px; align-content: start; scroll-margin-top: 100px; }
 .codex-folio::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 1px solid #22251f14; pointer-events: none; }
 .codex-folio-label { grid-column: 1/-1; display: flex; justify-content: space-between; gap: 24px; font: 11px/1.6 var(--font-system,var(--font-inter,Arial)),sans-serif; color: var(--codex-muted); padding-bottom: 16px; border-bottom: 1px solid var(--codex-rule); }
 .folio-object { min-width: 0; position: relative; }

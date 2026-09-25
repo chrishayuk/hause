@@ -471,3 +471,6 @@ This is a composition capability, not an additional semantic form.
 `components/Manuscript.tsx` provides continuous prose, a contents disclosure and
 chapter rhythm for the full reading view. `codex-page-turn.ts` handles temporary,
 inert visual copies for directional page turns while live folios remain mounted.
+
+`components/EditorialPlate.tsx` gives selected images wide, inset or portrait
+compositions, with an explicit caption. It supports both folios and manuscripts.
