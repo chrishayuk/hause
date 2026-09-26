@@ -1,11 +1,12 @@
 import type { ComponentProps, ReactNode } from "react";
 import { Codex } from "./Codex";
+import type { NotebookFormat } from "../notebook-formats";
 import "../notebook-template.css";
 
 /** An authored sequence of spreads, with an independent manuscript and history.
  * The host supplies chapter boundaries, evidence and publication state. */
-export function NotebookTemplate({ className = "", ...props }: ComponentProps<typeof Codex> & { className?: string }) {
- return <div className={`hause-notebook-template ${className}`}><Codex {...props}/></div>;
+export function NotebookTemplate({ className = "", format = "lab", ...props }: ComponentProps<typeof Codex> & { className?: string; format?: NotebookFormat }) {
+ return <div className={`hause-notebook-template ${className}`} data-notebook-format={format}><Codex {...props}/></div>;
 }
 
 /** Text and an explanatory drawing share a margin, not a separate card. */
