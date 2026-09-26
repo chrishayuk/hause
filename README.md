@@ -502,3 +502,21 @@ needs exhibition rooms rather than bound folios. It accepts authored sections,
 metadata and a complete manuscript; ordinary anchors keep every room and the
 closing reflection reachable without JavaScript. The first room keeps the
 `open-notebook` entry destination. It does not add paper, page controls or motion.
+
+### Inspectable notebook objects
+
+`components/NotebookObjects.tsx` and `notebook-objects.css` carry the object
+compositions developed in the recovery notebook. `NotebookStage` gives an existing
+instrument a full-width `plate`, a `spread`, or a quieter `reading` layout.
+`NotebookPlate` attaches an authored heading, description and qualification to an
+object. `NotebookSpecimens` and `NotebookSpecimen` form a native, keyboard-readable
+contact sheet: its entries may be worlds, source passages or visual references,
+but the host must say which. All content remains server-rendered. Optional `group`
+uses native exclusive disclosures; no autoplay or inferred outcomes are added.
+`NotebookClosing` gives a finding and its limits equal space.
+
+Use actual records and explicit publication/finding states. A passage is not a
+raw trace; a source reference is not an experiment. Keep diagrams, experimental
+values, selection and editorial format in the publication. Lookbooks can use
+these objects inside `NotebookExhibition`, without acquiring laboratory paper.
+The original manuscript and citation anchors remain independent of these views.
