@@ -1,3 +1,5 @@
+@import "./notebook-material.css";
+
 /* A notebook composition can host studies, small propositions and mounted films. */
 .hause-notebook-template .hause-codex:not([data-view=cover]) .codex-heading { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px 28px; align-items: end; margin: 12px 0 20px; }
 .hause-notebook-template .hause-codex:not([data-view=cover]) .codex-collection { grid-column: 1/-1; margin: 0; font-size: 11px; }
@@ -136,4 +138,28 @@
 .hause-notebook-template[data-notebook-format=experimental] .codex-folio {
  background-image: radial-gradient(circle,var(--codex-rule) .65px,transparent .85px);
  background-size: 22px 22px;
+}
+
+/* Material follows the reading object, including inert page-turn copies.
+   Light belongs to the paper background, never a filter over evidence/media. */
+.hause-notebook-template .codex-book { border-radius: 2px 7px 8px 2px; box-shadow: var(--notebook-book-shadow); }
+.hause-notebook-template .codex-folio {
+ border-radius: inherit;
+ background-image: var(--notebook-reading-light),linear-gradient(var(--codex-grid-ink) 1px,transparent 1px),linear-gradient(90deg,var(--codex-grid-ink) 1px,transparent 1px);
+ background-size: 100% 100%,var(--codex-grid-size) var(--codex-grid-size),var(--codex-grid-size) var(--codex-grid-size);
+ background-position: 0 0,var(--codex-page-inset) var(--codex-page-inset),var(--codex-page-inset) var(--codex-page-inset);
+}
+.hause-notebook-template .codex-folio::before { left: calc(50% - 32px); width: 64px; background: var(--notebook-binding-light); }
+.hause-notebook-template[data-notebook-format=lookbook] .codex-folio,
+.hause-notebook-template[data-notebook-format=thematic] .codex-folio { background-image: var(--notebook-reading-light); background-size: 100% 100%; }
+.hause-notebook-template[data-notebook-format=experimental] .codex-folio {
+ background-image: var(--notebook-reading-light),radial-gradient(circle,var(--codex-rule) .65px,transparent .85px);
+ background-size: 100% 100%,22px 22px;
+}
+.hause-notebook-template :is(.codex-manuscript,.codex-history) { background-image: var(--notebook-reading-light); }
+@media print {
+ .hause-notebook-template .codex-book { box-shadow: none; }
+ .hause-notebook-template .codex-folio,
+ .hause-notebook-template[data-notebook-format] .codex-folio,
+ .hause-notebook-template :is(.codex-manuscript,.codex-history) { background-image: none; }
 }

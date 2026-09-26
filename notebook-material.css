@@ -1,0 +1,9 @@
+/* Shared material, independent of a publication's data, palette and layout.
+   Apply hause-notebook-material to a host scene or collection object. */
+.hause-notebook-material, .hause-notebook-template, .hause-notebook-preview {
+ --notebook-paper-light: linear-gradient(115deg,#fffcdf70,#fff5dd15 43%,#303a2424);
+ --notebook-reading-light: linear-gradient(115deg,#fffcdf42,#fff5dd08 43%,#303a2414);
+ --notebook-scene-background: radial-gradient(ellipse at 30% 36%,#b7a07730,transparent 49%),linear-gradient(118deg,#1b1c17,#0b0e0c 72%);
+ --notebook-book-shadow: 0 1px 0 #fff3,1px 3px 0 #d2cbba,2px 5px 0 #79776a,3px 7px 0 #d2cbba,4px 9px 0 #79776a,5px 11px 0 #bbb4a3,7px 15px 0 #353e32,8px 17px 0 #65705a,10px 22px 14px #0008,36px 64px 60px #000b;
+ --notebook-binding-light: linear-gradient(90deg,transparent,#423c2410 30%,#423c2430 47%,#fff9 51%,#423c240d 58%,transparent);
+}
