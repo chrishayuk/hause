@@ -132,3 +132,7 @@ supplies a real title, destination, summary, metadata, excerpt and optional marg
 annotation. It uses the same squared stock and binding as Codex, stacks into one
 column on small screens, and has one H2 rather than introducing another page H1.
 Publication selection and chronology belong to the host's record or graph layer.
+
+Room-style Statement forms become left-aligned ink passages at notebook scale
+inside NotebookTemplate. Consumer chapter wrappers should inherit the paper
+palette rather than bring a full-page dark exhibition background into the folio.
