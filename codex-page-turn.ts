@@ -30,12 +30,13 @@ export function snapshotCodexPage(page: HTMLElement) {
 
 export function animateCodexTurn(book: HTMLElement, outgoing: HTMLElement, incoming: HTMLElement, forward: boolean, done: () => void) {
   const width = book.clientWidth;
-  const height = book.clientHeight;
+  const height = incoming.offsetHeight;
   const layer = document.createElement('div');
   layer.className = 'codex-turn-layer';
   layer.dataset.direction = forward ? 'forward' : 'backward';
   layer.setAttribute('aria-hidden', 'true');
   layer.inert = true;
+  layer.style.top = `${incoming.offsetTop}px`;
   layer.style.height = `${height}px`;
   const leaf = document.createElement('div');
   leaf.className = 'codex-turn-leaf';

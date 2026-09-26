@@ -109,8 +109,7 @@ motion coordinator; this shell changes presentation, never a recorded outcome.
 
 `Manuscript` presents the full authored account as continuous prose, with optional
 contents and chapter anchors. It is distinct from concise `Codex` folios. Codex
-turns keep the desk in place and use inert visual copies for a directional leaf
-animation; live instruments stay mounted. Reduced motion and pause skip the turn.
+turns use inert visual copies for a directional leaf animation; live instruments stay mounted. Reduced motion and pause skip the turn.
 
 `EditorialPlate` accepts publication-owned media and a required caption. Its
 wide, inset and portrait compositions establish a sequence of views and details
@@ -122,3 +121,8 @@ figures. The document scrolls normally, so images, tables and captions remain
 fully visible. `sizing="fixed"` explicitly opts into a fixed-height binding with
 internal scrolling and a reserved scrollbar gutter. Read remains continuous;
 print and no-JavaScript views expose full content.
+
+Previous/Next and the current spread label sit on the paper’s top edge. This
+strip stays visible below the view selector while a long folio scrolls. The
+selector height is measured so wrapped mobile controls do not overlap it.
+Turning from within a long page brings the new spread back to its beginning.

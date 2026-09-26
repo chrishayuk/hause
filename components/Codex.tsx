@@ -19,12 +19,26 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
   const [enlarged, setEnlarged] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const touch = useRef<number | null>(null);
+  const modes = useRef<HTMLElement>(null);
+  const pagination = useRef<HTMLElement>(null);
   const { paused } = useMotion();
   const active = folios[index];
   const book = useRef<HTMLDivElement>(null);
   const navigate = useRef<(fragment: string, initial?: boolean) => void>(() => {});
   const cancelTurn = useRef<(() => void) | null>(null);
   const motionPaused = useRef(paused);
+  useEffect(() => {
+    const measure = () => {
+      if (!root.current) return;
+      root.current.style.setProperty('--codex-modes-height', `${modes.current?.offsetHeight ?? 0}px`);
+      if (pagination.current?.offsetHeight) root.current.style.setProperty('--codex-pagination-height', `${pagination.current.offsetHeight}px`);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    if (modes.current) observer.observe(modes.current);
+    if (pagination.current) observer.observe(pagination.current);
+    return () => observer.disconnect();
+  }, []);
   useEffect(() => {
     motionPaused.current = paused;
     if (paused) cancelTurn.current?.();
@@ -56,9 +70,12 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
       }
       target.querySelectorAll<HTMLDetailsElement>(":scope > details").forEach(detail => { detail.open = true; });
       const finish = () => {
-        // Ordinary turns keep the desk in place. Only entering the book or following
-        // a specific annotation moves the reading position.
-        if (initial || !previous || target !== page) target.scrollIntoView({ behavior: 'instant', block: 'start' });
+        // A turn from the middle of a long spread starts the new page at its top.
+        // Keep the paper in place when it is already fully in view.
+        if (target !== page) target.scrollIntoView({ behavior: 'instant', block: 'start' });
+        else if (initial || !previous || surface.getBoundingClientRect().top < (modes.current?.getBoundingClientRect().bottom ?? 0)) {
+          surface.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
         const focus = target.hasAttribute('tabindex') ? target : page;
         focus.focus({ preventScroll: true });
       };
@@ -113,7 +130,7 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
       <div className="codex-opening"><a href={`#${folios[0]?.id}`}>Open the notebook <span aria-hidden="true">↗</span></a><a href={`#${id}-read`}>Read the manuscript</a></div>
       <p className="codex-cover-note">Working papers · {folios.length} spreads</p>
     </header>
-    <nav className="codex-modes" aria-label="Notebook views">
+    <nav ref={modes} className="codex-modes" aria-label="Notebook views">
       <a href={`#${active?.id}`} aria-current={view === "folios" ? "true" : undefined}>Folios</a>
       <a href={`#${id}-read`} aria-current={view === "read" ? "true" : undefined}>Read</a>
       {firstOperation && <a href={`#${firstOperation.id}`}>Operate</a>}
@@ -124,6 +141,11 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
     <div className="codex-desk">
       <nav className="codex-edge" aria-label="Folio index">{folios.map((folio, i) => <a href={`#${folio.id}`} key={folio.id} aria-current={view === "folios" && index === i ? "page" : undefined}><span>{String(i + 1).padStart(2, "0")}</span><span>{folio.label}</span></a>)}</nav>
       <div ref={book} className="codex-book" tabIndex={0} onKeyDown={keys} aria-label="Notebook spread. Left and right arrow keys turn pages.">
+        <nav ref={pagination} className="codex-pagination" aria-label="Turn notebook pages" hidden={view !== "folios"}>
+          <button type="button" disabled={index === 0} onClick={() => go(index - 1)}>← Previous</button>
+          <div className="codex-turn-handle" onPointerDown={event => { touch.current = event.clientX; event.currentTarget.setPointerCapture(event.pointerId); }} onPointerCancel={() => { touch.current = null; }} onPointerUp={event => { const from = touch.current; touch.current = null; if (from !== null && Math.abs(event.clientX - from) > 50) go(index + (event.clientX < from ? 1 : -1)); }}><span aria-live="polite">{index + 1} / {folios.length} · {active?.label}</span><small>Drag here to turn</small></div>
+          <button type="button" disabled={index === folios.length - 1} onClick={() => go(index + 1)}>Next →</button>
+        </nav>
         {folios.map((folio, i) => <section key={folio.id} id={folio.id} className="codex-folio" data-codex-page="folio" tabIndex={-1} hidden={view !== "folios" || index !== i} aria-label={`Spread ${i + 1}: ${folio.label}`}>
           <div className="codex-folio-label"><span>{collection}</span><span>{String(i + 1).padStart(2, "0")} / {String(folios.length).padStart(2, "0")}</span></div>
           {folio.children}
@@ -131,11 +153,6 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
         <section id={`${id}-read`} data-codex-page="read" tabIndex={-1} className="codex-manuscript" hidden={view !== "read"}><h2>The full account</h2>{manuscript}</section>
         <section id={`${id}-history`} data-codex-page="history" tabIndex={-1} className="codex-history" hidden={view !== "history"}><h2>The record over time</h2>{history}</section>
       </div>
-    </div>
-    <div className="codex-pagination" hidden={view !== "folios"}>
-      <button type="button" disabled={index === 0} onClick={() => go(index - 1)}>← Previous</button>
-      <div className="codex-turn-handle" onPointerDown={event => { touch.current = event.clientX; event.currentTarget.setPointerCapture(event.pointerId); }} onPointerCancel={() => { touch.current = null; }} onPointerUp={event => { const from = touch.current; touch.current = null; if (from !== null && Math.abs(event.clientX - from) > 50) go(index + (event.clientX < from ? 1 : -1)); }}><span aria-live="polite">{index + 1} / {folios.length} · {active?.label}</span><small>Drag here to turn</small></div>
-      <button type="button" disabled={index === folios.length - 1} onClick={() => go(index + 1)}>Next →</button>
     </div>
     <noscript><style>{`.hause-codex[data-view=cover] .codex-desk{display:block!important}.hause-codex .codex-folio[hidden],.hause-codex .codex-manuscript[hidden],.hause-codex .codex-history[hidden]{display:block!important}.hause-codex .codex-pagination{display:none!important}.hause-codex .codex-folio{margin-bottom:48px}`}</style></noscript>
   </div>;
