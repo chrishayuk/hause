@@ -11,7 +11,7 @@
 .hause-notebook-template .codex-folio .hause-study-room {
  padding: 0; margin: 0; border: 0; background: transparent; color: var(--codex-ink);
  --fg: var(--codex-ink); --bg: var(--codex-paper); --muted: var(--codex-muted); --rule: var(--codex-rule);
- --accent: #87583c; --color-accent: #87583c; --color-mist: var(--codex-muted); --raised: #e9e5da;
+ --accent: #87583c; --color-accent: #87583c; --color-mist: var(--codex-muted); --raised: color-mix(in srgb,var(--codex-ink) 5%,var(--codex-paper));
 }
 .hause-notebook-template .hause-study-room > header { margin: 0 0 28px; }
 .hause-notebook-template .hause-study-room > header > .exhibition-label { margin-bottom: 20px; font-size: 10px; }
@@ -46,7 +46,7 @@
 
 .hause-notebook-film { margin: 28px 0; min-width: 0; }
 .notebook-film-register { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font: 11px/1.6 var(--font-evidence,var(--font-geist-mono,monospace)),monospace; color: var(--codex-muted,var(--muted,#66695f)); }
-.notebook-film-mount { position: relative; padding: 12px; background: #e2ded2; border: 1px solid #22251f24; box-shadow: 2px 3px 0 #22251f13; }
+.notebook-film-mount { position: relative; padding: 12px; background: color-mix(in srgb,var(--codex-ink,#22251f) 8%,var(--codex-paper,#f2eee3)); border: 1px solid #22251f24; box-shadow: 2px 3px 0 #22251f13; }
 .notebook-film-mount::before, .notebook-film-mount::after { content: ""; position: absolute; z-index: 2; top: -7px; width: 42px; height: 15px; background: #c9b99480; border-inline: 1px solid #f2eee378; pointer-events: none; }
 .notebook-film-mount::before { left: 15px; transform: rotate(-12deg); }
 .notebook-film-mount::after { right: 15px; transform: rotate(10deg); }
@@ -85,3 +85,33 @@
 .hause-notebook-template .codex-folio .exhibition-authored-statement .voice-editorial > span,
 .hause-notebook-template .codex-folio .exhibition-authored-statement .voice-editorial > em { max-width: 30ch; margin-inline: 0; }
 .hause-notebook-template .codex-folio .exhibition-authored-statement .voice-editorial > em { margin-top: .2em; color: #87583c; }
+
+/* Exhibition specimens become annotations when hosted by a notebook.
+   Keep these adaptations with the shared forms, independent of a consumer's theme. */
+.hause-notebook-template .codex-folio :is(.exhibition-archive,.exhibition-card-wall,.exhibition-staged-change) {
+ background: transparent; color: var(--codex-ink); padding: 28px 0; margin: 24px 0;
+ border-block: 1px solid var(--codex-rule);
+}
+.hause-notebook-template .codex-folio :is(.exhibition-archive figcaption,.exhibition-archive-forms code,.exhibition-card-wall figcaption,.exhibition-staged-change > figcaption,.exhibition-staged-change > p,.exhibition-performance-score small,.exhibition-performance-score p) { color: var(--codex-muted); }
+.hause-notebook-template .codex-folio :is(.exhibition-archive > strong,.exhibition-state-evidence,.exhibition-performance-score li:nth-child(2) span) { color: #87583c; }
+.hause-notebook-template .codex-folio :is(.exhibition-archive-forms,.exhibition-performance-score) { border-color: var(--codex-rule); }
+.hause-notebook-template .codex-folio .exhibition-archive blockquote { font-size: clamp(28px,5cqi,48px); margin: 32px 0; }
+.hause-notebook-template .codex-folio .exhibition-archive > strong { font-size: clamp(32px,6cqi,60px); margin-top: 32px; }
+.hause-notebook-template .codex-folio .exhibition-card-wall > div span { background: color-mix(in srgb,var(--codex-ink) 4%,transparent); border-color: var(--codex-rule); }
+.hause-notebook-template .codex-folio .exhibition-card-wall > strong { font-size: clamp(60px,12cqi,110px); }
+.hause-notebook-template .codex-folio .exhibition-three-rooms section:last-child {
+ --rule: var(--codex-rule); --accent: #87583c; --bg: var(--codex-paper);
+ background: color-mix(in srgb,var(--codex-ink) 5%,transparent); color: var(--codex-ink);
+}
+.hause-notebook-template .codex-folio .exhibition-three-rooms section:last-child p { color: var(--codex-muted); }
+.hause-notebook-template .codex-folio .exhibition-three-rooms section:last-child .exhibition-doorway > i { color: #87583c; }
+.hause-notebook-template .codex-folio .exhibition-performance-stage { height: clamp(200px,30cqi,320px); }
+.hause-notebook-template .codex-folio .exhibition-performance-stage > span { font-size: clamp(42px,9cqi,100px); }
+.hause-notebook-template .codex-folio .exhibition-performance-stage > i { background: #87583c; }
+@container (max-width: 680px) {
+ .hause-notebook-template .codex-folio .exhibition-three-rooms > div { grid-template-columns: 1fr; }
+ .hause-notebook-template .codex-folio .exhibition-three-rooms section { border-right: 0; border-bottom: 1px solid var(--codex-rule); }
+ .hause-notebook-template .codex-folio .exhibition-three-rooms section:last-child { border-bottom: 0; }
+ .hause-notebook-template .codex-folio .exhibition-three-rooms h2 { font-size: clamp(36px,9cqi,64px); }
+ .hause-notebook-template .codex-folio .exhibition-staged-change > figcaption { flex-wrap: wrap; }
+}
