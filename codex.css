@@ -1,5 +1,5 @@
 /* A bound DOM object: no canvas text, texture image, camera or scroll interception. */
-.hause-codex { --codex-paper: #eeece5; --codex-ink: #22251f; --codex-muted: #66695f; --codex-rule: #22251f38; --codex-gutter: clamp(24px,4vw,64px); max-width: 1540px; margin: 0 auto 80px; padding: 0 var(--codex-gutter); color: var(--fg,currentColor); }
+.hause-codex { --codex-paper: #f2eee3; --codex-ink: #22251f; --codex-muted: #66695f; --codex-rule: #22251f38; --codex-grid-size: 20px; --codex-grid-ink: #637b7017; --codex-margin-ink: #a36b4b38; --codex-gutter: clamp(24px,4vw,64px); max-width: 1540px; margin: 0 auto 80px; padding: 0 var(--codex-gutter); color: var(--fg,currentColor); }
 .codex-heading { margin: 32px auto; }
 .codex-heading h1 { font: 400 clamp(25px,3vw,40px)/1.18 var(--font-display,var(--font-fraunces,Georgia)),serif; max-width: 28ch; letter-spacing: -.025em; }
 .codex-collection, .codex-byline, .codex-cover-note { font: 12px/1.7 var(--font-system,var(--font-inter,Arial)),sans-serif; }
@@ -25,7 +25,15 @@
 .codex-book { min-width: 0; background: var(--codex-paper); color: var(--codex-ink); --fg: var(--codex-ink); --bg: var(--codex-paper); --muted: var(--codex-muted); --rule: var(--codex-rule); --accent: #87583c; box-shadow: 3px 4px 0 #bebfb5,6px 7px 0 #8e9185,10px 18px 35px #0002; }
 .codex-book:focus-visible { outline: 2px solid currentColor; outline-offset: 12px; }
 .codex-folio { --codex-page-inset: clamp(24px,3vw,48px); position: relative; padding: var(--codex-page-inset); display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); column-gap: 24px; row-gap: 36px; min-height: 620px; align-content: start; scroll-margin-top: 100px; }
-.codex-folio::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 1px solid #22251f14; pointer-events: none; }
+/* Fine squared stock follows the actual folio, including the page-turn copies. */
+.codex-folio {
+ background-color: var(--codex-paper);
+ background-image: linear-gradient(var(--codex-grid-ink) 1px,transparent 1px),linear-gradient(90deg,var(--codex-grid-ink) 1px,transparent 1px);
+ background-size: var(--codex-grid-size) var(--codex-grid-size);
+ background-position: var(--codex-page-inset) var(--codex-page-inset);
+}
+.codex-folio::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 22px); width: 44px; background: linear-gradient(90deg,transparent,#22251f09 42%,#22251f18 49%,#fff8 51%,#22251f06 58%,transparent); pointer-events: none; }
+.codex-folio::after { content: ""; position: absolute; top: var(--codex-page-inset); bottom: var(--codex-page-inset); left: calc(var(--codex-page-inset) - 12px); border-left: 1px solid var(--codex-margin-ink); pointer-events: none; }
 .codex-folio-label { grid-column: 1/-1; display: flex; justify-content: space-between; gap: 24px; font: 11px/1.6 var(--font-system,var(--font-inter,Arial)),sans-serif; color: var(--codex-muted); padding-bottom: 16px; border-bottom: 1px solid var(--codex-rule); }
 .folio-object { min-width: 0; position: relative; }
 .folio-object[data-place=left] { grid-column: 1/6; }
@@ -66,7 +74,7 @@
 .codex-turn-face::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,#22251f18,transparent 14%,transparent 90%,#22251f0a); pointer-events: none; }
 .codex-turn-stationary { position: absolute; inset: 0; clip-path: inset(0 50% 0 0); background: var(--codex-paper); }
 .codex-turn-layer[data-direction=backward] .codex-turn-stationary { clip-path: inset(0 0 0 50%); }
-.codex-turn-layer .codex-folio { background: var(--codex-paper); margin: 0; }
+.codex-turn-layer .codex-folio { margin: 0; }
 .codex-turn-layer *, .codex-turn-layer *::before, .codex-turn-layer *::after { animation: none !important; transition: none !important; }
 @media (prefers-reduced-motion: reduce) { .codex-turn-layer { display: none; } }
 @media (max-width: 900px) {
@@ -92,7 +100,8 @@
 @media print {
  .hause-codex .codex-folio[hidden], .hause-codex .codex-manuscript[hidden], .hause-codex .codex-history[hidden], .hause-codex[data-view=cover] .codex-desk { display: block; }
  .codex-heading { transform: none !important; box-shadow: none !important; min-height: 0 !important; }
- .codex-folio { break-before: page; }
+ .codex-folio { break-before: page; background: none; }
+ .codex-folio::before, .codex-folio::after { display: none; }
  .codex-book { box-shadow: none; }
  .codex-edge, .codex-pagination, .codex-modes, .codex-opening, .codex-turn-layer { display: none !important; }
 }

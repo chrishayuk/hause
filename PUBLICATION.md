@@ -70,6 +70,12 @@ revision date and named predecessor. Hosts store and verify their own artifacts.
 
 ## Codex composition
 
+Folio paper uses a fine square grid, a quiet outer margin rule and a shaded
+centre fold. The paper treatment also follows the cloned leaves during page
+turns. Tune `--codex-grid-size`, `--codex-grid-ink`, `--codex-margin-ink` and
+`--codex-paper` on `.hause-codex`. The centre fold disappears on narrow screens;
+continuous Read and History views stay unruled, and print omits the decoration.
+
 A major entry can opt into `NotebookEdition` and `Codex`, with `ReadingFigure`,
 `FolioObject` and `Marginalia` as its working objects. Supply ordered `folios`
 with stable IDs, labels and optional `kind: "operate" | "evidence"`, plus the
