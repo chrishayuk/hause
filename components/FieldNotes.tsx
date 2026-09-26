@@ -17,6 +17,8 @@ export function CitationScope({ children, className = "" }: { children: ReactNod
       if (!/^#act-\d+$/.test(location.hash)) return;
       const target = document.getElementById(location.hash.slice(1));
       if (!target) return;
+      // The bound notebook opens its destination folio before positioning it.
+      if (target.closest('[data-codex-page]')) return;
       for (let parent = target.parentElement; parent; parent = parent.parentElement) {
         if (parent instanceof HTMLDetailsElement) parent.open = true;
       }

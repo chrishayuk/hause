@@ -452,6 +452,11 @@ for the update and CI workflow.
 
 ## Bound notebook entries
 
+`components/NotebookTemplate.tsx` and `notebook-template.css` provide the reusable
+notebook composition: `NotebookTemplate` for authored folios, `NotebookNote` for
+text beside a margin sketch, and `NotebookFilm` for mounted clips with source and
+timestamp captions. The host owns drawings, chapter boundaries and playback.
+
 `NotebookEdition.tsx` and `notebook.css` define an opt-in reading surface and
 fragment-aware supporting material. `ReadingFigure.tsx` keeps native figure
 semantics and forwarded refs; instruments with existing playback use

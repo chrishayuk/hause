@@ -70,6 +70,22 @@ revision date and named predecessor. Hosts store and verify their own artifacts.
 
 ## Codex composition
 
+Use `NotebookTemplate` for the complete notebook treatment. It accepts Codex's
+authored `folios`, `manuscript`, `history` and cover metadata, and gives study
+rooms a paper-scale composition. A short proposition can use two spreads; an
+experiment can keep a complete operable study together on one spread. Choose
+boundaries by meaning, never by an automatic character or height cutoff.
+
+`NotebookNote` takes `title`, text `children`, `sketch` and `caption`. Its drawing
+sits in the margin when space permits and follows the text on narrow paper.
+Drawings belong to their publication; do not turn a schematic into invented
+measurements. Supply an SVG accessible name or an equivalent nearby description.
+
+`NotebookFilm` takes the existing player as `children`, a `caption`, and optional
+`source`, `marker` and `timestamp`. It supplies a mounted frame and apparatus;
+the player still owns loading, sound, controls and motion coordination. Keep
+source URLs and start times exact. A decorated mount is not a new playback owner.
+
 Folio paper uses a fine square grid, a quiet outer margin rule and a shaded
 centre fold. The paper treatment also follows the cloned leaves during page
 turns. Tune `--codex-grid-size`, `--codex-grid-ink`, `--codex-margin-ink` and
