@@ -1,0 +1,57 @@
+/* Publication objects: ink, scale and space; no simulated evidence or new motion. */
+.hause-notebook-stage, .hause-notebook-plate, .hause-notebook-closing { min-width: 0; }
+.notebook-object-register { display: block; font: 11px/1.8 var(--font-evidence,var(--font-geist-mono,monospace)); letter-spacing: .025em; color: var(--muted); }
+.hause-notebook-plate > .notebook-object-heading { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 24px 8%; align-items: end; margin-bottom: clamp(32px,5vw,64px); }
+.notebook-object-heading > .notebook-object-register { grid-column: 1/-1; }
+.hause-notebook-plate .notebook-object-heading > h2 { margin: 0; max-width: 22ch; font: 400 clamp(34px,5cqi,72px)/1.1 var(--font-display,var(--font-fraunces,Georgia)); letter-spacing: -.035em; }
+.notebook-object-description { font: 16px/1.85 var(--font-system,var(--font-inter,Arial)); max-width: 48ch; }
+.notebook-object-surface { min-width: 0; }
+.notebook-object-note { border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 36px; font: 13px/1.85 var(--font-system,var(--font-inter,Arial)); }
+.notebook-object-note > p { max-width: 72ch; }
+.notebook-object-note a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
+.hause-notebook-specimens { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(28px,4vw,56px); align-items: start; }
+.hause-notebook-specimens[data-density=compact] { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 24px; }
+.hause-notebook-specimen { min-width: 0; border-block: 1px solid var(--rule); }
+.hause-notebook-specimen > summary { position: relative; padding: 28px 28px 32px 0; cursor: pointer; list-style: none; min-height: 44px; }
+.hause-notebook-specimen > summary::-webkit-details-marker { display: none; }
+.notebook-specimen-toggle { position: absolute; top: 28px; right: 2px; font: 20px/1.5 var(--font-system,var(--font-inter,Arial)); }
+.hause-notebook-specimen[open] > summary > .notebook-specimen-toggle { transform: rotate(45deg); }
+.hause-notebook-specimen > summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.hause-notebook-specimen > summary:hover { text-decoration: underline; text-underline-offset: 5px; }
+.notebook-specimen-content { padding: 0 0 32px; min-width: 0; font: 15px/1.85 var(--font-system,var(--font-inter,Arial)); overflow-wrap: anywhere; }
+.notebook-specimen-content p + p { margin-top: 20px; }
+.notebook-specimen-content a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
+.notebook-specimen-content pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.hause-notebook-closing > header { margin-bottom: 44px; }
+.hause-notebook-closing > header > h2 { font: 400 clamp(42px,6cqi,80px)/1.08 var(--font-display,var(--font-fraunces,Georgia)); letter-spacing: -.035em; max-width: 22ch; margin: 28px 0 0; }
+.notebook-closing-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8%; }
+.notebook-closing-pair > * { min-width: 0; border-top: 1px solid var(--rule); padding-top: 28px; }
+.notebook-closing-finding { font: 400 clamp(24px,3cqi,36px)/1.5 var(--font-display,var(--font-fraunces,Georgia)); }
+.notebook-closing-scope > h3 { font: 12px/1.8 var(--font-evidence,var(--font-geist-mono,monospace)); margin: 0 0 20px; color: var(--muted); }
+.notebook-closing-scope > p { font: 400 clamp(21px,2.5cqi,30px)/1.6 var(--font-display,var(--font-fraunces,Georgia)); }
+.hause-notebook-closing > footer { margin-top: 40px; }
+
+/* Plate layouts put the instrument across the paper, with its heading above. */
+.hause-notebook-template .hause-notebook-stage[data-notebook-layout=plate] .hause-study-room { display: block; }
+.hause-notebook-template .hause-notebook-stage[data-notebook-layout=plate] .hause-study-room > header { max-width: none; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 24px 8%; align-items: end; margin-bottom: 40px; }
+.hause-notebook-template .hause-notebook-stage[data-notebook-layout=plate] .hause-study-room > header > .exhibition-label { grid-column: 1/-1; margin: 0; }
+.hause-notebook-template .hause-notebook-stage[data-notebook-layout=plate] .hause-study-room > header > h2 { font-size: clamp(34px,5cqi,66px); line-height: 1.12; }
+.hause-notebook-template .hause-notebook-stage[data-notebook-layout=plate] .hause-study-room > header > p { margin: 0; font-size: 16px; }
+.hause-notebook-template .hause-notebook-stage[data-notebook-layout=plate] .hause-study-content { max-width: none; width: 100%; }
+.hause-notebook-stage[data-notebook-layout=reading] { max-width: 68rem; margin-inline: auto; }
+@container (max-width: 680px) {
+ .hause-notebook-plate > .notebook-object-heading, .notebook-closing-pair,
+ .hause-notebook-template .hause-notebook-stage[data-notebook-layout=plate] .hause-study-room > header { grid-template-columns: 1fr; gap: 28px; }
+ .hause-notebook-specimens { grid-template-columns: 1fr; gap: 28px; }
+ .hause-notebook-specimens[data-density=compact] { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 700px) {
+ .hause-notebook-plate > .notebook-object-heading, .notebook-closing-pair { grid-template-columns: 1fr; gap: 28px; }
+ .hause-notebook-specimens { grid-template-columns: 1fr; }
+ .hause-notebook-specimens[data-density=compact] { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media print {
+ .hause-notebook-specimen::details-content { content-visibility: visible !important; display: block; }
+ .hause-notebook-specimen { break-inside: avoid; }
+ .notebook-specimen-toggle { display: none; }
+}
