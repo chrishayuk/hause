@@ -78,3 +78,10 @@
  .notebook-preview-title h2 { font-size: clamp(30px,7vw,46px); }
 }
 @media print { .notebook-preview-tab { position: static; background: none; color: inherit; transform: none; } .notebook-preview-paper { break-before: auto; } }
+
+/* A room-scale statement becomes an inked passage when it sits on notebook paper. */
+.hause-notebook-template .codex-folio .exhibition-authored-statement { max-width: 52rem; margin: 0; text-align: left; }
+.hause-notebook-template .codex-folio .exhibition-authored-statement .voice-editorial { margin: 0; font-size: clamp(28px,3vw,42px); line-height: 1.25; letter-spacing: -.025em; color: var(--codex-ink); text-align: left; }
+.hause-notebook-template .codex-folio .exhibition-authored-statement .voice-editorial > span,
+.hause-notebook-template .codex-folio .exhibition-authored-statement .voice-editorial > em { max-width: 30ch; margin-inline: 0; }
+.hause-notebook-template .codex-folio .exhibition-authored-statement .voice-editorial > em { margin-top: .2em; color: #87583c; }
