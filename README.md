@@ -424,3 +424,58 @@ beats on a centred measure. `StagedTransition` is a performance with `from`, `to
 `kicker`, a three-beat `score` and a `caption`. It requires `MotionProvider`,
 respects reduced motion, and leaves the final state and all three explanations
 readable when paused or without JavaScript. See `EXHIBITION.md` for adoption.
+
+## Publication reading helpers
+
+`FigureMotion.tsx` reveals recorded geometry once and supports replay through
+`MotionProvider`. It never interpolates measurements. Mark descendants with
+`data-figure-trace` or `data-figure-reveal`; the complete figure remains the
+no-JavaScript and reduced-motion edition. The consumer styles `.figure-motion`
+and `.figure-motion-replay`; `reading.css` supplies overridable control defaults.
+
+`AnchoredDisclosure.tsx` keeps native details/summary reading and opens a section
+when its content is linked by fragment. It accepts `label`, `children` and an
+optional `className`; the consumer supplies the editorial treatment.
+
+`legibility.ts` validates publication meaning and builds search/structured-data
+projections without replacing an authored title. `provenance.ts` checks revision
+continuity; persistence, source hashes and preserved artifacts remain with the
+publication. These helpers originated in chrishayuk.com, and are capabilities,
+not additional semantic forms.
+
+## Consumer synchronization
+
+`scripts/consumer-sync.mjs` pins a consumer to one exact HAUSE Git revision and
+checks every shipped source file against `hause.lock.json`. It supports an
+installed Git dependency or a complete source mirror. See [SYNC.md](SYNC.md)
+for the update and CI workflow.
+
+## Bound notebook entries
+
+`components/NotebookTemplate.tsx` and `notebook-template.css` provide the reusable
+notebook composition: `NotebookTemplate` for authored folios, `NotebookNote` for
+text beside a margin sketch, and `NotebookFilm` for mounted clips with source and
+timestamp captions. The host owns drawings, chapter boundaries and playback.
+
+`NotebookEdition.tsx` and `notebook.css` define an opt-in reading surface and
+fragment-aware supporting material. `ReadingFigure.tsx` keeps native figure
+semantics and forwarded refs; instruments with existing playback use
+`motion={false}`. Outside a NotebookEdition it renders the original figure.
+`FigureMotion` also accepts `as="figure"` and `reveal="surface"` for one restrained
+entrance without nesting figures or interpolating data.
+
+`Codex.tsx`, `codex.ts` and `codex.css` compose an individual entry as a bound object with
+HTML folios, a persistent index, keyboard and pointer page navigation, a reading
+view and an authored history. `FolioObject` supplies relative grid placement;
+`Marginalia` attaches qualifications and sources. Ordinals identify reading order,
+not historical folio numbers. Content is selectable and server-rendered, with a
+linear no-JavaScript and print fallback. Motion obeys MotionProvider and reduced
+motion. The publication supplies actual data, instruments and revision history.
+This is a composition capability, not an additional semantic form.
+
+`components/Manuscript.tsx` provides continuous prose, a contents disclosure and
+chapter rhythm for the full reading view. `codex-page-turn.ts` handles temporary,
+inert visual copies for directional page turns while live folios remain mounted.
+
+`components/EditorialPlate.tsx` gives selected images wide, inset or portrait
+compositions, with an explicit caption. It supports both folios and manuscripts.
