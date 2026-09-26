@@ -56,3 +56,25 @@
 .hause-notebook-film > figcaption > div { max-width: 58ch; }
 .hause-notebook-film > figcaption a { display: inline-flex; align-items: center; min-height: 44px; font-size: 11px; text-decoration: underline; text-underline-offset: 4px; }
 @media print { .notebook-film-mount { box-shadow: none; } .notebook-film-mount::before, .notebook-film-mount::after { display: none; } }
+
+/* A still open spread for an index or a publication entrance. */
+.hause-notebook-preview { position: relative; padding-top: 28px; color: var(--codex-ink); }
+.notebook-preview-tab { position: absolute; top: 0; right: 7%; padding: 8px 22px 12px; background: #87583c; color: #fff9ec; font: 12px/1.5 var(--font-evidence,monospace),monospace; transform: rotate(2deg); }
+.notebook-preview-paper { min-height: 0; row-gap: 32px; column-gap: clamp(32px,5vw,80px); padding-block: clamp(28px,4vw,64px); }
+.notebook-preview-title { grid-column: 1/7; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.notebook-preview-title h2 { margin: 0; font: 400 clamp(32px,4.3vw,66px)/1.1 var(--font-display,var(--font-fraunces,Georgia)),serif; letter-spacing: -.035em; overflow-wrap: anywhere; }
+.notebook-preview-title h2 a { color: inherit; text-decoration: none; }
+.notebook-preview-title > p { margin: 28px 0; max-width: 42ch; font: 15px/1.8 var(--font-system,var(--font-inter,Arial)),sans-serif; }
+.notebook-preview-enter { display: inline-flex; align-items: center; gap: 28px; min-height: 44px; margin-top: auto; color: inherit; text-decoration: underline; text-underline-offset: 6px; font: 13px/1.6 var(--font-system,var(--font-inter,Arial)),sans-serif; }
+.notebook-preview-reading { grid-column: 7/-1; min-width: 0; align-self: center; font: 16px/1.85 var(--font-system,var(--font-inter,Arial)),sans-serif; }
+.notebook-preview-reading > p { margin: 0 0 24px; }
+.notebook-preview-reading > aside { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--codex-rule); font-size: 12px; color: var(--codex-muted); }
+.hause-notebook-preview a:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+@media (max-width: 700px) {
+ .notebook-preview-title, .notebook-preview-reading { grid-column: 1/-1; }
+ .notebook-preview-paper::before { display: none; }
+ .notebook-preview-paper .codex-folio-label { flex-wrap: wrap; gap: 8px; }
+ .notebook-preview-reading { padding-top: 24px; border-top: 1px solid var(--codex-rule); font-size: 15px; }
+ .notebook-preview-title h2 { font-size: clamp(30px,7vw,46px); }
+}
+@media print { .notebook-preview-tab { position: static; background: none; color: inherit; transform: none; } .notebook-preview-paper { break-before: auto; } }

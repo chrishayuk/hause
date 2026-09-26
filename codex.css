@@ -1,5 +1,6 @@
+.hause-codex, .hause-notebook-preview { --codex-paper: #f2eee3; --codex-ink: #22251f; --codex-muted: #66695f; --codex-rule: #22251f38; --codex-grid-size: 20px; --codex-grid-ink: #637b7017; --codex-margin-ink: #a36b4b38; }
 /* A bound DOM object: no canvas text, texture image, camera or scroll interception. */
-.hause-codex { --codex-paper: #f2eee3; --codex-ink: #22251f; --codex-muted: #66695f; --codex-rule: #22251f38; --codex-grid-size: 20px; --codex-grid-ink: #637b7017; --codex-margin-ink: #a36b4b38; --codex-gutter: clamp(24px,4vw,64px); max-width: 1540px; margin: 0 auto 80px; padding: 0 var(--codex-gutter); color: var(--fg,currentColor); }
+.hause-codex { --codex-gutter: clamp(24px,4vw,64px); max-width: 1540px; margin: 0 auto 80px; padding: 0 var(--codex-gutter); color: var(--fg,currentColor); }
 .codex-heading { margin: 32px auto; }
 .codex-heading h1 { font: 400 clamp(25px,3vw,40px)/1.18 var(--font-display,var(--font-fraunces,Georgia)),serif; max-width: 28ch; letter-spacing: -.025em; }
 .codex-collection, .codex-byline, .codex-cover-note { font: 12px/1.7 var(--font-system,var(--font-inter,Arial)),sans-serif; }

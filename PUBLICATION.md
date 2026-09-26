@@ -126,3 +126,9 @@ Previous/Next and the current spread label sit on the paper’s top edge. This
 strip stays visible below the view selector while a long folio scrolls. The
 selector height is measured so wrapped mobile controls do not overlap it.
 Turning from within a long page brings the new spread back to its beginning.
+
+`NotebookPreview` renders a still open spread for a homepage or index. The host
+supplies a real title, destination, summary, metadata, excerpt and optional margin
+annotation. It uses the same squared stock and binding as Codex, stacks into one
+column on small screens, and has one H2 rather than introducing another page H1.
+Publication selection and chronology belong to the host's record or graph layer.

@@ -29,3 +29,18 @@ export function NotebookFilm({ children, caption, source, marker = "Film study",
   <figcaption><div>{caption}</div>{source && <a href={source.href}>{source.label} ↗</a>}</figcaption>
  </figure>;
 }
+
+/** An open-paper entrance to a publication; the host selects the record and excerpt. */
+export function NotebookPreview({ title, href, summary, metadata, children, annotation, label = "From the notebook" }: {
+ title: string; href: string; summary: string; metadata: ReactNode; children: ReactNode;
+ annotation?: ReactNode; label?: string;
+}) {
+ return <article className="hause-notebook-preview">
+  <div className="notebook-preview-tab">{label}</div>
+  <div className="codex-book"><div className="codex-folio notebook-preview-paper">
+   <div className="codex-folio-label"><span>{metadata}</span><span>Notebook / excerpt</span></div>
+   <div className="notebook-preview-title"><h2><a href={href}>{title}</a></h2><p>{summary}</p><a className="notebook-preview-enter" href={href}>Read the notebook <span aria-hidden="true">↗</span></a></div>
+   <div className="notebook-preview-reading">{children}{annotation && <aside>{annotation}</aside>}</div>
+  </div></div>
+ </article>;
+}
