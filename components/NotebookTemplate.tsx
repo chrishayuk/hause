@@ -2,6 +2,20 @@ import type { ComponentProps, ReactNode } from "react";
 import { Codex } from "./Codex";
 import type { NotebookFormat } from "../notebook-formats";
 import "../notebook-template.css";
+import "../notebook-exhibition.css";
+
+/** An exhibition essay uses rooms and native reading, without a simulated book. */
+export function NotebookExhibition({ id, title, subtitle, byline, sections, manuscript }: {
+ id: string; title: string; subtitle: string; byline: ReactNode;
+ sections: { id: string; label: string; children: ReactNode }[]; manuscript: ReactNode;
+}) {
+ return <article id={id} className="hause-notebook-exhibition" data-notebook-format="lookbook">
+  <header className="notebook-exhibition-heading"><p>Notebook / Exhibition essay</p><h1>{title}</h1><div className="notebook-exhibition-dek">{subtitle}</div><div className="notebook-exhibition-byline">{byline}</div></header>
+  <nav className="notebook-exhibition-contents" aria-label="Exhibition rooms">{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.label}</a>)}<a href={`#${id}-manuscript`}>Full manuscript</a></nav>
+  {sections.map((section, index) => <section key={section.id} id={section.id} className="notebook-exhibition-room" data-exhibition-room={index + 1} aria-label={section.label}><div id={index === 0 ? 'open-notebook' : undefined}>{section.children}</div></section>)}
+  <details id={`${id}-manuscript`} className="notebook-exhibition-manuscript"><summary>Read the complete manuscript</summary>{manuscript}</details>
+ </article>;
+}
 
 /** An authored sequence of spreads, with an independent manuscript and history.
  * The host supplies chapter boundaries, evidence and publication state. */

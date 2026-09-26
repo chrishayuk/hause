@@ -487,3 +487,18 @@ unruled or dotted stock and format-appropriate composition. The default remains
 they do not determine subject, publication status, or the strength of a claim.
 A lab notebook can still be composed as an exhibition. Consumers can use the
 shared labels and closing-language suggestions while retaining their own content.
+
+`notebook-material.css` supplies the shared paper light, binding, layered page
+shadow and scene background. `NotebookTemplate` uses a quieter reading light
+across squared, unruled and dotted stock, including turn copies and manuscript
+views. Hosts can apply `hause-notebook-material` to collection scenes and use the
+same tokens for previews. Lighting is a background, never a filter on text or
+evidence images; print removes the light and shadow. Scene layout and collection
+colours remain the publication's responsibility.
+
+`NotebookExhibition` in `components/NotebookTemplate.tsx` and
+`notebook-exhibition.css` provide a continuous visual essay for material that
+needs exhibition rooms rather than bound folios. It accepts authored sections,
+metadata and a complete manuscript; ordinary anchors keep every room and the
+closing reflection reachable without JavaScript. The first room keeps the
+`open-notebook` entry destination. It does not add paper, page controls or motion.
