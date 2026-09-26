@@ -479,3 +479,11 @@ inert visual copies for directional page turns while live folios remain mounted.
 
 `components/EditorialPlate.tsx` gives selected images wide, inset or portrait
 compositions, with an explicit caption. It supports both folios and manuscripts.
+
+`notebook-formats.ts` names four editorial formats: `lab`, `lookbook`, `thematic`
+and `experimental`. Pass `format` to `NotebookTemplate` to choose squared,
+unruled or dotted stock and format-appropriate composition. The default remains
+`lab` for existing consumers. Formats describe the dominant reading activity;
+they do not determine subject, publication status, or the strength of a claim.
+A lab notebook can still be composed as an exhibition. Consumers can use the
+shared labels and closing-language suggestions while retaining their own content.
