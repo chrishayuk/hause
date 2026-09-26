@@ -112,10 +112,14 @@
 .hause-codex[data-view=read] .codex-book { max-width: 940px; margin-inline: auto; box-shadow: none; }
 .hause-codex[data-view=read] .codex-manuscript > h2 { max-width: 28ch; margin: 0 auto 40px; font-size: 32px; }
 
-/* The binding has one size. Longer folios scroll inside it; page turns never resize it. */
+/* Full figures determine the paper height. A fixed viewport is an explicit opt-in. */
 .hause-codex { --codex-spread-height: clamp(480px, 70svh, 760px); }
-.hause-codex[data-view=folios] .codex-book { height: var(--codex-spread-height); }
+.hause-codex[data-view=folios] .codex-book { min-height: var(--codex-spread-height); }
 .hause-codex[data-view=folios] .codex-book > .codex-folio {
+ min-height: var(--codex-spread-height); box-sizing: border-box;
+}
+.hause-codex[data-view=folios][data-sizing=fixed] .codex-book { height: var(--codex-spread-height); }
+.hause-codex[data-view=folios][data-sizing=fixed] .codex-book > .codex-folio {
  height: 100%; min-height: 0; box-sizing: border-box;
  overflow: auto; scrollbar-gutter: stable both-edges;
 }
@@ -124,5 +128,7 @@
 .codex-turn-handle > span { min-height: 3.2em; text-align: center; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 @media print {
  .hause-codex[data-view=folios] .codex-book,
- .hause-codex[data-view=folios] .codex-book > .codex-folio { height: auto; overflow: visible; scrollbar-gutter: auto; }
+ .hause-codex[data-view=folios] .codex-book > .codex-folio,
+ .hause-codex[data-view=folios][data-sizing=fixed] .codex-book,
+ .hause-codex[data-view=folios][data-sizing=fixed] .codex-book > .codex-folio { height: auto; min-height: 0; overflow: visible; scrollbar-gutter: auto; }
 }

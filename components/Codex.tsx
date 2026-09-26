@@ -9,9 +9,9 @@ export type CodexFolio = { id: string; label: string; kind?: "operate" | "eviden
 type View = "cover" | "folios" | "read" | "history";
 
 /** One bound entry; every page is real HTML. Ordinals are reading order, not provenance. */
-export function Codex({ id, title, collection, byline, folios, manuscript, history }: {
+export function Codex({ id, title, collection, byline, folios, manuscript, history, sizing = "content" }: {
   id: string; title: string; collection: string; byline: ReactNode;
-  folios: CodexFolio[]; manuscript: ReactNode; history: ReactNode;
+  folios: CodexFolio[]; manuscript: ReactNode; history: ReactNode; sizing?: "content" | "fixed";
 }) {
   validateCodex(id, folios);
   const [view, setView] = useState<View>("cover");
@@ -105,7 +105,7 @@ export function Codex({ id, title, collection, byline, folios, manuscript, histo
   }
   const firstOperation = folios.find(folio => folio.kind === "operate");
   const firstEvidence = folios.find(folio => folio.kind === "evidence");
-  return <div ref={root} className="hause-codex" id={id} onClick={links} data-view={view} data-enlarged={enlarged} data-motion={paused ? "paused" : "enabled"}>
+  return <div ref={root} className="hause-codex" id={id} onClick={links} data-view={view} data-sizing={sizing} data-enlarged={enlarged} data-motion={paused ? "paused" : "enabled"}>
     <header className="codex-heading">
       <p className="codex-collection">{collection}</p>
       <h1>{title}</h1>

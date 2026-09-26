@@ -117,7 +117,8 @@ wide, inset and portrait compositions establish a sequence of views and details
 without inventing media, credentials or evidence. Images remain still inside
 turning folios. The caption should carry the actual credit and provenance.
 
-Codex folios share a fixed responsive binding height (`--codex-spread-height`).
-Long content scrolls natively inside a folio, with a reserved scrollbar gutter.
-Turning a leaf changes neither book dimensions nor pagination position. Read
-remains a continuous document, and print/no-JavaScript views expose full content.
+Codex folios use `--codex-spread-height` as a minimum and grow to fit their
+figures. The document scrolls normally, so images, tables and captions remain
+fully visible. `sizing="fixed"` explicitly opts into a fixed-height binding with
+internal scrolling and a reserved scrollbar gutter. Read remains continuous;
+print and no-JavaScript views expose full content.
